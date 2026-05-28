@@ -1,0 +1,482 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Hung-wei Lin 林宏為</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,700;1,400;1,500&family=Inter:wght@300;400;500&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --sage:   #8a9e7e;
+      --stone:  #c8c0b0;
+      --cream:  #f5f1eb;
+      --dark:   #1a1c18;
+      --muted:  rgba(245,241,235,0.65);
+      --nav-h:  56px;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: var(--cream);
+      color: var(--dark);
+      overflow-x: hidden;
+    }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      height: var(--nav-h);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 2.5rem;
+      transition: background 0.4s, backdrop-filter 0.4s;
+    }
+    nav.scrolled {
+      background: rgba(26,28,24,0.88);
+      backdrop-filter: blur(12px);
+    }
+    .nav-name {
+      font-family: 'Playfair Display', serif;
+      font-weight: 400;
+      font-size: 1.05rem;
+      letter-spacing: 0.12em;
+      color: #fff;
+      text-decoration: none;
+      text-transform: uppercase;
+    }
+    .nav-links {
+      display: flex;
+      gap: 2.2rem;
+      list-style: none;
+    }
+    .nav-links a {
+      font-size: 0.72rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.78);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+    .nav-links a:hover { color: #fff; }
+
+    /* ── HERO ── */
+    .hero {
+      position: relative;
+      width: 100%;
+      height: 100vh;
+      min-height: 560px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      overflow: hidden;
+    }
+    .hero-bg {
+      position: absolute;
+      inset: 0;
+      background-image: url('images/Website_cover.png');
+      background-size: cover;
+      background-position: center 40%;
+      transform: scale(1.04);
+      animation: subtle-zoom 18s ease-in-out infinite alternate;
+    }
+    @keyframes subtle-zoom {
+      from { transform: scale(1.04); }
+      to   { transform: scale(1.10); }
+    }
+    .hero-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(
+        to bottom,
+        rgba(20,22,18,0.18) 0%,
+        rgba(20,22,18,0.32) 55%,
+        rgba(20,22,18,0.55) 100%
+      );
+    }
+    .hero-content {
+      position: relative;
+      z-index: 2;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.6rem;
+      padding: 0 1.5rem;
+      animation: fade-up 1.2s ease both;
+    }
+    @keyframes fade-up {
+      from { opacity: 0; transform: translateY(22px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    .hero-eyebrow {
+      font-size: 0.7rem;
+      letter-spacing: 0.28em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.62);
+      margin-bottom: 0.4rem;
+    }
+    .hero-name-en {
+      font-family: 'Playfair Display', serif;
+      font-weight: 400;
+      font-size: clamp(3rem, 7vw, 5.5rem);
+      color: #fff;
+      line-height: 1.05;
+      letter-spacing: 0.02em;
+    }
+    .hero-name-zh {
+      font-family: 'Playfair Display', serif;
+      font-weight: 400;
+      font-size: clamp(1.1rem, 2.5vw, 1.5rem);
+      color: rgba(255,255,255,0.55);
+      letter-spacing: 0.25em;
+      margin-top: 0.15rem;
+    }
+    .hero-divider {
+      width: 36px;
+      height: 1px;
+      background: rgba(255,255,255,0.35);
+      margin: 0.9rem 0;
+    }
+    .hero-title {
+      font-size: 0.75rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.82);
+      font-weight: 400;
+    }
+    .hero-tags {
+      font-family: 'Playfair Display', serif;
+      font-style: italic;
+      font-size: clamp(1rem, 2vw, 1.25rem);
+      color: rgba(255,255,255,0.6);
+      letter-spacing: 0.04em;
+      margin-top: 0.2rem;
+    }
+    .hero-scroll {
+      position: absolute;
+      bottom: 2.2rem;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 2;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 6px;
+      animation: fade-up 1.6s ease 0.6s both;
+    }
+    .hero-scroll span {
+      font-size: 0.6rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.4);
+    }
+    .scroll-line {
+      width: 1px;
+      height: 40px;
+      background: rgba(255,255,255,0.25);
+      animation: scroll-drop 2s ease-in-out infinite;
+    }
+    @keyframes scroll-drop {
+      0%, 100% { opacity: 0.25; transform: scaleY(0.5) translateY(-10px); }
+      50%       { opacity: 0.7;  transform: scaleY(1) translateY(0); }
+    }
+
+    /* ── ABOUT ── */
+    .about {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 6rem 2.5rem 5rem;
+      display: grid;
+      grid-template-columns: 1fr 2fr;
+      gap: 4rem;
+      align-items: start;
+    }
+    .about-left {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 1.4rem;
+    }
+    .about-label {
+      font-size: 0.65rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--sage);
+      font-weight: 500;
+    }
+    .about-avatar {
+      width: 100%;
+      max-width: 200px;
+      aspect-ratio: 3 / 4;
+      border-radius: 3px;
+      object-fit: cover;
+      object-position: center 15%;
+      display: block;
+    }
+    .avatar-placeholder {
+      width: 100%;
+      max-width: 200px;
+      aspect-ratio: 1 / 1;
+      border-radius: 3px;
+      background: #ddd9d0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.68rem;
+      letter-spacing: 0.1em;
+      color: #999;
+      text-transform: uppercase;
+      border: 1px dashed #c0bbb2;
+    }
+    .about-text h2 {
+      font-family: 'Playfair Display', serif;
+      font-weight: 400;
+      font-size: 2rem;
+      color: var(--dark);
+      margin-bottom: 1.4rem;
+      line-height: 1.2;
+    }
+    .about-text p {
+      font-size: 0.92rem;
+      line-height: 1.85;
+      color: #4a4c45;
+      margin-bottom: 1rem;
+    }
+    .about-text a {
+      color: var(--sage);
+      text-decoration: underline;
+      text-underline-offset: 3px;
+      transition: color 0.2s;
+    }
+    .about-text a:hover { color: #5a7050; }
+
+    /* ── RESEARCH TEASER ── */
+    .teaser {
+      background: var(--dark);
+      padding: 5rem 2.5rem;
+    }
+    .teaser-inner {
+      max-width: 900px;
+      margin: 0 auto;
+    }
+    .teaser-label {
+      font-size: 0.65rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--sage);
+      font-weight: 500;
+      margin-bottom: 2rem;
+    }
+    .teaser-cards {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 1.5rem;
+    }
+    .teaser-card {
+      border: 0.5px solid rgba(255,255,255,0.12);
+      border-radius: 4px;
+      padding: 1.6rem 1.4rem;
+      transition: border-color 0.2s, background 0.2s;
+      cursor: default;
+    }
+    .teaser-card:hover {
+      border-color: rgba(138,158,126,0.5);
+      background: rgba(138,158,126,0.06);
+    }
+    .teaser-card-num {
+      font-family: 'Playfair Display', serif;
+      font-size: 2rem;
+      color: rgba(255,255,255,0.12);
+      line-height: 1;
+      margin-bottom: 0.6rem;
+    }
+    .teaser-card h3 {
+      font-family: 'Playfair Display', serif;
+      font-weight: 400;
+      font-size: 1.15rem;
+      color: rgba(255,255,255,0.85);
+      margin-bottom: 0.5rem;
+    }
+    .teaser-card p {
+      font-size: 0.78rem;
+      line-height: 1.7;
+      color: rgba(255,255,255,0.42);
+    }
+
+    /* ── CONTACT STRIP ── */
+    .contact-strip {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 4.5rem 2.5rem;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 2rem;
+      align-items: center;
+      justify-content: space-between;
+      border-top: 0.5px solid rgba(26,28,24,0.12);
+    }
+    .contact-strip h2 {
+      font-family: 'Playfair Display', serif;
+      font-weight: 400;
+      font-size: 1.8rem;
+      color: var(--dark);
+    }
+    .contact-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+    .contact-links a {
+      font-size: 0.72rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--dark);
+      text-decoration: none;
+      padding: 0.5rem 1.2rem;
+      border: 0.5px solid rgba(26,28,24,0.25);
+      border-radius: 2px;
+      transition: background 0.2s, color 0.2s;
+    }
+    .contact-links a:hover {
+      background: var(--dark);
+      color: var(--cream);
+    }
+
+    /* ── FOOTER ── */
+    footer {
+      text-align: center;
+      padding: 1.8rem;
+      font-size: 0.68rem;
+      letter-spacing: 0.1em;
+      color: rgba(26,28,24,0.35);
+      border-top: 0.5px solid rgba(26,28,24,0.08);
+    }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 640px) {
+      .about { grid-template-columns: 1fr; gap: 1.5rem; }
+      .about-avatar, .avatar-placeholder { max-width: 120px; }
+      nav { padding: 0 1.2rem; }
+      .nav-links { gap: 1.2rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav id="nav">
+    <a class="nav-name" href="#">Hung-wei Lin</a>
+    <ul class="nav-links">
+      <li><a href="research.html">Research</a></li>
+      <li><a href="cv.html">CV</a></li>
+      <li><a href="outreach.html">Outreach</a></li>
+      <li><a href="timeline.html">Timeline</a></li>
+      <li><a href="contact.html">Contact</a></li>
+    </ul>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-bg"></div>
+    <div class="hero-overlay"></div>
+    <div class="hero-content">
+      <p class="hero-eyebrow">I am</p>
+      <h1 class="hero-name-en">Hung-wei Lin</h1>
+      <p class="hero-name-zh">林宏為</p>
+      <div class="hero-divider"></div>
+      <p class="hero-title">DPhil Student · University of Oxford</p>
+      <p class="hero-tags">Cross-Scale &nbsp;/&nbsp; Demography &nbsp;/&nbsp; Interaction</p>
+    </div>
+    <div class="hero-scroll">
+      <span>Scroll</span>
+      <div class="scroll-line"></div>
+    </div>
+  </section>
+
+  <!-- ABOUT -->
+  <section class="about">
+    <div class="about-left">
+      <div class="about-label">About</div>
+      <!-- Profile photo -->
+      <img class="about-avatar" src="images/Profile.jpeg" alt="Hung-wei Lin in the field" />
+    </div>
+    <div class="about-text">
+      <h2>Hi — glad you found your way here.</h2>
+      <p>
+        I am a DPhil student at the Department of Biology, University of Oxford,
+        and a member of the
+        <a href="https://salgo.web.ox.ac.uk/welcome" target="_blank" rel="noopener">SalGo Team</a>.
+        At this stage of my journey, my ambition is to be able to call myself a
+        <em>cross-scale ecologist</em> with full confidence by the time I finish my doctorate.
+      </p>
+      <p>
+        My research centres on integrating resilience from the individual level
+        to the community level. To do this, I actively work across individual
+        traits, population demography, and ecological interactions — from
+        intraspecific density dependence to interspecific relationships that
+        structure communities.
+      </p>
+      <p>
+        This site is my small museum: a collection of evidence for my academic evolution.
+      </p>
+    </div>
+  </section>
+
+  <!-- RESEARCH TEASER -->
+  <section class="teaser">
+    <div class="teaser-inner">
+      <p class="teaser-label">Research focus</p>
+      <div class="teaser-cards">
+        <div class="teaser-card">
+          <div class="teaser-card-num">01</div>
+          <h3>Cross-Scale Resilience</h3>
+          <p>Bridging individual trait responses, population dynamics, and community-level stability.</p>
+        </div>
+        <div class="teaser-card">
+          <div class="teaser-card-num">02</div>
+          <h3>Population Demography</h3>
+          <p>Demographic modelling to understand how populations persist and respond to disturbance.</p>
+        </div>
+        <div class="teaser-card">
+          <div class="teaser-card-num">03</div>
+          <h3>Community Interactions</h3>
+          <p>Characterising interaction networks and their role in shaping community structure.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT STRIP -->
+  <section class="contact-strip">
+    <h2>Get in touch</h2>
+    <div class="contact-links">
+      <a href="mailto:hung-wei.lin@biology.ox.ac.uk">Email</a>
+      <a href="https://salgo.web.ox.ac.uk/welcome" target="_blank" rel="noopener">SalGo Team</a>
+      <a href="contact.html">More →</a>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    &copy; 2026 Hung-wei Lin 林宏為 &nbsp;·&nbsp; University of Oxford
+  </footer>
+
+  <script>
+    // Nav darkens on scroll
+    const nav = document.getElementById('nav');
+    window.addEventListener('scroll', () => {
+      nav.classList.toggle('scrolled', window.scrollY > 60);
+    });
+  </script>
+
+</body>
+</html>
