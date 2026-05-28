@@ -1,0 +1,397 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Research — Hung-wei Lin 林宏為</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;1,400&family=Inter:wght@300;400;500&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --sage:  #8a9e7e;
+      --cream: #f5f1eb;
+      --dark:  #1a1c18;
+      --muted: #4a4c45;
+      --border: rgba(26,28,24,0.1);
+      --nav-h: 56px;
+    }
+
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'Inter', sans-serif;
+      background: var(--cream);
+      color: var(--dark);
+      overflow-x: hidden;
+    }
+
+    /* NAV */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      height: var(--nav-h);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 2.5rem;
+      background: rgba(245,241,235,0.92);
+      backdrop-filter: blur(12px);
+      border-bottom: 0.5px solid var(--border);
+    }
+    .nav-name {
+      font-family: 'Playfair Display', serif;
+      font-weight: 400;
+      font-size: 1.05rem;
+      letter-spacing: 0.1em;
+      color: var(--dark);
+      text-decoration: none;
+    }
+    .nav-links { display: flex; gap: 2.2rem; list-style: none; }
+    .nav-links a {
+      font-size: 0.95rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--muted);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+    .nav-links a:hover, .nav-links a.active { color: var(--dark); }
+
+    /* PAGE HEADER */
+    .page-header {
+      padding: calc(var(--nav-h) + 4rem) 2.5rem 3.5rem;
+      max-width: 1000px;
+      margin: 0 auto;
+      border-bottom: 0.5px solid var(--border);
+    }
+    .page-header-label {
+      font-size: 0.7rem;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--sage);
+      font-weight: 500;
+      margin-bottom: 0.8rem;
+    }
+    .page-header h1 {
+      font-family: 'Playfair Display', serif;
+      font-weight: 400;
+      font-size: 2.6rem;
+      color: var(--dark);
+      line-height: 1.1;
+      margin-bottom: 1rem;
+    }
+    .page-header p {
+      font-size: 0.95rem;
+      color: var(--muted);
+      line-height: 1.8;
+      max-width: 600px;
+    }
+
+    /* RESEARCH GRID */
+    .research-grid {
+      max-width: 1000px;
+      margin: 0 auto;
+      padding: 4rem 2.5rem 6rem;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2rem;
+    }
+
+    /* RESEARCH CARD */
+    .research-card {
+      display: block;
+      text-decoration: none;
+      color: inherit;
+      border: 0.5px solid var(--border);
+      border-radius: 4px;
+      overflow: hidden;
+      background: rgba(255,255,255,0.5);
+      transition: border-color 0.25s, transform 0.25s, box-shadow 0.25s;
+      cursor: pointer;
+    }
+    .research-card:hover {
+      border-color: rgba(138,158,126,0.5);
+      transform: translateY(-3px);
+      box-shadow: 0 8px 32px rgba(26,28,24,0.07);
+    }
+    .card-image {
+      width: 100%;
+      aspect-ratio: 4 / 3;
+      object-fit: cover;
+      display: block;
+      background: #ddd9d0;
+    }
+    .card-image-placeholder {
+      width: 100%;
+      aspect-ratio: 4 / 3;
+      background: #e8e4dc;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.68rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: #aaa8a0;
+    }
+    .card-body {
+      padding: 1.5rem 1.6rem 1.8rem;
+    }
+    .card-num {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.5rem;
+      color: rgba(26,28,24,0.1);
+      line-height: 1;
+      margin-bottom: 0.5rem;
+    }
+    .card-title {
+      font-family: 'Playfair Display', serif;
+      font-weight: 400;
+      font-size: 1.25rem;
+      color: var(--dark);
+      margin-bottom: 0.6rem;
+      line-height: 1.3;
+    }
+    .card-desc {
+      font-size: 0.82rem;
+      line-height: 1.75;
+      color: var(--muted);
+      margin-bottom: 1.1rem;
+    }
+    .card-arrow {
+      font-size: 0.72rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--sage);
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      transition: gap 0.2s;
+    }
+    .research-card:hover .card-arrow { gap: 10px; }
+
+    /* TOPIC DETAIL (hidden by default, shown when card is active) */
+    .topic-detail {
+      display: none;
+      max-width: 1000px;
+      margin: 0 auto;
+      padding: 0 2.5rem 6rem;
+    }
+    .topic-detail.active { display: block; }
+    .back-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 0.72rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--muted);
+      text-decoration: none;
+      margin-bottom: 2.5rem;
+      cursor: pointer;
+      background: none;
+      border: none;
+      padding: 0;
+      transition: color 0.2s;
+    }
+    .back-btn:hover { color: var(--dark); }
+    .topic-detail h2 {
+      font-family: 'Playfair Display', serif;
+      font-weight: 400;
+      font-size: 2rem;
+      color: var(--dark);
+      margin-bottom: 1.5rem;
+      line-height: 1.2;
+    }
+    .topic-detail-img {
+      width: 100%;
+      max-height: 400px;
+      object-fit: cover;
+      border-radius: 3px;
+      margin-bottom: 2.5rem;
+      display: block;
+      background: #ddd9d0;
+    }
+    .topic-detail-img-placeholder {
+      width: 100%;
+      height: 320px;
+      background: #e8e4dc;
+      border-radius: 3px;
+      margin-bottom: 2.5rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.68rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: #aaa8a0;
+    }
+    .topic-detail p {
+      font-size: 0.95rem;
+      line-height: 1.9;
+      color: var(--muted);
+      max-width: 680px;
+      margin-bottom: 1.2rem;
+    }
+    .topic-detail p:last-child { margin-bottom: 0; }
+
+    /* FOOTER */
+    footer {
+      text-align: center;
+      padding: 1.8rem;
+      font-size: 0.68rem;
+      letter-spacing: 0.1em;
+      color: rgba(26,28,24,0.35);
+      border-top: 0.5px solid rgba(26,28,24,0.08);
+    }
+
+    /* RESPONSIVE */
+    @media (max-width: 640px) {
+      nav { padding: 0 1.2rem; }
+      .nav-links { gap: 1rem; }
+      .nav-links a { font-size: 0.75rem; }
+      .page-header { padding: calc(var(--nav-h) + 2.5rem) 1.2rem 2rem; }
+      .page-header h1 { font-size: 2rem; }
+      .research-grid { grid-template-columns: 1fr; padding: 2.5rem 1.2rem 4rem; gap: 1.2rem; }
+      .topic-detail { padding: 0 1.2rem 4rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <nav>
+    <a class="nav-name" href="index.html">Hung-wei Lin</a>
+    <ul class="nav-links">
+      <li><a href="research.html" class="active">Research</a></li>
+      <li><a href="cv.html">CV</a></li>
+      <li><a href="timeline.html">Chronicle</a></li>
+      <li><a href="outreach.html">Outreach</a></li>
+      <li><a href="contact.html">Contact</a></li>
+    </ul>
+  </nav>
+
+  <!-- PAGE HEADER (shown when no topic is open) -->
+  <header class="page-header" id="research-header">
+    <p class="page-header-label">Research</p>
+    <h1>What I work on</h1>
+    <p>My research spans multiple scales of biological organisation — from individual traits to community dynamics. Click a topic to learn more.</p>
+  </header>
+
+  <!-- RESEARCH GRID -->
+  <section class="research-grid" id="research-grid">
+
+    <a class="research-card" href="#" onclick="openTopic('crossscale'); return false;">
+      <img class="card-image" src="images/research_crossscale.jpg" alt="Cross-Scale Resilience" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+      <div class="card-image-placeholder" style="display:none;">research_crossscale.jpg</div>
+      <div class="card-body">
+        <div class="card-num">01</div>
+        <div class="card-title">Cross-Scale Resilience</div>
+        <p class="card-desc">Integrating resilience from the individual level to the community level — my core doctoral theme.</p>
+        <div class="card-arrow">Read more →</div>
+      </div>
+    </a>
+
+    <a class="research-card" href="#" onclick="openTopic('demography'); return false;">
+      <img class="card-image" src="images/research_demography.jpg" alt="Population Demography" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+      <div class="card-image-placeholder" style="display:none;">research_demography.jpg</div>
+      <div class="card-body">
+        <div class="card-num">02</div>
+        <div class="card-title">Population Demography</div>
+        <p class="card-desc">Demographic modelling and matrix population models to understand how populations persist and respond to disturbance.</p>
+        <div class="card-arrow">Read more →</div>
+      </div>
+    </a>
+
+    <a class="research-card" href="#" onclick="openTopic('evolution'); return false;">
+      <img class="card-image" src="images/research_evolution.jpg" alt="Evolutionary History" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+      <div class="card-image-placeholder" style="display:none;">research_evolution.jpg</div>
+      <div class="card-body">
+        <div class="card-num">03</div>
+        <div class="card-title">Evolutionary History</div>
+        <p class="card-desc">Exploring how phylogenetic diversity and population trends intersect to inform conservation priorities across the tree of life.</p>
+        <div class="card-arrow">Read more →</div>
+      </div>
+    </a>
+
+    <a class="research-card" href="#" onclick="openTopic('others'); return false;">
+      <img class="card-image" src="images/research_others.jpg" alt="Other Interests" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+      <div class="card-image-placeholder" style="display:none;">research_others.jpg</div>
+      <div class="card-body">
+        <div class="card-num">04</div>
+        <div class="card-title">Other Interests</div>
+        <p class="card-desc">A collection of past projects and topics I may return to — from animal cognition to community ecology and remote sensing.</p>
+        <div class="card-arrow">Read more →</div>
+      </div>
+    </a>
+
+  </section>
+
+  <!-- TOPIC DETAILS -->
+
+  <section class="topic-detail" id="topic-crossscale">
+    <button class="back-btn" onclick="closeTopic()">← Back to Research</button>
+    <h2>Cross-Scale Resilience</h2>
+    <div class="topic-detail-img-placeholder">replace with research_crossscale.jpg</div>
+    <p>My doctoral research centres on a deceptively simple question: what makes ecological systems resilient, and does the answer change depending on the scale at which we look? I am interested in how resilience — the capacity of a system to absorb disturbance and reorganise — manifests differently at the level of individual organisms, populations, and communities.</p>
+    <p>Rather than treating these scales in isolation, I am working towards a framework that explicitly bridges them. The goal is to understand how individual-level trait responses aggregate into population dynamics, and how those dynamics feed back into community structure and stability. This cross-scale perspective is central to my DPhil at the University of Oxford.</p>
+    <p>Current work combines meta-analysis, comparative methods, and large-scale open datasets. I aim to extend these to empirical field data and long-term monitoring datasets in the coming years.</p>
+  </section>
+
+  <section class="topic-detail" id="topic-demography">
+    <button class="back-btn" onclick="closeTopic()">← Back to Research</button>
+    <h2>Population Demography</h2>
+    <div class="topic-detail-img-placeholder">replace with research_demography.jpg</div>
+    <p>Demography is the language in which populations tell their stories. Survival, growth, reproduction — these vital rates, structured by age or stage, determine whether a population grows, shrinks, or persists in the face of environmental change.</p>
+    <p>I work with matrix population models (MPMs) and integral projection models (IPMs) to characterise population dynamics across species and contexts. A particular focus is on transient dynamics — the short-term behaviours that unfold before a population reaches its asymptotic state — and how life-history traits predict the magnitude of these transients.</p>
+    <p>I am also a contributor to the COMPADRE and COMADRE Plant and Animal Matrix Databases, which compile MPMs from the published literature to enable comparative demographic analyses at a global scale.</p>
+  </section>
+
+  <section class="topic-detail" id="topic-evolution">
+    <button class="back-btn" onclick="closeTopic()">← Back to Research</button>
+    <h2>Evolutionary History</h2>
+    <div class="topic-detail-img-placeholder">replace with research_evolution.jpg</div>
+    <p>Conservation biology has long grappled with the question of how to prioritise species for protection. Evolutionary distinctiveness — the amount of unique evolutionary history a species represents — has emerged as a compelling criterion, yet most priority frameworks treat it in isolation from how populations are actually faring in the wild.</p>
+    <p>In this line of work, I explored whether species' population trends are predictable from their position in the tree of life, and what happens when we integrate phylogenetic information with empirical abundance trends. The findings suggest that evolutionary history and recent population change provide largely complementary information — meaning frameworks that account for both can identify conservation priorities that neither metric alone would reveal.</p>
+    <p>This work has broader implications for how we design biodiversity monitoring programmes and interpret the signals they produce across the phylogenetic tree.</p>
+  </section>
+
+  <section class="topic-detail" id="topic-others">
+    <button class="back-btn" onclick="closeTopic()">← Back to Research</button>
+    <h2>Other Interests</h2>
+    <div class="topic-detail-img-placeholder">replace with research_others.jpg</div>
+    <p>My research path has been deliberately broad. Before settling into macroecology and demography, I worked on projects spanning animal cognition, behavioural ecology, plant population genetics, avian morphology, and the effects of artificial light at night on decomposer communities.</p>
+    <p>These experiences were formative — they taught me to move comfortably across taxa, methodological traditions, and scales of enquiry. Some of these threads remain live interests: I am particularly drawn to the intersection of community ecology and interaction networks, and to the growing possibilities of remote sensing and digital tools in ecological fieldwork.</p>
+    <p>This section serves as a record of paths taken and a placeholder for directions not yet pursued.</p>
+  </section>
+
+  <footer>
+    &copy; 2026 Hung-wei Lin 林宏為 &nbsp;&middot;&nbsp; University of Oxford
+  </footer>
+
+  <script>
+    const grid = document.getElementById('research-grid');
+    const header = document.getElementById('research-header');
+    const allTopics = document.querySelectorAll('.topic-detail');
+
+    function openTopic(id) {
+      grid.style.display = 'none';
+      header.style.display = 'none';
+      allTopics.forEach(t => t.classList.remove('active'));
+      document.getElementById('topic-' + id).classList.add('active');
+      // add top padding to compensate for fixed nav
+      document.getElementById('topic-' + id).style.paddingTop = 'calc(var(--nav-h) + 3rem)';
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    function closeTopic() {
+      allTopics.forEach(t => t.classList.remove('active'));
+      grid.style.display = '';
+      header.style.display = '';
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+  </script>
+
+</body>
+</html>

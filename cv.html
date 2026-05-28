@@ -98,16 +98,16 @@
       font-size: 0.7rem;
       letter-spacing: 0.1em;
       text-transform: uppercase;
-      color: var(--cream);
-      background: var(--dark);
+      color: var(--muted);
+      background: rgba(138,158,126,0.12);
       text-decoration: none;
       padding: 0.45rem 1rem;
-      border: 0.5px solid var(--dark);
+      border: 0.5px solid rgba(138,158,126,0.4);
       border-radius: 2px;
-      transition: opacity 0.2s;
+      transition: background 0.2s, color 0.2s;
       white-space: nowrap;
     }
-    .pdf-btn:hover { opacity: 0.75; }
+    .pdf-btn:hover { background: rgba(138,158,126,0.25); color: var(--dark); }
     .header-links { display: none; }
 
     /* MAIN LAYOUT */
@@ -229,8 +229,8 @@
     <ul class="nav-links">
       <li><a href="research.html">Research</a></li>
       <li><a href="cv.html" class="active">CV</a></li>
+      <li><a href="timeline.html">Chronicle</a></li>
       <li><a href="outreach.html">Outreach</a></li>
-      <li><a href="timeline.html">Timeline</a></li>
       <li><a href="contact.html">Contact</a></li>
     </ul>
   </nav>
@@ -244,7 +244,7 @@
         Life and Mind Building, South Parks Rd, Oxford, UK<br>
         <a href="mailto:hung-wei.lin@biology.ox.ac.uk">hung-wei.lin@biology.ox.ac.uk</a>
       </span>
-      <a class="pdf-btn" href="#" onclick="window.print();return false;">↓ Download PDF</a>
+      <a class="pdf-btn" href="latest_cv.pdf" target="_blank" rel="noopener">↓ Download PDF</a>
     </p>
   </header>
 
