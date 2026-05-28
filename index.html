@@ -192,11 +192,11 @@
 
     /* ── ABOUT ── */
     .about {
-      max-width: 900px;
+      max-width: 820px;
       margin: 0 auto;
-      padding: 6rem 2.5rem 5rem;
+      padding: 7rem 2.5rem 6rem;
       display: grid;
-      grid-template-columns: 1fr 2fr;
+      grid-template-columns: 1.2fr 2fr;
       gap: 4rem;
       align-items: start;
     }
@@ -207,7 +207,7 @@
       gap: 1.4rem;
     }
     .about-label {
-      font-size: 0.65rem;
+      font-size: 0.72rem;
       letter-spacing: 0.2em;
       text-transform: uppercase;
       color: var(--sage);
@@ -215,7 +215,7 @@
     }
     .about-avatar {
       width: 100%;
-      max-width: 300px;
+      max-width: 260px;
       aspect-ratio: 3 / 4;
       border-radius: 3px;
       object-fit: cover;
@@ -224,8 +224,8 @@
     }
     .avatar-placeholder {
       width: 100%;
-      max-width: 200px;
-      aspect-ratio: 1 / 1;
+      max-width: 260px;
+      aspect-ratio: 3 / 4;
       border-radius: 3px;
       background: #ddd9d0;
       display: flex;
@@ -240,16 +240,16 @@
     .about-text h2 {
       font-family: 'Playfair Display', serif;
       font-weight: 400;
-      font-size: 2rem;
+      font-size: 2.2rem;
       color: var(--dark);
-      margin-bottom: 1.4rem;
+      margin-bottom: 1.6rem;
       line-height: 1.2;
     }
     .about-text p {
-      font-size: 0.92rem;
-      line-height: 1.85;
+      font-size: 1.05rem;
+      line-height: 1.95;
       color: #4a4c45;
-      margin-bottom: 1rem;
+      margin-bottom: 1.2rem;
     }
     .about-text a {
       color: var(--sage);
@@ -269,7 +269,7 @@
       margin: 0 auto;
     }
     .teaser-label {
-      font-size: 0.65rem;
+      font-size: 0.72rem;
       letter-spacing: 0.2em;
       text-transform: uppercase;
       color: var(--sage);
@@ -302,13 +302,13 @@
     .teaser-card h3 {
       font-family: 'Playfair Display', serif;
       font-weight: 400;
-      font-size: 1.15rem;
+      font-size: 1.25rem;
       color: rgba(255,255,255,0.85);
       margin-bottom: 0.5rem;
     }
     .teaser-card p {
-      font-size: 0.78rem;
-      line-height: 1.7;
+      font-size: 0.88rem;
+      line-height: 1.8;
       color: rgba(255,255,255,0.42);
     }
 
@@ -363,8 +363,22 @@
 
     /* ── RESPONSIVE ── */
     @media (max-width: 640px) {
-      .about { grid-template-columns: 1fr; gap: 1.5rem; }
-      .about-avatar, .avatar-placeholder { max-width: 120px; }
+      .about {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+      }
+      .about-left {
+        align-items: center;
+      }
+      .about-avatar, .avatar-placeholder {
+        max-width: 200px;
+      }
+      .about-text h2 {
+        font-size: 1.8rem;
+      }
+      .about-text p {
+        font-size: 0.97rem;
+      }
       nav { padding: 0 1.2rem; }
       .nav-links { gap: 1.2rem; }
     }
@@ -427,6 +441,7 @@
       </p>
       <p>
         This site is my small museum: a collection of evidence for my academic evolution.
+        Every entry here marks a step in becoming the ecologist I am working towards.
       </p>
     </div>
   </section>
