@@ -1,0 +1,477 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>CV — Hung-wei Lin 林宏為</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;1,400&family=Inter:wght@300;400;500&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --sage:  #8a9e7e;
+      --cream: #f5f1eb;
+      --dark:  #1a1c18;
+      --muted: #4a4c45;
+      --border: rgba(26,28,24,0.1);
+      --nav-h: 56px;
+    }
+
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'Inter', sans-serif;
+      background: var(--cream);
+      color: var(--dark);
+      overflow-x: hidden;
+    }
+
+    /* NAV */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      height: var(--nav-h);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 2.5rem;
+      background: rgba(245,241,235,0.92);
+      backdrop-filter: blur(12px);
+      border-bottom: 0.5px solid var(--border);
+    }
+    .nav-name {
+      font-family: 'Playfair Display', serif;
+      font-weight: 400;
+      font-size: 1.05rem;
+      letter-spacing: 0.1em;
+      color: var(--dark);
+      text-decoration: none;
+    }
+    .nav-links { display: flex; gap: 2.2rem; list-style: none; }
+    .nav-links a {
+      font-size: 0.72rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--muted);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+    .nav-links a:hover, .nav-links a.active { color: var(--dark); }
+
+    /* PAGE HEADER */
+    .page-header {
+      padding: calc(var(--nav-h) + 4rem) 2.5rem 3rem;
+      max-width: 820px;
+      margin: 0 auto;
+      border-bottom: 0.5px solid var(--border);
+    }
+    .page-header-label {
+      font-size: 0.7rem;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--sage);
+      font-weight: 500;
+      margin-bottom: 0.8rem;
+    }
+    .page-header h1 {
+      font-family: 'Playfair Display', serif;
+      font-weight: 400;
+      font-size: 2.6rem;
+      line-height: 1.1;
+      color: var(--dark);
+      margin-bottom: 1rem;
+    }
+    .page-header-meta {
+      font-size: 0.82rem;
+      color: var(--muted);
+      line-height: 1.8;
+    }
+    .page-header-meta a { color: var(--sage); text-decoration: underline; text-underline-offset: 3px; }
+    .header-links { display: flex; flex-wrap: wrap; gap: 0.6rem; margin-top: 1.4rem; }
+    .header-links a {
+      font-size: 0.7rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--dark);
+      text-decoration: none;
+      padding: 0.4rem 1rem;
+      border: 0.5px solid rgba(26,28,24,0.22);
+      border-radius: 2px;
+      transition: background 0.2s, color 0.2s;
+    }
+    .header-links a:hover { background: var(--dark); color: var(--cream); }
+    .pdf-btn { background: var(--dark) !important; color: var(--cream) !important; border-color: var(--dark) !important; }
+
+    /* MAIN LAYOUT */
+    .cv-body {
+      max-width: 820px;
+      margin: 0 auto;
+      padding: 0 2.5rem 6rem;
+      display: grid;
+      grid-template-columns: 160px 1fr;
+    }
+
+    /* SECTIONS */
+    .cv-section { display: contents; }
+    .section-label {
+      padding: 3rem 2rem 0 0;
+      font-size: 0.65rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--sage);
+      font-weight: 500;
+    }
+    .section-content {
+      padding: 3rem 0 0;
+      border-top: 0.5px solid var(--border);
+    }
+
+    /* ENTRIES */
+    .entry {
+      display: grid;
+      grid-template-columns: 110px 1fr;
+      gap: 0 1.4rem;
+      margin-bottom: 1.8rem;
+    }
+    .entry:last-child { margin-bottom: 0; }
+    .entry-year { font-size: 0.76rem; color: var(--muted); opacity: 0.65; padding-top: 0.15rem; line-height: 1.6; }
+    .entry-title { font-size: 0.88rem; font-weight: 500; color: var(--dark); line-height: 1.55; margin-bottom: 0.2rem; }
+    .entry-title em { font-style: italic; font-weight: 400; }
+    .entry-sub { font-size: 0.78rem; color: var(--muted); line-height: 1.6; }
+    .entry-sub a { color: var(--sage); text-decoration: underline; text-underline-offset: 2px; }
+
+    /* BADGES */
+    .badge {
+      display: inline-block;
+      font-size: 0.6rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      padding: 2px 7px;
+      border-radius: 2px;
+      margin-left: 6px;
+      vertical-align: middle;
+      position: relative; top: -1px;
+    }
+    .badge-review  { background: rgba(138,158,126,0.15); color: #4a6040; border: 0.5px solid rgba(138,158,126,0.4); }
+    .badge-revision{ background: rgba(200,192,176,0.2); color: #7a7060; border: 0.5px solid rgba(200,192,176,0.5); }
+    .badge-prep    { background: rgba(26,28,24,0.06); color: var(--muted); border: 0.5px solid var(--border); }
+    .badge-first   { background: rgba(138,158,126,0.12); color: #4a6040; border: 0.5px solid rgba(138,158,126,0.35); }
+
+    /* SKILLS */
+    .skills-block { margin-bottom: 1.4rem; }
+    .skills-block:last-child { margin-bottom: 0; }
+    .skills-level { font-size: 0.65rem; letter-spacing: 0.16em; text-transform: uppercase; color: var(--sage); font-weight: 500; margin-bottom: 0.5rem; }
+    .skills-tags { display: flex; flex-wrap: wrap; gap: 0.4rem; }
+    .skill-tag {
+      font-size: 0.78rem;
+      padding: 0.28rem 0.75rem;
+      border: 0.5px solid rgba(26,28,24,0.18);
+      border-radius: 2px;
+      color: var(--dark);
+      background: rgba(255,255,255,0.6);
+    }
+
+    /* REFEREES */
+    .referees { display: grid; grid-template-columns: 1fr 1fr; gap: 0.8rem; }
+    .referee-card {
+      padding: 1rem 1.1rem;
+      border: 0.5px solid var(--border);
+      border-radius: 3px;
+      background: rgba(255,255,255,0.5);
+    }
+    .referee-name { font-size: 0.85rem; font-weight: 500; color: var(--dark); margin-bottom: 0.2rem; }
+    .referee-inst { font-size: 0.76rem; color: var(--muted); line-height: 1.5; }
+
+    /* FOOTER */
+    footer {
+      text-align: center;
+      padding: 1.8rem;
+      font-size: 0.68rem;
+      letter-spacing: 0.1em;
+      color: rgba(26,28,24,0.35);
+      border-top: 0.5px solid rgba(26,28,24,0.08);
+    }
+
+    /* RESPONSIVE */
+    @media (max-width: 640px) {
+      nav { padding: 0 1.2rem; }
+      .nav-links { gap: 1.2rem; }
+      .page-header { padding: calc(var(--nav-h) + 2.5rem) 1.2rem 2rem; }
+      .page-header h1 { font-size: 2rem; }
+      .cv-body { grid-template-columns: 1fr; padding: 0 1.2rem 4rem; }
+      .section-label { padding: 2.5rem 0 0.4rem; }
+      .section-content { padding: 0.8rem 0 0; border-top: none; }
+      .entry { grid-template-columns: 1fr; gap: 0.15rem; }
+      .referees { grid-template-columns: 1fr; }
+    }
+
+    /* PRINT */
+    @media print {
+      nav, footer { display: none; }
+      .page-header { padding-top: 1rem; }
+      body { background: #fff; }
+      .cv-body { padding-bottom: 0; }
+    }
+  </style>
+</head>
+<body>
+
+  <nav>
+    <a class="nav-name" href="index.html">Hung-wei Lin</a>
+    <ul class="nav-links">
+      <li><a href="research.html">Research</a></li>
+      <li><a href="cv.html" class="active">CV</a></li>
+      <li><a href="outreach.html">Outreach</a></li>
+      <li><a href="timeline.html">Timeline</a></li>
+      <li><a href="contact.html">Contact</a></li>
+    </ul>
+  </nav>
+
+  <header class="page-header">
+    <p class="page-header-label">Curriculum Vitae</p>
+    <h1>Hung-wei Lin <span style="font-family:'Playfair Display',serif;font-style:italic;opacity:0.4;font-size:1.5rem;">林宏為</span></h1>
+    <p class="page-header-meta">
+      Department of Biology, University of Oxford<br>
+      Life and Mind Building, South Parks Rd, Oxford, UK<br>
+      <a href="mailto:hung-wei.lin@biology.ox.ac.uk">hung-wei.lin@biology.ox.ac.uk</a>
+    </p>
+    <div class="header-links">
+      <a class="pdf-btn" href="#" onclick="window.print();return false;">↓ Download PDF</a>
+      <a href="https://orcid.org/0000-0002-2632-2070" target="_blank" rel="noopener">ORCID</a>
+      <a href="https://www.researchgate.net/profile/Hung-Wei-Lin-4" target="_blank" rel="noopener">ResearchGate</a>
+      <a href="https://github.com/homewaylin666" target="_blank" rel="noopener">GitHub</a>
+    </div>
+  </header>
+
+  <main class="cv-body">
+
+    <!-- EDUCATION -->
+    <div class="cv-section">
+      <div class="section-label">Education</div>
+      <div class="section-content">
+        <div class="entry">
+          <div class="entry-year">2024 – present</div>
+          <div class="entry-body">
+            <div class="entry-title">DPhil in Biology</div>
+            <div class="entry-sub">University of Oxford, UK</div>
+          </div>
+        </div>
+        <div class="entry">
+          <div class="entry-year">2022 – 2023</div>
+          <div class="entry-body">
+            <div class="entry-title">MRes Ecology, Evolution, and Conservation <span class="badge badge-first">1st Class</span></div>
+            <div class="entry-sub">Imperial College London, UK</div>
+          </div>
+        </div>
+        <div class="entry">
+          <div class="entry-year">2018 – 2022</div>
+          <div class="entry-body">
+            <div class="entry-title">BSc Ecology <span class="badge badge-first">Outstanding Graduate</span></div>
+            <div class="entry-sub">Nanjing University, China</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SKILLS -->
+    <div class="cv-section">
+      <div class="section-label">Research Skills</div>
+      <div class="section-content">
+        <div class="skills-block">
+          <div class="skills-level">Proficient</div>
+          <div class="skills-tags">
+            <span class="skill-tag">R</span>
+            <span class="skill-tag">Statistical Modelling</span>
+            <span class="skill-tag">Matrix Population Models</span>
+            <span class="skill-tag">PGLS Methods</span>
+            <span class="skill-tag">Bayesian Methods</span>
+            <span class="skill-tag">LLM-based Data Extraction</span>
+            <span class="skill-tag">Tree-based Ensemble Methods</span>
+          </div>
+        </div>
+        <div class="skills-block" style="margin-top:1.2rem;">
+          <div class="skills-level">Familiar</div>
+          <div class="skills-tags">
+            <span class="skill-tag">Python</span>
+            <span class="skill-tag">Camera Trap</span>
+            <span class="skill-tag">GIS</span>
+            <span class="skill-tag">Meta-analysis</span>
+            <span class="skill-tag">Field Work</span>
+            <span class="skill-tag">Large Animal Handling</span>
+            <span class="skill-tag">Metagenomics Analysis</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- PUBLICATIONS -->
+    <div class="cv-section">
+      <div class="section-label">Publications</div>
+      <div class="section-content">
+        <div class="entry">
+          <div class="entry-year">2025</div>
+          <div class="entry-body">
+            <div class="entry-title">Elevational constraints on flight efficiency shape global gradients in avian wing morphology</div>
+            <div class="entry-sub">Yang, J., Yang, C., <strong>Lin, H. W.</strong>, Lees, A. C., &amp; Tobias, J. A. &mdash; <em>Current Biology</em>, 35(8), 1890–1900. <a href="https://doi.org/10.1016/j.cub.2025.02.068" target="_blank" rel="noopener">DOI ↗</a></div>
+          </div>
+        </div>
+        <div class="entry">
+          <div class="entry-year">2023</div>
+          <div class="entry-body">
+            <div class="entry-title">Performance on inhibitory tasks does not relate to handedness in several small groups of Callitrichids</div>
+            <div class="entry-sub">Wang, L., Luo, Y., <strong>Lin, H. W.</strong>, Xu, N., Gu, Y., &amp; Li, Z. &mdash; <em>Animal Cognition</em>, 26(2), 415–423. <a href="https://doi.org/10.1007/s10071-022-01682-w" target="_blank" rel="noopener">DOI ↗</a></div>
+          </div>
+        </div>
+        <div class="entry">
+          <div class="entry-year">2022</div>
+          <div class="entry-body">
+            <div class="entry-title">Genetic diversity and population structure of <em>Sassafras tzumu</em> revealed by nuclear microsatellite markers</div>
+            <div class="entry-sub">Wang, S., Wang, Y., Zhou, J., Li, P., <strong>Lin, H. W.</strong>, Peng, Y., &amp; Wang, Z. &mdash; <em>Plants</em>, 11(20), 2706. <a href="https://doi.org/10.3390/plants11202706" target="_blank" rel="noopener">DOI ↗</a></div>
+          </div>
+        </div>
+        <div class="entry">
+          <div class="entry-year">2022</div>
+          <div class="entry-body">
+            <div class="entry-title">Signs of claw asymmetry appear in a homochelate crab</div>
+            <div class="entry-sub">Wang, L., Luo, Y., Xu, N., <strong>Lin, H. W.</strong>, Yu, F., Huang, C., &amp; Li, Z. &mdash; <em>Applied Animal Behaviour Science</em>, 246, 105537. <a href="https://doi.org/10.1016/j.applanim.2021.105537" target="_blank" rel="noopener">DOI ↗</a></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- MANUSCRIPTS -->
+    <div class="cv-section">
+      <div class="section-label">Manuscripts</div>
+      <div class="section-content">
+        <div class="entry">
+          <div class="entry-year">Under review</div>
+          <div class="entry-body">
+            <div class="entry-title"><strong>Lin, H. W.</strong>, Moorthy, S. M. K., Hector, A., Salguero‐Gómez, R. Still Lost in Definitions: How 'Resilience' Is Used in Ecology. <span class="badge badge-review">Under Review</span></div>
+            <div class="entry-sub"><em>Science Advances</em></div>
+          </div>
+        </div>
+        <div class="entry">
+          <div class="entry-year">Under revision</div>
+          <div class="entry-body">
+            <div class="entry-title"><strong>Lin, H. W.</strong>, Gumbs, R., McRae, L. Exploring the integration of evolutionary history and population trends. <span class="badge badge-revision">Under Revision</span></div>
+            <div class="entry-sub"><em>Biological Conservation</em></div>
+          </div>
+        </div>
+        <div class="entry">
+          <div class="entry-year">In prep</div>
+          <div class="entry-body">
+            <div class="entry-title"><strong>Lin, H. W.</strong>, Hernandez, C. M., Jaggi, H., Zuo, W., Tuljapurkar, D., Salguero-Gómez, R. Life history traits predict the contribution of transient dynamics to variation in population growth. <span class="badge badge-prep">In Preparation</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- PROJECTS -->
+    <div class="cv-section">
+      <div class="section-label">Research Projects</div>
+      <div class="section-content">
+        <div class="entry"><div class="entry-year">2026</div><div class="entry-body"><div class="entry-title">Wytham Digital Twin Project</div><div class="entry-sub">Scanning trees with Luma AI</div></div></div>
+        <div class="entry"><div class="entry-year">2025</div><div class="entry-body"><div class="entry-title">Life-history traits predict the contribution of transient dynamics to population growth</div></div></div>
+        <div class="entry"><div class="entry-year">2024</div><div class="entry-body"><div class="entry-title">A systematic review of the quantification of resilience in ecology</div></div></div>
+        <div class="entry"><div class="entry-year">2023</div><div class="entry-body"><div class="entry-title">Exploring the integration of evolutionary history and population trends</div></div></div>
+        <div class="entry"><div class="entry-year">2023</div><div class="entry-body"><div class="entry-title">Elevational constraints on flight efficiency shape global gradients in avian wing morphology</div></div></div>
+        <div class="entry"><div class="entry-year">2022</div><div class="entry-body"><div class="entry-title">Effects of artificial light at night on detritivores and litter decomposition</div></div></div>
+        <div class="entry"><div class="entry-year">2021</div><div class="entry-body"><div class="entry-title">Genetic diversity and population structure of <em>Sassafras tzumu</em></div></div></div>
+        <div class="entry"><div class="entry-year">2021</div><div class="entry-body"><div class="entry-title">SPP 1685 Ecosystem Nutrition</div><div class="entry-sub">University of Fribourg initiative</div></div></div>
+        <div class="entry"><div class="entry-year">2020</div><div class="entry-body"><div class="entry-title">Spatial memory in <em>Porcellio laevis</em></div></div></div>
+        <div class="entry"><div class="entry-year">2020</div><div class="entry-body"><div class="entry-title">The relationship between handedness and cognitive ability in primates</div></div></div>
+        <div class="entry"><div class="entry-year">2020</div><div class="entry-body"><div class="entry-title">Determination of asymmetry in <em>Eriocheir sinensis</em></div></div></div>
+        <div class="entry"><div class="entry-year">2019</div><div class="entry-body"><div class="entry-title">A study of Père David's deer social networks</div></div></div>
+      </div>
+    </div>
+
+    <!-- TEACHING & SERVICE -->
+    <div class="cv-section">
+      <div class="section-label">Teaching &amp; Service</div>
+      <div class="section-content">
+        <div class="entry">
+          <div class="entry-year">2025 – present</div>
+          <div class="entry-body">
+            <div class="entry-title">Contributor (digitiser) — COMPADRE &amp; COMADRE Database</div>
+          </div>
+        </div>
+        <div class="entry">
+          <div class="entry-year">2025</div>
+          <div class="entry-body">
+            <div class="entry-title">Teaching Assistant</div>
+            <div class="entry-sub"><em>Large Datasets: Focus on Online Access and Management in R</em></div>
+          </div>
+        </div>
+        <div class="entry">
+          <div class="entry-year">2023</div>
+          <div class="entry-body">
+            <div class="entry-title">Contributor (digitiser) — Living Planet Database</div>
+          </div>
+        </div>
+        <div class="entry">
+          <div class="entry-year">2018 – 2019</div>
+          <div class="entry-body">
+            <div class="entry-title">Environmental Education Instructor</div>
+            <div class="entry-sub">Nanjing Jingling Primary School</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- MEMBERSHIPS -->
+    <div class="cv-section">
+      <div class="section-label">Memberships</div>
+      <div class="section-content">
+        <div class="entry"><div class="entry-year">2025 – present</div><div class="entry-body"><div class="entry-title">Evolutionary Demography Society</div></div></div>
+        <div class="entry"><div class="entry-year">2024 – present</div><div class="entry-body"><div class="entry-title">British Ecological Society</div></div></div>
+        <div class="entry"><div class="entry-year">2022 – 2023</div><div class="entry-body"><div class="entry-title">Imperial College London — University Mammal Challenge Team (UK)</div></div></div>
+        <div class="entry"><div class="entry-year">2019</div><div class="entry-body"><div class="entry-title">Marine Detective Social Practice Team, China</div></div></div>
+        <div class="entry"><div class="entry-year">2018 – 2019</div><div class="entry-body"><div class="entry-title">Vice Minister, Environmental Education Dept.</div><div class="entry-sub">Environmental Association of Nanjing University</div></div></div>
+      </div>
+    </div>
+
+    <!-- CONFERENCES -->
+    <div class="cv-section">
+      <div class="section-label">Conferences</div>
+      <div class="section-content">
+        <div class="entry">
+          <div class="entry-year">2025</div>
+          <div class="entry-body">
+            <div class="entry-title">Oral &amp; Poster Presenter</div>
+            <div class="entry-sub">10th Evolutionary Demography International Conference</div>
+          </div>
+        </div>
+        <div class="entry">
+          <div class="entry-year">2024</div>
+          <div class="entry-body">
+            <div class="entry-title">Attendee</div>
+            <div class="entry-sub">British Ecological Society Annual Meeting</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- REFEREES -->
+    <div class="cv-section">
+      <div class="section-label">Referees</div>
+      <div class="section-content">
+        <div class="referees">
+          <div class="referee-card"><div class="referee-name">Prof. Roberto Salguero‐Gómez</div><div class="referee-inst">Department of Biology<br>University of Oxford</div></div>
+          <div class="referee-card"><div class="referee-name">Prof. Andrew Hector</div><div class="referee-inst">Department of Biology<br>University of Oxford</div></div>
+          <div class="referee-card"><div class="referee-name">Dr. Rikki Gumbs</div><div class="referee-inst">Institute of Zoology<br>Zoological Society of London</div></div>
+          <div class="referee-card"><div class="referee-name">Dr. Louise McRae</div><div class="referee-inst">Institute of Zoology<br>Zoological Society of London</div></div>
+          <div class="referee-card"><div class="referee-name">Prof. Zhongqiu Li</div><div class="referee-inst">School of Life Sciences<br>Nanjing University</div></div>
+        </div>
+      </div>
+    </div>
+
+  </main>
+
+  <footer>
+    &copy; 2026 Hung-wei Lin 林宏為 &nbsp;&middot;&nbsp; University of Oxford
+  </footer>
+
+</body>
+</html>
