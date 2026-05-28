@@ -175,7 +175,7 @@
     /* TOPIC DETAIL (hidden by default, shown when card is active) */
     .topic-detail {
       display: none;
-      max-width: 1000px;
+      max-width: 720px;
       margin: 0 auto;
       padding: 0 2.5rem 6rem;
     }
@@ -214,28 +214,43 @@
       display: block;
       background: #ddd9d0;
     }
-    .topic-detail-img-placeholder {
-      width: 100%;
-      aspect-ratio: 4 / 3;
-      background: #e8e4dc;
-      border-radius: 3px;
-      margin-bottom: 2.5rem;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 0.68rem;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-      color: #aaa8a0;
-    }
     .topic-detail p {
-      font-size: 0.95rem;
+      font-size: 0.92rem;
       line-height: 1.9;
       color: var(--muted);
-      max-width: 680px;
       margin-bottom: 1.2rem;
     }
     .topic-detail p:last-child { margin-bottom: 0; }
+    .reading-section {
+      margin-top: 3rem;
+      padding-top: 2rem;
+      border-top: 0.5px solid var(--border);
+    }
+    .reading-label {
+      font-size: 0.65rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--sage);
+      font-weight: 500;
+      margin-bottom: 1.2rem;
+    }
+    .reading-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 0.9rem;
+    }
+    .reading-list li {
+      font-size: 0.82rem;
+      line-height: 1.75;
+      color: var(--muted);
+      padding-left: 1.2rem;
+      border-left: 2px solid rgba(138,158,126,0.35);
+    }
+    .reading-list li strong {
+      color: var(--dark);
+      font-weight: 500;
+    }
 
     /* FOOTER */
     footer {
@@ -250,6 +265,7 @@
     /* RESPONSIVE */
     @media (max-width: 640px) {
       nav { padding: 0 1.2rem; }
+      .nav-name { font-size: 0.72rem; }
       .nav-links { gap: 1rem; }
       .nav-links a { font-size: 0.75rem; }
       .page-header { padding: calc(var(--nav-h) + 2.5rem) 1.2rem 2rem; }
@@ -335,8 +351,14 @@
     <h2>Cross-Scale Resilience</h2>
     <img class="topic-detail-img" src="images/research_crossscale.jpg" alt="Cross-Scale Resilience">
     <p>My doctoral research centres on a deceptively simple question: what makes ecological systems resilient, and does the answer change depending on the scale at which we look? I am interested in how resilience — the capacity of a system to absorb disturbance and reorganise — manifests differently at the level of individual organisms, populations, and communities.</p>
-    <p>Rather than treating these scales in isolation, I am working towards a framework that explicitly bridges them. The goal is to understand how individual-level trait responses aggregate into population dynamics, and how those dynamics feed back into community structure and stability. This cross-scale perspective is central to my DPhil at the University of Oxford.</p>
+    <p>Rather than treating these scales in isolation, I am working towards a framework that explicitly bridges them. The goal is to understand how individual-level trait responses aggregate into population dynamics, and how those dynamics feed back into community structure and resilience. This cross-scale perspective is central to my DPhil at the University of Oxford.</p>
     <p>Current work combines meta-analysis, comparative methods, and large-scale open datasets. I aim to extend these to empirical field data and long-term monitoring datasets in the coming years.</p>
+    <div class="reading-section">
+      <p class="reading-label">Recommended Reading</p>
+      <ul class="reading-list">
+        <li>Simmons, B. I., Blyth, P. S., Blanchard, J. L., Clegg, T., Delmas, E., Garnier, A., ... &amp; Beckerman, A. P. (2021). Refocusing multiple stressor research around the targets and scales of ecological impacts. <em>Nature Ecology &amp; Evolution</em>, 5(11), 1478–1489.</li>
+      </ul>
+    </div>
   </section>
 
   <section class="topic-detail" id="topic-demography">
@@ -346,6 +368,13 @@
     <p>Demography is the language in which populations tell their stories. Survival, growth, reproduction — these vital rates, structured by age or stage, determine whether a population grows, shrinks, or persists in the face of environmental change.</p>
     <p>I work with matrix population models (MPMs) and integral projection models (IPMs) to characterise population dynamics across species and contexts. A particular focus is on transient dynamics — the short-term behaviours that unfold before a population reaches its asymptotic state — and how life-history traits predict the magnitude of these transients.</p>
     <p>I am also a contributor to the COMPADRE and COMADRE Plant and Animal Matrix Databases, which compile MPMs from the published literature to enable comparative demographic analyses at a global scale.</p>
+    <div class="reading-section">
+      <p class="reading-label">Recommended Reading</p>
+      <ul class="reading-list">
+        <li>Hernandez, C. M., Jaggi, H., Cant, J., Zuo, W., Tuljapurkar, S., &amp; Salguero-Gomez, R. (2026). A robust method for quantifying the contribution of transient dynamics to variation in population growth rate.</li>
+        <li>Capdevila, P., Stott, I., Beger, M., &amp; Salguero-Gómez, R. (2020). Towards a comparative framework of demographic resilience. <em>Trends in Ecology &amp; Evolution</em>, 35(9), 776–786.</li>
+      </ul>
+    </div>
   </section>
 
   <section class="topic-detail" id="topic-evolution">
@@ -355,6 +384,12 @@
     <p>Conservation biology has long grappled with the question of how to prioritise species for protection. Evolutionary distinctiveness — the amount of unique evolutionary history a species represents — has emerged as a compelling criterion, yet most priority frameworks treat it in isolation from how populations are actually faring in the wild.</p>
     <p>In this line of work, I explored whether species' population trends are predictable from their position in the tree of life, and what happens when we integrate phylogenetic information with empirical abundance trends. The findings suggest that evolutionary history and recent population change provide largely complementary information — meaning frameworks that account for both can identify conservation priorities that neither metric alone would reveal.</p>
     <p>This work has broader implications for how we design biodiversity monitoring programmes and interpret the signals they produce across the phylogenetic tree.</p>
+    <div class="reading-section">
+      <p class="reading-label">Recommended Reading</p>
+      <ul class="reading-list">
+        <li>Gumbs, R., Gray, C. L., Böhm, M., Burfield, I. J., Couchman, O. R., Faith, D. P., ... &amp; Rosindell, J. (2023). The EDGE2 protocol: Advancing the prioritisation of Evolutionarily Distinct and Globally Endangered species for practical conservation action. <em>PLoS Biology</em>, 21(2), e3001991.</li>
+      </ul>
+    </div>
   </section>
 
   <section class="topic-detail" id="topic-others">
@@ -364,6 +399,14 @@
     <p>My research path has been deliberately broad. Before settling into macroecology and demography, I worked on projects spanning animal cognition, behavioural ecology, plant population genetics, and the effects of artificial light at night on decomposer communities.</p>
     <p>These experiences were formative — they taught me to move comfortably across taxa, methodological traditions, and scales of enquiry. Some of these threads remain live interests: I am particularly drawn to the macroevolution of species traits, especially how functional traits evolve across phylogenies and what that tells us about the ecological roles species occupy today.</p>
     <p>This section serves as a record of paths taken and a placeholder for directions not yet pursued.</p>
+    <div class="reading-section">
+      <p class="reading-label">Recommended Reading</p>
+      <ul class="reading-list">
+        <li>Yang, J., Yang, C., <strong>Lin, H. W.</strong>, Lees, A. C., &amp; Tobias, J. A. (2025). Elevational constraints on flight efficiency shape global gradients in avian wing morphology. <em>Current Biology</em>, 35(8), 1890–1900.</li>
+        <li>Wang, L., Luo, Y., <strong>Lin, H.</strong>, Xu, N., Gu, Y., Bu, H., ... &amp; Li, Z. (2023). Performance on inhibitory tasks does not relate to handedness in several small groups of Callitrichids. <em>Animal Cognition</em>, 26(2), 415–423.</li>
+        <li>Wang, L., Luo, Y., Xu, N., <strong>Lin, H.</strong>, Yu, F., Huang, C., &amp; Li, Z. (2022). Signs of claw asymmetry appear in a homochelate crab. <em>Applied Animal Behaviour Science</em>, 246, 105537.</li>
+      </ul>
+    </div>
   </section>
 
   <footer>
