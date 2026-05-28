@@ -180,6 +180,16 @@
       padding: 0 2.5rem 6rem;
     }
     .topic-detail.active { display: block; }
+    .back-btn-wrap {
+      position: sticky;
+      top: var(--nav-h);
+      z-index: 50;
+      background: rgba(245,241,235,0.92);
+      backdrop-filter: blur(10px);
+      border-bottom: 0.5px solid var(--border);
+      margin: 0 -2.5rem 2.5rem;
+      padding: 0.75rem 2.5rem;
+    }
     .back-btn {
       display: inline-flex;
       align-items: center;
@@ -189,7 +199,6 @@
       text-transform: uppercase;
       color: var(--muted);
       text-decoration: none;
-      margin-bottom: 2.5rem;
       cursor: pointer;
       background: none;
       border: none;
@@ -266,12 +275,13 @@
     @media (max-width: 640px) {
       nav { padding: 0 1.2rem; }
       .nav-name { font-size: 0.72rem; }
-      .nav-links { gap: 1rem; }
-      .nav-links a { font-size: 0.75rem; }
+      .nav-links { gap: 0.7rem; }
+      .nav-links a { font-size: 0.6rem; }
       .page-header { padding: calc(var(--nav-h) + 2.5rem) 1.2rem 2rem; }
       .page-header h1 { font-size: 2rem; }
       .research-grid { grid-template-columns: 1fr; padding: 2.5rem 1.2rem 4rem; gap: 1.2rem; }
       .topic-detail { padding: 0 1.2rem 4rem; }
+      .back-btn-wrap { margin: 0 -1.2rem 2rem; padding: 0.65rem 1.2rem; }
     }
   </style>
 </head>
@@ -347,7 +357,9 @@
   <!-- TOPIC DETAILS -->
 
   <section class="topic-detail" id="topic-crossscale">
-    <button class="back-btn" onclick="closeTopic()">← Back to Research</button>
+    <div class="back-btn-wrap">
+      <button class="back-btn" onclick="closeTopic()">← Back to Research</button>
+    </div>
     <h2>Cross-Scale Resilience</h2>
     <img class="topic-detail-img" src="images/research_crossscale.jpg" alt="Cross-Scale Resilience">
     <p>My doctoral research centres on a deceptively simple question: what makes ecological systems resilient, and does the answer change depending on the scale at which we look? I am interested in how resilience — the capacity of a system to absorb disturbance and reorganise — manifests differently at the level of individual organisms, populations, and communities.</p>
@@ -362,7 +374,9 @@
   </section>
 
   <section class="topic-detail" id="topic-demography">
-    <button class="back-btn" onclick="closeTopic()">← Back to Research</button>
+    <div class="back-btn-wrap">
+      <button class="back-btn" onclick="closeTopic()">← Back to Research</button>
+    </div>
     <h2>Population Demography</h2>
     <img class="topic-detail-img" src="images/research_demography.jpg" alt="Population Demography">
     <p>Demography is the language in which populations tell their stories. Survival, growth, reproduction — these vital rates, structured by age or stage, determine whether a population grows, shrinks, or persists in the face of environmental change.</p>
@@ -378,7 +392,9 @@
   </section>
 
   <section class="topic-detail" id="topic-evolution">
-    <button class="back-btn" onclick="closeTopic()">← Back to Research</button>
+    <div class="back-btn-wrap">
+      <button class="back-btn" onclick="closeTopic()">← Back to Research</button>
+    </div>
     <h2>Evolutionary History</h2>
     <img class="topic-detail-img" src="images/research_evolution.jpg" alt="Evolutionary History">
     <p>Conservation biology has long grappled with the question of how to prioritise species for protection. Evolutionary distinctiveness — the amount of unique evolutionary history a species represents — has emerged as a compelling criterion, yet most priority frameworks treat it in isolation from how populations are actually faring in the wild.</p>
@@ -393,7 +409,9 @@
   </section>
 
   <section class="topic-detail" id="topic-others">
-    <button class="back-btn" onclick="closeTopic()">← Back to Research</button>
+    <div class="back-btn-wrap">
+      <button class="back-btn" onclick="closeTopic()">← Back to Research</button>
+    </div>
     <h2>Other Interests</h2>
     <img class="topic-detail-img" src="images/research_others.jpg" alt="Other Interests">
     <p>My research path has been deliberately broad. Before settling into macroecology and demography, I worked on projects spanning animal cognition, behavioural ecology, plant population genetics, and the effects of artificial light at night on decomposer communities.</p>
@@ -402,7 +420,7 @@
     <div class="reading-section">
       <p class="reading-label">Recommended Reading</p>
       <ul class="reading-list">
-        <li>Yang, J., Yang, C., <strong>Lin, H. W.</strong>, Lees, A. C., &amp; Tobias, J. A. (2025). Elevational constraints on flight efficiency shape global gradients in avian wing morphology. <em>Current Biology</em>, 35(8), 1890–1900.</li>
+        <li>Yang, J., Yang, C., <strong>Lin, H.</strong>, Lees, A. C., &amp; Tobias, J. A. (2025). Elevational constraints on flight efficiency shape global gradients in avian wing morphology. <em>Current Biology</em>, 35(8), 1890–1900.</li>
         <li>Wang, L., Luo, Y., <strong>Lin, H.</strong>, Xu, N., Gu, Y., Bu, H., ... &amp; Li, Z. (2023). Performance on inhibitory tasks does not relate to handedness in several small groups of Callitrichids. <em>Animal Cognition</em>, 26(2), 415–423.</li>
         <li>Wang, L., Luo, Y., Xu, N., <strong>Lin, H.</strong>, Yu, F., Huang, C., &amp; Li, Z. (2022). Signs of claw asymmetry appear in a homochelate crab. <em>Applied Animal Behaviour Science</em>, 246, 105537.</li>
       </ul>
