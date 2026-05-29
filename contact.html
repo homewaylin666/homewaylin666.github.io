@@ -1,0 +1,501 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Contact — Hung-wei Lin 林宏為</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;1,400&family=Inter:wght@300;400;500&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --sage:   #8a9e7e;
+      --cream:  #f5f1eb;
+      --dark:   #1a1c18;
+      --muted:  #4a4c45;
+      --border: rgba(26,28,24,0.1);
+      --nav-h:  56px;
+    }
+
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'Inter', sans-serif;
+      background: var(--cream);
+      color: var(--dark);
+      overflow-x: hidden;
+    }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      height: var(--nav-h);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 2.5rem;
+      background: rgba(245,241,235,0.92);
+      backdrop-filter: blur(12px);
+      border-bottom: 0.5px solid var(--border);
+    }
+    .nav-name {
+      font-family: 'Playfair Display', serif;
+      font-weight: 400;
+      font-size: 1.05rem;
+      letter-spacing: 0.1em;
+      color: var(--dark);
+      text-decoration: none;
+      text-transform: uppercase;
+    }
+    .nav-links {
+      display: flex;
+      gap: 2.2rem;
+      list-style: none;
+    }
+    .nav-links a {
+      font-size: 0.75rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--muted);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+    .nav-links a:hover,
+    .nav-links a.active { color: var(--dark); }
+
+    /* ── HERO BANNER ── */
+    .page-hero {
+      position: relative;
+      width: 100%;
+      height: 46vh;
+      min-height: 320px;
+      display: flex;
+      align-items: flex-end;
+      overflow: hidden;
+    }
+    .page-hero-bg {
+      position: absolute;
+      inset: 0;
+      background-image: url('images/Website_cover.png');
+      background-size: cover;
+      background-position: center 60%;
+      filter: brightness(0.55);
+    }
+    .page-hero-content {
+      position: relative;
+      z-index: 2;
+      padding: 0 4rem 3.5rem;
+    }
+    .page-hero-label {
+      font-size: 0.68rem;
+      letter-spacing: 0.28em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.5);
+      margin-bottom: 0.6rem;
+    }
+    .page-hero-title {
+      font-family: 'Playfair Display', serif;
+      font-weight: 400;
+      font-size: clamp(2.4rem, 5vw, 4rem);
+      color: #fff;
+      line-height: 1.1;
+    }
+    .page-hero-sub {
+      font-family: 'Playfair Display', serif;
+      font-style: italic;
+      font-size: 1rem;
+      color: rgba(255,255,255,0.5);
+      margin-top: 0.6rem;
+    }
+
+    /* ── MAIN LAYOUT ── */
+    .contact-body {
+      max-width: 960px;
+      margin: 0 auto;
+      padding: 5rem 3.5rem 7rem;
+      display: grid;
+      grid-template-columns: 1fr 1.6fr;
+      gap: 6rem;
+      align-items: start;
+    }
+
+    /* ── LEFT: INFO ── */
+    .info-block {
+      display: flex;
+      flex-direction: column;
+      gap: 2.8rem;
+      position: sticky;
+      top: calc(var(--nav-h) + 3rem);
+    }
+    .info-section-label {
+      font-size: 0.68rem;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--sage);
+      font-weight: 500;
+      margin-bottom: 1rem;
+    }
+    .info-name {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.55rem;
+      font-weight: 400;
+      color: var(--dark);
+      line-height: 1.25;
+      margin-bottom: 0.4rem;
+    }
+    .info-role {
+      font-size: 0.85rem;
+      color: var(--muted);
+      line-height: 1.7;
+    }
+    .info-role em {
+      color: var(--sage);
+      font-style: normal;
+    }
+
+    /* Contact rows */
+    .contact-row {
+      display: flex;
+      align-items: flex-start;
+      gap: 1rem;
+      margin-bottom: 1.1rem;
+    }
+    .contact-row:last-child { margin-bottom: 0; }
+    .contact-row-icon {
+      width: 32px;
+      height: 32px;
+      flex-shrink: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border: 0.5px solid var(--border);
+      border-radius: 2px;
+      color: var(--sage);
+    }
+    .contact-row-icon svg {
+      width: 15px;
+      height: 15px;
+      fill: currentColor;
+    }
+    .contact-row-text {
+      display: flex;
+      flex-direction: column;
+      gap: 0.15rem;
+    }
+    .contact-row-label {
+      font-size: 0.63rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: rgba(26,28,24,0.38);
+    }
+    .contact-row-value {
+      font-size: 0.88rem;
+      color: var(--dark);
+      text-decoration: none;
+      transition: color 0.2s;
+      word-break: break-all;
+    }
+    a.contact-row-value:hover { color: var(--sage); }
+
+    /* Divider */
+    .info-divider {
+      width: 36px;
+      height: 1px;
+      background: var(--border);
+    }
+
+    /* ── RIGHT: PROFILE + LINKS ── */
+    .profile-block {
+      display: flex;
+      flex-direction: column;
+      gap: 3rem;
+    }
+
+    .profile-card {
+      background: #fff;
+      border: 0.5px solid var(--border);
+      border-radius: 4px;
+      padding: 2.2rem 2rem;
+    }
+    .profile-card-header {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      margin-bottom: 1.5rem;
+    }
+    .profile-card-icon {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background: var(--cream);
+      border: 0.5px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--sage);
+      flex-shrink: 0;
+    }
+    .profile-card-icon svg { width: 18px; height: 18px; fill: currentColor; }
+    .profile-card-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.05rem;
+      font-weight: 400;
+      color: var(--dark);
+    }
+    .profile-card-sub {
+      font-size: 0.72rem;
+      color: var(--muted);
+      margin-top: 0.15rem;
+    }
+    .profile-card p {
+      font-size: 0.88rem;
+      line-height: 1.8;
+      color: var(--muted);
+      margin-bottom: 1.2rem;
+    }
+    .profile-link-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 0.7rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--dark);
+      text-decoration: none;
+      padding: 0.55rem 1.1rem;
+      border: 0.5px solid rgba(26,28,24,0.25);
+      border-radius: 2px;
+      transition: background 0.2s, color 0.2s;
+    }
+    .profile-link-btn:hover {
+      background: var(--dark);
+      color: var(--cream);
+    }
+    .profile-link-btn svg { width: 12px; height: 12px; fill: currentColor; }
+
+    /* Academic profiles grid */
+    .profiles-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+    }
+    .profile-tile {
+      border: 0.5px solid var(--border);
+      border-radius: 4px;
+      padding: 1.4rem 1.2rem;
+      text-decoration: none;
+      color: var(--dark);
+      transition: border-color 0.2s, background 0.2s, transform 0.2s;
+      display: flex;
+      flex-direction: column;
+      gap: 0.7rem;
+    }
+    .profile-tile:hover {
+      border-color: var(--sage);
+      background: rgba(138,158,126,0.05);
+      transform: translateY(-2px);
+    }
+    .profile-tile-name {
+      font-size: 0.78rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--dark);
+      font-weight: 500;
+    }
+    .profile-tile-desc {
+      font-size: 0.75rem;
+      color: var(--muted);
+      line-height: 1.6;
+    }
+    .profile-tile-arrow {
+      font-size: 0.75rem;
+      color: var(--sage);
+      align-self: flex-end;
+      margin-top: auto;
+    }
+
+    /* Section labels */
+    .section-label {
+      font-size: 0.68rem;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--sage);
+      font-weight: 500;
+      margin-bottom: 1.2rem;
+    }
+
+    /* ── FOOTER ── */
+    footer {
+      text-align: center;
+      padding: 1.8rem;
+      font-size: 0.68rem;
+      letter-spacing: 0.1em;
+      color: rgba(26,28,24,0.35);
+      border-top: 0.5px solid rgba(26,28,24,0.08);
+    }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 700px) {
+      .contact-body {
+        grid-template-columns: 1fr;
+        gap: 3rem;
+        padding: 4rem 1.5rem 5rem;
+      }
+      .info-block { position: static; }
+      .page-hero-content { padding: 0 1.5rem 2.5rem; }
+      .profiles-grid { grid-template-columns: 1fr; }
+      nav { padding: 0 1.2rem; }
+      .nav-links { gap: 1rem; }
+      .nav-links a { font-size: 0.6rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav>
+    <a class="nav-name" href="index.html">Hung-wei Lin</a>
+    <ul class="nav-links">
+      <li><a href="research.html">Research</a></li>
+      <li><a href="cv.html">CV</a></li>
+      <li><a href="timeline.html">Chronicle</a></li>
+      <li><a href="outreach.html">Outreach</a></li>
+      <li><a href="contact.html" class="active">Contact</a></li>
+    </ul>
+  </nav>
+
+  <!-- HERO BANNER -->
+  <div class="page-hero">
+    <div class="page-hero-bg"></div>
+    <div class="page-hero-content">
+      <p class="page-hero-label">Hung-wei Lin · Oxford</p>
+      <h1 class="page-hero-title">Contact</h1>
+      <p class="page-hero-sub">Always open to conversations about ecology, collaboration, and ideas.</p>
+    </div>
+  </div>
+
+  <!-- BODY -->
+  <div class="contact-body">
+
+    <!-- LEFT: direct info -->
+    <div class="info-block">
+      <div>
+        <p class="info-section-label">Who I am</p>
+        <p class="info-name">Hung-wei Lin<br/>林宏為</p>
+        <p class="info-role">
+          DPhil Student, Department of Biology<br/>
+          University of Oxford<br/>
+          Member, <em>SalGo Team</em>
+        </p>
+      </div>
+
+      <div class="info-divider"></div>
+
+      <div>
+        <p class="info-section-label">Reach me directly</p>
+
+        <div class="contact-row">
+          <div class="contact-row-icon">
+            <svg viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4-8 5-8-5V6l8 5 8-5v2z"/></svg>
+          </div>
+          <div class="contact-row-text">
+            <span class="contact-row-label">Oxford Email</span>
+            <a class="contact-row-value" href="mailto:hung-wei.lin@biology.ox.ac.uk">hung-wei.lin@biology.ox.ac.uk</a>
+          </div>
+        </div>
+
+        <div class="contact-row">
+          <div class="contact-row-icon">
+            <svg viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>
+          </div>
+          <div class="contact-row-text">
+            <span class="contact-row-label">Location</span>
+            <span class="contact-row-value">Department of Biology, Oxford OX1 3PS, UK</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="info-divider"></div>
+
+      <div>
+        <p class="info-section-label">Best for</p>
+        <p style="font-size:0.82rem;line-height:1.85;color:var(--muted);">
+          Research collaboration &amp; discussion<br/>
+          Seminar invitations<br/>
+          Questions about cross-scale ecology<br/>
+          Science communication
+        </p>
+      </div>
+    </div>
+
+    <!-- RIGHT: profiles and links -->
+    <div class="profile-block">
+
+      <!-- Academic profiles -->
+      <div>
+        <p class="section-label">Academic Profiles</p>
+        <div class="profiles-grid">
+
+          <a class="profile-tile" href="https://orcid.org/0000-0002-2632-2070" target="_blank" rel="noopener">
+            <span class="profile-tile-name">ORCID</span>
+            <span class="profile-tile-desc">Persistent researcher identifier linking all my publications and affiliations.</span>
+            <span class="profile-tile-arrow">↗</span>
+          </a>
+
+          <a class="profile-tile" href="https://www.researchgate.net/profile/Hung-Wei-Lin-4" target="_blank" rel="noopener">
+            <span class="profile-tile-name">ResearchGate</span>
+            <span class="profile-tile-desc">Full publication list, preprints, and research data.</span>
+            <span class="profile-tile-arrow">↗</span>
+          </a>
+
+          <a class="profile-tile" href="https://salgo.web.ox.ac.uk/welcome" target="_blank" rel="noopener">
+            <span class="profile-tile-name">SalGo Team</span>
+            <span class="profile-tile-desc">My research group at Oxford — Salmon &amp; Going Ecology.</span>
+            <span class="profile-tile-arrow">↗</span>
+          </a>
+
+          <a class="profile-tile" href="https://github.com/homewaylin666" target="_blank" rel="noopener">
+            <span class="profile-tile-name">GitHub</span>
+            <span class="profile-tile-desc">Open code, analysis pipelines, and side projects.</span>
+            <span class="profile-tile-arrow">↗</span>
+          </a>
+
+        </div>
+      </div>
+
+      <!-- CV card -->
+      <div class="profile-card">
+        <div class="profile-card-header">
+          <div class="profile-card-icon">
+            <svg viewBox="0 0 24 24"><path d="M14 2H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V8l-6-6zm-1 7V3.5L18.5 9H13zm-5 8v-1.5H7V17h1zm0-3v-1.5H7V14h1zm6 3v-1.5h-5V17h5zm0-3v-1.5h-5V14h5z"/></svg>
+          </div>
+          <div>
+            <p class="profile-card-title">Curriculum Vitae</p>
+            <p class="profile-card-sub">Education · Skills · Publications · Projects</p>
+          </div>
+        </div>
+        <p>Prefer a full overview of my academic background? The CV page covers my education, technical skills, publications, and all projects I have been involved in.</p>
+        <a class="profile-link-btn" href="cv.html">
+          <svg viewBox="0 0 24 24"><path d="M14 2H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V8l-6-6zm2 16H8v-2h8v2zm0-4H8v-2h8v2zm-3-5V3.5L18.5 9H13z"/></svg>
+          View CV
+        </a>
+      </div>
+
+      <!-- Note -->
+      <p style="font-size:0.78rem;line-height:1.85;color:rgba(26,28,24,0.4);border-left:2px solid var(--sage);padding-left:1rem;">
+        I am always happy to hear from fellow ecologists, students, and anyone curious about cross-scale approaches to ecology. Response time is typically within a few days.
+      </p>
+
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <footer>
+    &copy; 2026 Hung-wei Lin 林宏為 &nbsp;·&nbsp; University of Oxford
+  </footer>
+
+</body>
+</html>
