@@ -9,40 +9,37 @@
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;1,400&family=Inter:wght@300;400;500&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
     :root {
-      --sage:   #8a9e7e;
-      --cream:  #f5f1eb;
-      --dark:   #1a1c18;
-      --nav-h:  56px;
-      --bg:     #0d0f0b;
-      --line-h: 4px;
-      --above-h: 280px;
-      --below-h: 320px;
-      --total-h: calc(var(--nav-h) + var(--above-h) + var(--line-h) + var(--below-h) + 80px);
+      --sage:    #8a9e7e;
+      --cream:   #f5f1eb;
+      --dark:    #1a1c18;
+      --muted:   #4a4c45;
+      --border:  rgba(26,28,24,0.12);
+      --nav-h:   56px;
 
-      /* Education phase colors */
-      --edu-bsc:   #b8dfc0;
-      --edu-mres:  #80c494;
-      --edu-gap:   #8a8880;
-      --edu-mil:   #6b7c5a;
-      --edu-dphil: #4a6e55;
+      /* Education bar colors (on cream bg) */
+      --edu-bsc:   rgba(130,210,150,0.45);
+      --edu-mres:  rgba(80,170,105,0.55);
+      --edu-gap:   rgba(160,155,140,0.4);
+      --edu-mil:   rgba(90,105,72,0.6);
+      --edu-dphil: rgba(55,120,80,0.65);
 
-      /* Event type colors */
-      --col-pub:     #e8e0d0;
-      --col-honor:   #c9a227;
-      --col-project: #7ab8d4;
-      --col-service: #b08fd4;
-      --col-familiar:#74b8c8;
-      --col-proficient: #a8c86a;
+      /* Event colors (dark enough to read on cream) */
+      --col-pub:       #1a4e6a;
+      --col-honor:     #8a6000;
+      --col-project:   #1a5a8a;
+      --col-service:   #5a2a8a;
+      --col-familiar:  #0a6a7a;
+      --col-proficient:#2a6a0a;
     }
 
     html, body { height: 100%; }
     body {
       font-family: 'Inter', sans-serif;
-      background: var(--bg);
-      color: #ccc;
-      overflow-x: hidden;
-      overflow-y: hidden;
+      background: var(--cream);
+      color: var(--dark);
+      overflow: hidden;
     }
 
     /* ── NAV ── */
@@ -55,16 +52,16 @@
       align-items: center;
       justify-content: space-between;
       padding: 0 2.5rem;
-      background: rgba(13,15,11,0.92);
+      background: rgba(245,241,235,0.92);
       backdrop-filter: blur(12px);
-      border-bottom: 0.5px solid rgba(138,158,126,0.2);
+      border-bottom: 0.5px solid var(--border);
     }
     .nav-name {
       font-family: 'Playfair Display', serif;
       font-weight: 400;
       font-size: 1.05rem;
       letter-spacing: 0.1em;
-      color: rgba(255,255,255,0.7);
+      color: var(--dark);
       text-decoration: none;
       text-transform: uppercase;
     }
@@ -73,14 +70,14 @@
       font-size: 0.75rem;
       letter-spacing: 0.14em;
       text-transform: uppercase;
-      color: rgba(255,255,255,0.35);
+      color: var(--muted);
       text-decoration: none;
       transition: color 0.2s;
     }
-    .nav-links a:hover { color: rgba(255,255,255,0.75); }
+    .nav-links a:hover { color: var(--dark); }
     .nav-links a.active { color: var(--sage); }
 
-    /* ── LEGEND ── */
+    /* ── LEGENDS ── */
     .legend {
       position: fixed;
       top: calc(var(--nav-h) + 12px);
@@ -89,39 +86,12 @@
       display: flex;
       flex-direction: column;
       gap: 5px;
-      background: rgba(13,15,11,0.85);
-      border: 0.5px solid rgba(138,158,126,0.2);
+      background: rgba(245,241,235,0.95);
+      border: 0.5px solid var(--border);
       border-radius: 4px;
-      padding: 10px 12px;
+      padding: 10px 13px;
+      box-shadow: 0 2px 12px rgba(26,28,24,0.07);
     }
-    .legend-title {
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 0.55rem;
-      letter-spacing: 0.18em;
-      text-transform: uppercase;
-      color: rgba(255,255,255,0.3);
-      margin-bottom: 4px;
-    }
-    .legend-row {
-      display: flex;
-      align-items: center;
-      gap: 7px;
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 0.6rem;
-      color: rgba(255,255,255,0.5);
-    }
-    .legend-dot {
-      width: 8px; height: 8px;
-      border-radius: 50%;
-      flex-shrink: 0;
-    }
-    .legend-line {
-      width: 14px; height: 1px;
-      flex-shrink: 0;
-      border-top: 1.5px dashed;
-    }
-
-    /* ── EDU LEGEND ── */
     .edu-legend {
       position: fixed;
       top: calc(var(--nav-h) + 12px);
@@ -130,154 +100,107 @@
       display: flex;
       flex-direction: column;
       gap: 5px;
-      background: rgba(13,15,11,0.85);
-      border: 0.5px solid rgba(138,158,126,0.2);
+      background: rgba(245,241,235,0.95);
+      border: 0.5px solid var(--border);
       border-radius: 4px;
-      padding: 10px 12px;
+      padding: 10px 13px;
+      box-shadow: 0 2px 12px rgba(26,28,24,0.07);
     }
-    .edu-bar-legend {
-      width: 22px; height: 8px;
-      border-radius: 1px;
-      flex-shrink: 0;
+    .legend-title {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.6rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 4px;
     }
+    .legend-row {
+      display: flex;
+      align-items: center;
+      gap: 7px;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.62rem;
+      color: var(--muted);
+    }
+    .legend-dot { width: 9px; height: 9px; border-radius: 50%; flex-shrink: 0; }
+    .legend-dash { width: 14px; border-top: 1.5px dashed; flex-shrink: 0; }
+    .edu-bar-legend { width: 22px; height: 9px; border-radius: 1px; flex-shrink: 0; }
 
     /* ── SCROLL CONTAINER ── */
     .scroll-outer {
       position: fixed;
       top: var(--nav-h);
-      left: 0; right: 0;
-      bottom: 0;
-      overflow-x: auto;
-      overflow-y: hidden;
+      left: 0; right: 0; bottom: 0;
+      overflow: auto;
       cursor: grab;
     }
     .scroll-outer:active { cursor: grabbing; }
-    .scroll-outer::-webkit-scrollbar { height: 4px; }
-    .scroll-outer::-webkit-scrollbar-track { background: rgba(255,255,255,0.03); }
-    .scroll-outer::-webkit-scrollbar-thumb { background: rgba(138,158,126,0.3); border-radius: 2px; }
+    .scroll-outer::-webkit-scrollbar { width: 4px; height: 4px; }
+    .scroll-outer::-webkit-scrollbar-track { background: rgba(26,28,24,0.04); }
+    .scroll-outer::-webkit-scrollbar-thumb { background: rgba(138,158,126,0.35); border-radius: 2px; }
 
-    /* ── CANVAS WRAPPER ── */
+    /* ── CANVAS ── */
     #canvas-wrap {
       position: relative;
-      height: calc(100vh - var(--nav-h));
-      /* width set by JS */
+      /* width & height set by JS */
     }
 
-    /* Subtle grid */
+    /* subtle grid */
     #canvas-wrap::before {
       content: '';
       position: absolute;
       inset: 0;
       background-image:
-        linear-gradient(rgba(138,158,126,0.03) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(138,158,126,0.03) 1px, transparent 1px);
+        linear-gradient(rgba(26,28,24,0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(26,28,24,0.03) 1px, transparent 1px);
       background-size: 60px 60px;
       pointer-events: none;
     }
 
-    /* ── SVG LAYER ── */
-    #svg-layer {
-      position: absolute;
-      inset: 0;
-      pointer-events: none;
-    }
+    #svg-layer { position: absolute; inset: 0; pointer-events: none; }
 
     /* ── YEAR LABELS ── */
     .year-label {
       position: absolute;
       font-family: 'JetBrains Mono', monospace;
-      font-size: 0.65rem;
-      letter-spacing: 0.12em;
-      color: rgba(255,255,255,0.18);
+      font-size: 0.88rem;
+      letter-spacing: 0.1em;
+      color: rgba(26,28,24,0.22);
       transform: translateX(-50%);
       white-space: nowrap;
       pointer-events: none;
+      font-weight: 500;
     }
 
-    /* ── CENTER LINE (drawn in SVG) ── */
-
-    /* ── EDUCATION PHASE BARS ── */
-    .edu-phase {
-      position: absolute;
-      height: var(--line-h);
-      border-radius: 0;
-    }
-
-    /* ── EVENT NODES ── */
-    .node {
-      position: absolute;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      cursor: pointer;
-    }
-    .node-dot {
-      width: 10px;
-      height: 10px;
-      border-radius: 50%;
-      border: 2px solid;
-      background: var(--bg);
-      flex-shrink: 0;
-      transition: transform 0.15s, box-shadow 0.15s;
-      z-index: 2;
-    }
-    .node:hover .node-dot {
-      transform: scale(1.5);
-      box-shadow: 0 0 8px currentColor;
-    }
-    .node-connector {
-      width: 1px;
-      background: currentColor;
-      opacity: 0.35;
-      flex-shrink: 0;
-    }
+    /* ── NODE CARDS ── */
     .node-card {
-      padding: 5px 8px;
+      position: absolute;
+      padding: 8px 11px;
       border-radius: 3px;
       border: 0.5px solid;
-      background: rgba(13,15,11,0.9);
-      max-width: 160px;
-      pointer-events: none;
-      transition: opacity 0.15s;
+      background: rgba(255,255,255,0.82);
+      max-width: 185px;
+      cursor: pointer;
+      transition: background 0.15s, box-shadow 0.15s;
     }
-    .node:hover .node-card {
-      opacity: 1 !important;
-    }
-    .node-label {
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 0.55rem;
-      letter-spacing: 0.06em;
-      line-height: 1.5;
-      color: #ccc;
+    .node-card:hover {
+      background: #fff;
+      box-shadow: 0 2px 12px rgba(26,28,24,0.12);
     }
     .node-type-badge {
       font-family: 'JetBrains Mono', monospace;
-      font-size: 0.45rem;
-      letter-spacing: 0.12em;
+      font-size: 0.62rem;
+      letter-spacing: 0.1em;
       text-transform: uppercase;
-      opacity: 0.6;
-      margin-bottom: 2px;
+      opacity: 0.75;
+      margin-bottom: 3px;
     }
-
-    /* ABOVE nodes */
-    .node.above {
-      flex-direction: column-reverse;
-      transform: translateX(-50%);
-    }
-    .node.above .node-connector {
-      order: -1;
-    }
-    .node.above .node-card {
-      margin-bottom: 2px;
-    }
-
-    /* BELOW nodes */
-    .node.below {
-      flex-direction: column;
-      transform: translateX(-50%);
-    }
-    .node.below .node-card {
-      margin-top: 2px;
+    .node-label {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.8rem;
+      letter-spacing: 0.03em;
+      line-height: 1.45;
+      color: var(--dark);
     }
 
     /* ── SKILL BADGES ── */
@@ -291,57 +214,47 @@
     }
     .skill-pip-row {
       display: flex;
-      gap: 2px;
-      margin-bottom: 3px;
+      gap: 3px;
+      margin-bottom: 4px;
     }
     .skill-pip {
-      width: 5px; height: 5px;
+      width: 7px; height: 7px;
       border-radius: 1px;
     }
-    .skill-pip.filled { opacity: 1; }
-    .skill-pip.empty { opacity: 0.2; border: 1px solid currentColor; background: transparent !important; }
+    .skill-pip.empty { opacity: 0.18; border: 1px solid; background: transparent !important; }
     .skill-inner {
-      padding: 4px 7px;
+      padding: 6px 10px;
       border-radius: 2px;
       border: 0.5px solid;
-      background: rgba(13,15,11,0.92);
+      background: rgba(255,255,255,0.82);
       text-align: center;
-      min-width: 70px;
+      min-width: 88px;
+      transition: background 0.15s, box-shadow 0.15s;
+    }
+    .skill-badge:hover .skill-inner {
+      background: #fff;
+      box-shadow: 0 2px 10px rgba(26,28,24,0.1);
     }
     .skill-name {
       font-family: 'JetBrains Mono', monospace;
-      font-size: 0.5rem;
-      letter-spacing: 0.06em;
-      color: #ccc;
-      line-height: 1.4;
+      font-size: 0.72rem;
+      letter-spacing: 0.04em;
+      color: var(--dark);
+      line-height: 1.35;
     }
     .skill-level-text {
       font-family: 'JetBrains Mono', monospace;
-      font-size: 0.42rem;
+      font-size: 0.58rem;
       letter-spacing: 0.1em;
       text-transform: uppercase;
-      margin-top: 1px;
-    }
-    .skill-connector {
-      width: 1px;
-      background: currentColor;
-      opacity: 0.3;
-    }
-
-    /* ── HONOR STAR ── */
-    .honor-star {
-      font-size: 0.7rem;
-      line-height: 1;
-      color: var(--col-honor);
-      text-shadow: 0 0 6px var(--col-honor);
+      margin-top: 2px;
     }
 
     /* ── TOOLTIP ── */
     #tooltip {
       position: fixed;
       z-index: 300;
-      background: rgba(13,15,11,0.96);
-      border: 0.5px solid rgba(138,158,126,0.4);
+      background: rgba(26,28,24,0.92);
       border-radius: 4px;
       padding: 8px 12px;
       max-width: 260px;
@@ -349,27 +262,12 @@
       opacity: 0;
       transition: opacity 0.15s;
       font-family: 'JetBrains Mono', monospace;
-      font-size: 0.62rem;
+      font-size: 0.65rem;
       line-height: 1.6;
-      color: #ccc;
+      color: rgba(255,255,255,0.8);
     }
     #tooltip.visible { opacity: 1; }
-    #tooltip .tt-title { font-size: 0.68rem; color: #fff; margin-bottom: 3px; font-family: 'Inter', sans-serif; }
-
-    /* ── SCAN LINE EFFECT ── */
-    .scanlines {
-      position: fixed;
-      inset: 0;
-      pointer-events: none;
-      z-index: 1;
-      background: repeating-linear-gradient(
-        0deg,
-        transparent,
-        transparent 2px,
-        rgba(0,0,0,0.03) 2px,
-        rgba(0,0,0,0.03) 4px
-      );
-    }
+    #tooltip .tt-title { font-size: 0.7rem; color: #fff; margin-bottom: 3px; font-family:'Inter',sans-serif; }
 
     @media (max-width: 640px) {
       nav { padding: 0 1rem; }
@@ -381,9 +279,6 @@
 </head>
 <body>
 
-  <div class="scanlines"></div>
-
-  <!-- NAV -->
   <nav>
     <a class="nav-name" href="index.html">Hung-wei Lin</a>
     <ul class="nav-links">
@@ -395,29 +290,28 @@
     </ul>
   </nav>
 
-  <!-- LEGEND: event types -->
+  <!-- Event type legend -->
   <div class="legend">
     <div class="legend-title">Event Type</div>
     <div class="legend-row"><div class="legend-dot" style="background:var(--col-pub)"></div>Publication</div>
     <div class="legend-row"><div class="legend-dot" style="background:var(--col-honor)"></div>Honour</div>
     <div class="legend-row"><div class="legend-dot" style="background:var(--col-project)"></div>Project</div>
     <div class="legend-row"><div class="legend-dot" style="background:var(--col-service)"></div>Service / Role</div>
-    <div class="legend-row"><div class="legend-dot" style="background:var(--col-familiar)"></div>Skill: Familiar</div>
-    <div class="legend-row"><div class="legend-dot" style="background:var(--col-proficient)"></div>Skill: Proficient</div>
-    <div class="legend-row" style="margin-top:4px">
-      <div class="legend-line" style="border-color:var(--col-familiar);opacity:0.6;"></div>
-      Skill ↔ Project
+    <div class="legend-row"><div class="legend-dot" style="background:var(--col-familiar)"></div>Skill · Familiar</div>
+    <div class="legend-row"><div class="legend-dot" style="background:var(--col-proficient)"></div>Skill · Proficient</div>
+    <div class="legend-row" style="margin-top:2px">
+      <div class="legend-dash" style="border-color:var(--col-familiar)"></div>Skill ↔ Project
     </div>
   </div>
 
-  <!-- LEGEND: education -->
+  <!-- Education legend -->
   <div class="edu-legend">
     <div class="legend-title">Education</div>
-    <div class="legend-row"><div class="edu-bar-legend" style="background:var(--edu-bsc)"></div>BSc · Nanjing</div>
-    <div class="legend-row"><div class="edu-bar-legend" style="background:var(--edu-mres)"></div>MRes · Imperial</div>
-    <div class="legend-row"><div class="edu-bar-legend" style="background:var(--edu-gap)"></div>Gap Year</div>
-    <div class="legend-row"><div class="edu-bar-legend" style="background:var(--edu-mil);background-image:repeating-linear-gradient(45deg,rgba(0,0,0,0.3) 0,rgba(0,0,0,0.3) 2px,transparent 0,transparent 50%);background-size:6px 6px;"></div>Military Service</div>
-    <div class="legend-row"><div class="edu-bar-legend" style="background:var(--edu-dphil)"></div>DPhil · Oxford</div>
+    <div class="legend-row"><div class="edu-bar-legend" style="background:rgba(130,210,150,0.6)"></div>BSc · Nanjing</div>
+    <div class="legend-row"><div class="edu-bar-legend" style="background:rgba(80,170,105,0.7)"></div>MRes · Imperial</div>
+    <div class="legend-row"><div class="edu-bar-legend" style="background:rgba(160,155,140,0.55)"></div>Gap Year</div>
+    <div class="legend-row"><div class="edu-bar-legend" style="background-color:rgba(90,105,72,0.7);background-image:repeating-linear-gradient(45deg,rgba(0,0,0,0.25) 0,rgba(0,0,0,0.25) 2px,transparent 0,transparent 50%);background-size:6px 6px;"></div>Military</div>
+    <div class="legend-row"><div class="edu-bar-legend" style="background:rgba(55,120,80,0.8)"></div>DPhil · Oxford</div>
   </div>
 
   <div class="scroll-outer" id="scrollOuter">
@@ -430,53 +324,52 @@
 
 <script>
 // ─── CONFIG ───────────────────────────────────────────────
-const START     = new Date('2018-09-01');
-const END       = new Date('2026-08-01');
+const START      = new Date('2018-07-01');
+const END        = new Date('2026-10-01');
 const PX_PER_DAY = 3.4;
-const MARGIN_L  = 80;
-const MARGIN_R  = 120;
-const NAV_H     = 56;
+const MARGIN_L   = 100;
+const MARGIN_R   = 140;
+const LINE_Y     = 300;         // px from canvas top
 
-const totalDays = (END - START) / 86400000;
-const TOTAL_W   = MARGIN_L + totalDays * PX_PER_DAY + MARGIN_R;
+const ROW_H_ABOVE = 110;        // px per stagger row, above line
+const ROW_H_BELOW = 92;         // px per stagger row, below line (projects + skills)
 
-// ─── LAYOUT ───────────────────────────────────────────────
-// Center line Y (relative to canvas-wrap top)
-const VIEW_H    = () => window.innerHeight - NAV_H;
-const CENTER_Y  = () => Math.round(VIEW_H() * 0.46);
-const ABOVE_SPACE = () => CENTER_Y() - 10;   // space above line
-const BELOW_SPACE = () => VIEW_H() - CENTER_Y() - 50; // space below
+const totalDays  = (END - START) / 86400000;
+const TOTAL_W    = MARGIN_L + totalDays * PX_PER_DAY + MARGIN_R;
+
+// Canvas height: enough for 9 below-rows + some padding
+const MAX_STAGGER_BELOW = 8;
+const CANVAS_H = LINE_Y + (MAX_STAGGER_BELOW + 1) * ROW_H_BELOW + 40;
 
 function dateToX(dateStr) {
-  const d = new Date(dateStr);
-  return MARGIN_L + (d - START) / 86400000 * PX_PER_DAY;
+  return MARGIN_L + (new Date(dateStr) - START) / 86400000 * PX_PER_DAY;
 }
 
-// ─── COLOR MAP ────────────────────────────────────────────
+// ─── COLOR HELPERS ────────────────────────────────────────
+function cssVar(name) {
+  return getComputedStyle(document.documentElement).getPropertyValue(name).trim();
+}
 const C = {
-  pub:       getComputedStyle(document.documentElement).getPropertyValue('--col-pub').trim()       || '#e8e0d0',
-  honor:     getComputedStyle(document.documentElement).getPropertyValue('--col-honor').trim()     || '#c9a227',
-  project:   getComputedStyle(document.documentElement).getPropertyValue('--col-project').trim()   || '#7ab8d4',
-  service:   getComputedStyle(document.documentElement).getPropertyValue('--col-service').trim()   || '#b08fd4',
-  familiar:  getComputedStyle(document.documentElement).getPropertyValue('--col-familiar').trim()  || '#74b8c8',
-  proficient:getComputedStyle(document.documentElement).getPropertyValue('--col-proficient').trim()|| '#a8c86a',
+  pub:        cssVar('--col-pub'),
+  honor:      cssVar('--col-honor'),
+  project:    cssVar('--col-project'),
+  service:    cssVar('--col-service'),
+  familiar:   cssVar('--col-familiar'),
+  proficient: cssVar('--col-proficient'),
 };
 
 // ─── DATA ─────────────────────────────────────────────────
 
-// Education phases [start, end, cssVar, label]
 const EDU_PHASES = [
-  { start:'2018-09-15', end:'2022-09-14', color:'var(--edu-bsc)',   label:'BSc · Nanjing University',     camouflage:false },
-  { start:'2022-09-15', end:'2023-09-14', color:'var(--edu-mres)',  label:'MRes · Imperial College London',camouflage:false },
-  { start:'2023-09-15', end:'2023-12-31', color:'var(--edu-gap)',   label:'Gap Year',                     camouflage:false },
-  { start:'2024-01-01', end:'2024-05-31', color:'var(--edu-mil)',   label:'Military Service',              camouflage:true  },
-  { start:'2024-06-01', end:'2024-09-14', color:'var(--edu-gap)',   label:'Gap Year',                     camouflage:false },
-  { start:'2024-09-15', end:'2026-08-01', color:'var(--edu-dphil)', label:'DPhil · University of Oxford', camouflage:false },
+  { start:'2018-09-15', end:'2022-09-14', color:'rgba(130,210,150,0.45)', camouflage:false, label:'BSc · Nanjing University' },
+  { start:'2022-09-15', end:'2023-09-14', color:'rgba(80,170,105,0.55)',  camouflage:false, label:'MRes · Imperial College London' },
+  { start:'2023-09-15', end:'2023-12-31', color:'rgba(160,155,140,0.4)',  camouflage:false, label:'Gap Year' },
+  { start:'2024-01-01', end:'2024-05-31', color:'rgba(90,105,72,0.6)',    camouflage:true,  label:'Military Service' },
+  { start:'2024-06-01', end:'2024-09-14', color:'rgba(160,155,140,0.4)',  camouflage:false, label:'Gap Year' },
+  { start:'2024-09-15', end:'2026-10-01', color:'rgba(55,120,80,0.65)',   camouflage:false, label:'DPhil · University of Oxford' },
 ];
 
-// Above-line events: publications + honours
-// type: 'pub' | 'honor'
-// stagger: row index (0 = closest to line, higher = farther)
+// ABOVE: publications & honours (stagger 0 = closest to line)
 const ABOVE_EVENTS = [
   { date:'2022-01-15', type:'pub',   stagger:0, id:'pub-claw',
     label:'Signs of claw asymmetry in a homochelate crab',
@@ -487,39 +380,38 @@ const ABOVE_EVENTS = [
   { date:'2023-03-01', type:'pub',   stagger:0, id:'pub-callitrich',
     label:'Inhibitory tasks & handedness in Callitrichids',
     full:'Animal Cognition, 26(2), 415–423 (2023)' },
-  { date:'2023-03-20', type:'honor', stagger:2, id:'hon-wildlife',
+  { date:'2023-03-20', type:'honor', stagger:1, id:'hon-wildlife',
     label:'Champions — National Wildlife Competition (UK)',
-    full:'Imperial College London · UK Mammal Challenge' },
+    full:'Imperial College London · UK Mammal Challenge Team' },
   { date:'2025-04-21', type:'pub',   stagger:0, id:'pub-elevational',
     label:'Elevational constraints on avian wing morphology',
     full:'Current Biology, 35(8), 1890–1900 (2025)' },
 ];
 
-// Below-line events: projects, service, roles
-// stagger: row index (0 = closest to line)
+// BELOW: projects & service (stagger 0 closest to line, max 2)
 const BELOW_EVENTS = [
-  { date:'2018-12-07', type:'service', stagger:0, id:'ev-envteach',
+  { date:'2018-12-07', type:'service', stagger:1, id:'ev-envteach',
     label:'Environmental Education Instructor',
-    full:'Nanjing Jingling Primary School · 2018–' },
-  { date:'2019-08-01', type:'project', stagger:1, id:'ev-deer',
+    full:'Nanjing Jingling Primary School' },
+  { date:'2019-08-01', type:'project', stagger:2, id:'ev-deer',
     label:"Père David's Deer Social Networks",
     full:'Social network analysis · Nanjing University' },
   { date:'2019-10-01', type:'project', stagger:0, id:'ev-handedness',
-    label:'Handedness & Cognitive Ability in Primates',
+    label:'Handedness & Cognition in Primates',
     full:'Nanjing University' },
-  { date:'2020-01-01', type:'project', stagger:2, id:'ev-eriocheir',
+  { date:'2020-01-01', type:'project', stagger:1, id:'ev-eriocheir',
     label:'Asymmetry in Eriocheir sinensis',
-    full:'Determination of claw asymmetry · Nanjing University' },
-  { date:'2020-04-01', type:'project', stagger:1, id:'ev-porcellio',
+    full:'Nanjing University' },
+  { date:'2020-04-01', type:'project', stagger:2, id:'ev-porcellio',
     label:'Spatial Memory in Porcellio laevis',
     full:'Nanjing University' },
   { date:'2020-10-01', type:'project', stagger:0, id:'ev-spp1685',
     label:'SPP 1685 Ecosystem Nutrition',
     full:'University of Fribourg initiative' },
-  { date:'2021-10-01', type:'project', stagger:2, id:'ev-sassa-proj',
+  { date:'2021-10-01', type:'project', stagger:1, id:'ev-sassa-proj',
     label:'Genetic Diversity of Sassafras tzumu',
     full:'Nanjing University' },
-  { date:'2022-03-01', type:'project', stagger:1, id:'ev-alan',
+  { date:'2022-03-01', type:'project', stagger:2, id:'ev-alan',
     label:'Artificial Light at Night & Detritivores',
     full:'Effects on litter decomposition · Nanjing University' },
   { date:'2023-01-01', type:'project', stagger:0, id:'ev-elev-proj',
@@ -536,328 +428,327 @@ const BELOW_EVENTS = [
     full:'University of Oxford · SalGo Team' },
   { date:'2025-01-01', type:'service', stagger:1, id:'ev-compadre',
     label:'Contributor — COMPADRE & COMADRE',
-    full:'Matrix population model database · ongoing' },
+    full:'Matrix population model database' },
   { date:'2025-10-01', type:'project', stagger:2, id:'ev-transient',
     label:'Transient Dynamics & Population Growth',
     full:'Life-history traits · University of Oxford' },
-  { date:'2025-11-01', type:'service', stagger:1, id:'ev-ta',
+  { date:'2025-11-01', type:'service', stagger:0, id:'ev-ta',
     label:'Teaching Assistant · Oxford',
     full:'Large Datasets: Online Access & Management in R' },
-  { date:'2025-11-19', type:'project', stagger:0, id:'ev-wytham',
+  { date:'2025-11-19', type:'project', stagger:1, id:'ev-wytham',
     label:'Wytham Digital Twin Project',
     full:'Tree scanning with Luma AI · University of Oxford' },
 ];
 
-// Skills
-// level: 'familiar' | 'proficient'
-// projectId: id of project node to connect with dashed line (optional)
-// stagger: vertical row (0 closest to line, larger = further)
+// SKILLS: placed ~1 month after their trigger project
+// stagger: 3–8 (below project rows 0–2)
+// pips: FAMILIAR=1/2 filled, PROFICIENT=2/2 filled
 const SKILLS = [
-  // R
-  { date:'2021-05-01', name:'R', level:'familiar',   stagger:3, projectId:'ev-spp1685',   full:'Acquired during SPP 1685 Ecosystem Nutrition' },
-  { date:'2023-09-01', name:'R', level:'proficient',  stagger:3, projectId:'ev-elev-proj', full:'Upgraded via Elevational Constraints project' },
-  // Statistical Modelling
-  { date:'2022-09-01', name:'Statistical\nModelling',   level:'familiar',   stagger:4, projectId:'ev-alan',      full:'Acquired during ALAN & detritivores project' },
-  { date:'2023-09-01', name:'Statistical\nModelling',   level:'proficient',  stagger:4, projectId:'ev-elev-proj', full:'Upgraded via Elevational Constraints project' },
-  // PGLS Methods
-  { date:'2023-08-01', name:'PGLS\nMethods',  level:'familiar',   stagger:5, projectId:'ev-elev-proj', full:'Acquired during Elevational Constraints project' },
-  { date:'2024-05-01', name:'PGLS\nMethods',  level:'proficient',  stagger:5, projectId:'ev-evohist',   full:'Upgraded via Evolutionary History project' },
-  // Matrix Population Models
-  { date:'2024-07-01', name:'Matrix Pop.\nModels',    level:'familiar',   stagger:3, projectId:null,         full:'Self-study · July 2024' },
-  { date:'2026-03-01', name:'Matrix Pop.\nModels',    level:'proficient',  stagger:3, projectId:'ev-transient', full:'Upgraded via Transient Dynamics project' },
-  // Bayesian Methods
-  { date:'2024-08-01', name:'Bayesian\nMethods',      level:'familiar',   stagger:4, projectId:null,           full:'Self-study · August 2024' },
-  { date:'2026-03-01', name:'Bayesian\nMethods',      level:'proficient',  stagger:4, projectId:'ev-transient', full:'Upgraded via Transient Dynamics project' },
-  // Systematic review skills
-  { date:'2025-04-01', name:'LLM Data\nExtraction',   level:'familiar',   stagger:5, projectId:'ev-resilience', full:'Acquired during Resilience systematic review' },
-  { date:'2026-01-01', name:'LLM Data\nExtraction',   level:'proficient',  stagger:5, projectId:null,           full:'Proficient · January 2026' },
-  { date:'2025-04-01', name:'Tree-based\nEnsemble',   level:'familiar',   stagger:6, projectId:'ev-resilience', full:'Acquired during Resilience systematic review' },
-  { date:'2026-02-01', name:'Tree-based\nEnsemble',   level:'proficient',  stagger:6, projectId:null,           full:'Proficient · February 2026' },
-  { date:'2025-04-01', name:'Python',                 level:'familiar',   stagger:7, projectId:'ev-resilience', full:'Acquired during Resilience systematic review' },
-  { date:'2025-04-01', name:'Meta-analysis',          level:'familiar',   stagger:8, projectId:'ev-resilience', full:'Acquired during Resilience systematic review' },
-  // Fieldwork skills
-  { date:'2020-03-01', name:'Large Animal\nHandling', level:'familiar',   stagger:6, projectId:'ev-deer',       full:"Acquired during Père David's Deer project" },
-  { date:'2022-06-01', name:'Field Work',             level:'familiar',   stagger:7, projectId:'ev-sassa-proj', full:'Acquired during Sassafras tzumu fieldwork' },
-  { date:'2022-09-01', name:'GIS',                    level:'familiar',   stagger:8, projectId:'ev-alan',       full:'Acquired during ALAN & detritivores project' },
-  { date:'2022-11-01', name:'Camera Trap',            level:'familiar',   stagger:9, projectId:null,           full:'Camera trap surveys · November 2022' },
-  { date:'2020-11-01', name:'Metagenomics\nAnalysis', level:'familiar',   stagger:9, projectId:null,           full:'Bioinformatics · November 2020' },
+  // ── R ──
+  { date:'2020-11-01', name:'R',
+    level:'familiar',   stagger:3, projectId:'ev-spp1685',
+    full:'Acquired during SPP 1685 Ecosystem Nutrition' },
+  { date:'2023-02-01', name:'R',
+    level:'proficient',  stagger:3, projectId:'ev-elev-proj',
+    full:'Upgraded via Elevational Constraints project' },
+
+  // ── Statistical Modelling ──
+  { date:'2022-04-01', name:'Statistical Modelling',
+    level:'familiar',   stagger:4, projectId:'ev-alan',
+    full:'Acquired during ALAN & detritivores project' },
+  { date:'2023-03-01', name:'Statistical Modelling',
+    level:'proficient',  stagger:4, projectId:'ev-elev-proj',
+    full:'Upgraded via Elevational Constraints project' },
+
+  // ── PGLS Methods ──
+  { date:'2023-02-01', name:'PGLS Methods',
+    level:'familiar',   stagger:5, projectId:'ev-elev-proj',
+    full:'Acquired during Elevational Constraints project' },
+  { date:'2023-05-01', name:'PGLS Methods',
+    level:'proficient',  stagger:5, projectId:'ev-evohist',
+    full:'Upgraded via Evolutionary History & Population Trends' },
+
+  // ── Matrix Population Models ──
+  { date:'2024-07-01', name:'Matrix Population\nModels',
+    level:'familiar',   stagger:3, projectId:null,
+    full:'Self-study · July 2024' },
+  { date:'2025-11-01', name:'Matrix Population\nModels',
+    level:'proficient',  stagger:3, projectId:'ev-transient',
+    full:'Upgraded via Transient Dynamics project' },
+
+  // ── Bayesian Methods ──
+  { date:'2024-08-01', name:'Bayesian Methods',
+    level:'familiar',   stagger:4, projectId:null,
+    full:'Self-study · August 2024' },
+  { date:'2025-11-15', name:'Bayesian Methods',
+    level:'proficient',  stagger:4, projectId:'ev-transient',
+    full:'Upgraded via Transient Dynamics project' },
+
+  // ── Resilience review cluster ──
+  { date:'2024-11-01', name:'LLM Data Extraction',
+    level:'familiar',   stagger:5, projectId:'ev-resilience',
+    full:'Acquired during Resilience systematic review' },
+  { date:'2026-01-01', name:'LLM Data Extraction',
+    level:'proficient',  stagger:5, projectId:null,
+    full:'Proficient · January 2026' },
+
+  { date:'2024-11-15', name:'Tree-based Ensemble',
+    level:'familiar',   stagger:6, projectId:'ev-resilience',
+    full:'Acquired during Resilience systematic review' },
+  { date:'2026-02-01', name:'Tree-based Ensemble',
+    level:'proficient',  stagger:6, projectId:null,
+    full:'Proficient · February 2026' },
+
+  { date:'2025-01-01', name:'Python',
+    level:'familiar',   stagger:7, projectId:'ev-resilience',
+    full:'Acquired during Resilience systematic review' },
+
+  { date:'2025-02-01', name:'Meta-analysis',
+    level:'familiar',   stagger:5, projectId:'ev-resilience',
+    full:'Acquired during Resilience systematic review' },
+
+  // ── Field skills ──
+  { date:'2019-09-01', name:'Large Animal Handling',
+    level:'familiar',   stagger:6, projectId:'ev-deer',
+    full:"Acquired during Père David's Deer project" },
+
+  { date:'2021-11-01', name:'Field Work',
+    level:'familiar',   stagger:7, projectId:'ev-sassa-proj',
+    full:'Acquired during Sassafras tzumu fieldwork' },
+
+  { date:'2022-05-01', name:'GIS',
+    level:'familiar',   stagger:8, projectId:'ev-alan',
+    full:'Acquired during ALAN & detritivores project' },
+
+  { date:'2022-11-01', name:'Camera Trap',
+    level:'familiar',   stagger:3, projectId:null,
+    full:'Camera trap surveys · November 2022' },
+
+  { date:'2020-11-01', name:'Metagenomics Analysis',
+    level:'familiar',   stagger:8, projectId:null,
+    full:'Bioinformatics · November 2020' },
 ];
 
-// ─── BUILD DOM ────────────────────────────────────────────
-const wrap    = document.getElementById('canvas-wrap');
-let   svgEl   = document.getElementById('svg-layer');
-const scrollEl= document.getElementById('scrollOuter');
+// ─── BUILD ────────────────────────────────────────────────
+const wrap     = document.getElementById('canvas-wrap');
+let   svgEl    = document.getElementById('svg-layer');
+const scrollEl = document.getElementById('scrollOuter');
 
 function build() {
-  const vh = VIEW_H();
-  const cy = CENTER_Y();
-
-  wrap.style.width  = TOTAL_W + 'px';
-  wrap.style.height = vh + 'px';
-  svgEl.setAttribute('width',  TOTAL_W);
-  svgEl.setAttribute('height', vh);
+  // Clear previous dynamic elements
+  Array.from(wrap.children).forEach(c => { if (c.id !== 'svg-layer') c.remove(); });
   svgEl.innerHTML = '';
 
-  // ── center line ──
-  const lineY = cy;
-  const baseLine = makeSVGEl('line', { x1:0, y1:lineY, x2:TOTAL_W, y2:lineY,
-    stroke:'rgba(255,255,255,0.08)', 'stroke-width':'1' });
-  svgEl.appendChild(baseLine);
+  wrap.style.width  = TOTAL_W + 'px';
+  wrap.style.height = CANVAS_H + 'px';
+  svgEl.setAttribute('width',  TOTAL_W);
+  svgEl.setAttribute('height', CANVAS_H);
 
-  // ── education phases on the center line ──
+  const ly = LINE_Y;
+
+  // ── center line ──
+  svgEl.appendChild(mkSVG('line', {
+    x1:0, y1:ly, x2:TOTAL_W, y2:ly,
+    stroke:'rgba(26,28,24,0.15)', 'stroke-width':'1.5'
+  }));
+
+  // ── education bars ──
   EDU_PHASES.forEach(ph => {
-    const x1 = dateToX(ph.start);
-    const x2 = dateToX(ph.end);
-    const w  = x2 - x1;
-    const BAR_H = 6;
+    const x1 = dateToX(ph.start), x2 = dateToX(ph.end), w = x2-x1;
+    const BAR_H = 8;
     if (ph.camouflage) {
-      // draw camouflage pattern via SVG rect + pattern
-      const patId = 'camo-' + Math.random().toString(36).slice(2);
-      const defs  = makeSVGEl('defs');
-      const pat   = makeSVGEl('pattern', { id:patId, x:0, y:0, width:10, height:10, patternUnits:'userSpaceOnUse' });
-      [['#6b7c5a',0],['#4a5e3a',0.3],['#8a9060',0.6],['#5a6e48',0.1]].forEach(([c,op],i) => {
-        const r = makeSVGEl('rect', { x:(i%2)*5, y:Math.floor(i/2)*5, width:5, height:5, fill:c });
-        pat.appendChild(r);
+      const pid = 'camo' + Math.random().toString(36).slice(2,6);
+      const defs = mkSVG('defs');
+      const pat  = mkSVG('pattern', { id:pid, x:0, y:0, width:10, height:10, patternUnits:'userSpaceOnUse' });
+      [['#8a9e6a',0],['#5a6e3a',1],['#7a9050',2],['#4a5e2a',3]].forEach(([c,i]) => {
+        pat.appendChild(mkSVG('rect', { x:(i%2)*5, y:Math.floor(i/2)*5, width:5, height:5, fill:c, opacity:'0.7' }));
       });
-      defs.appendChild(pat);
-      svgEl.appendChild(defs);
-      const r = makeSVGEl('rect', { x:x1, y:lineY-BAR_H/2, width:w, height:BAR_H, fill:`url(#${patId})` });
-      svgEl.appendChild(r);
+      defs.appendChild(pat); svgEl.appendChild(defs);
+      svgEl.appendChild(mkSVG('rect', { x:x1, y:ly-BAR_H/2, width:w, height:BAR_H, fill:`url(#${pid})` }));
     } else {
-      const r = makeSVGEl('rect', { x:x1, y:lineY-BAR_H/2, width:w, height:BAR_H, fill:ph.color });
-      svgEl.appendChild(r);
+      svgEl.appendChild(mkSVG('rect', { x:x1, y:ly-BAR_H/2, width:w, height:BAR_H, fill:ph.color }));
     }
   });
 
-  // ── year ticks & labels ──
-  for (let y = 2018; y <= 2026; y++) {
-    const x = dateToX(`${y}-09-15`);
-    const tick = makeSVGEl('line', { x1:x, y1:lineY-10, x2:x, y2:lineY+10,
-      stroke:'rgba(255,255,255,0.12)', 'stroke-width':'1' });
-    svgEl.appendChild(tick);
+  // ── year ticks + labels ──
+  for (let y = 2019; y <= 2026; y++) {
+    const x = dateToX(`${y}-01-01`);
+    svgEl.appendChild(mkSVG('line', {
+      x1:x, y1:ly-14, x2:x, y2:ly+14,
+      stroke:'rgba(26,28,24,0.18)', 'stroke-width':'1'
+    }));
     const lbl = document.createElement('div');
     lbl.className = 'year-label';
     lbl.textContent = y;
-    lbl.style.left = x + 'px';
-    lbl.style.top  = (lineY + 14) + 'px';
+    lbl.style.cssText = `left:${x}px; top:${ly+18}px;`;
     wrap.appendChild(lbl);
   }
 
-  // ── collect node positions (for dashed line connections) ──
-  const nodePos = {};  // id → {x, y}
+  // ── node positions (for dashed lines) ──
+  const nodePos = {};
 
   // ── ABOVE events ──
-  const ROW_H_ABOVE = 72;
   ABOVE_EVENTS.forEach(ev => {
     const x   = dateToX(ev.date);
     const col = ev.type === 'honor' ? C.honor : C.pub;
-    const connLen = ROW_H_ABOVE * (ev.stagger + 1) - 12;
-    const cardY   = lineY - ROW_H_ABOVE * (ev.stagger + 1);
-    const dotY    = lineY - 5;
+    const cardY = ly - ROW_H_ABOVE * (ev.stagger + 1);
 
-    // SVG connector line
-    const line = makeSVGEl('line', { x1:x, y1:dotY, x2:x, y2:cardY + 5,
-      stroke:col, 'stroke-width':'0.8', opacity:'0.35' });
-    svgEl.appendChild(line);
+    svgEl.appendChild(mkSVG('line', {
+      x1:x, y1:ly-6, x2:x, y2:cardY+4,
+      stroke:col, 'stroke-width':'1', opacity:'0.35'
+    }));
+    svgEl.appendChild(mkSVG('circle', {
+      cx:x, cy:ly, r:6,
+      fill:'var(--cream)', stroke:col, 'stroke-width':'2.2'
+    }));
 
-    // dot on line
-    const dot = makeSVGEl('circle', { cx:x, cy:lineY, r:5,
-      fill:'#0d0f0b', stroke:col, 'stroke-width':'2' });
-    dot.style.cursor = 'pointer';
-    svgEl.appendChild(dot);
-
-    // card
-    const card = document.createElement('div');
-    card.className = 'node-card';
-    card.style.cssText = `
-      position:absolute; left:${x}px; top:${cardY}px;
-      transform:translateX(-50%) translateY(-100%);
-      border-color:${col}44; max-width:150px; opacity:0.85;
-    `;
-    const typeBadge = document.createElement('div');
-    typeBadge.className = 'node-type-badge';
-    typeBadge.style.color = col;
-    typeBadge.textContent = ev.type === 'honor' ? '★ HONOUR' : '◆ PUB';
-    const lbl = document.createElement('div');
-    lbl.className = 'node-label';
+    const card = el('div', 'node-card');
+    card.style.cssText = `left:${x}px; top:${cardY}px; transform:translateX(-50%) translateY(-100%); border-color:${col}55;`;
+    const badge = el('div', 'node-type-badge');
+    badge.style.color = col;
+    badge.textContent = ev.type === 'honor' ? '★  HONOUR' : '◆  PUB';
+    const lbl = el('div', 'node-label');
     lbl.textContent = ev.label;
-    if (ev.type === 'honor') {
-      lbl.style.color = col;
-      card.style.borderColor = col + '66';
-    }
-    card.appendChild(typeBadge);
-    card.appendChild(lbl);
-    card.addEventListener('mouseenter', e => showTip(e, ev.label, ev.full, col));
-    card.addEventListener('mouseleave', hideTip);
-    card.style.cursor = 'pointer';
+    if (ev.type === 'honor') { lbl.style.color = col; card.style.borderColor = col + '88'; }
+    card.append(badge, lbl);
+    addTip(card, ev.label, ev.full, col);
     wrap.appendChild(card);
-
-    nodePos[ev.id] = { x, y: lineY };
+    nodePos[ev.id] = { x, y: ly };
   });
 
   // ── BELOW events ──
-  const ROW_H_BELOW = 58;
   BELOW_EVENTS.forEach(ev => {
     const x   = dateToX(ev.date);
     const col = ev.type === 'service' ? C.service : C.project;
-    const cardY = lineY + ROW_H_BELOW * (ev.stagger + 1);
-    const dotY  = lineY + 5;
+    const cardY = ly + ROW_H_BELOW * (ev.stagger + 1);
 
-    const line = makeSVGEl('line', { x1:x, y1:dotY, x2:x, y2:cardY - 2,
-      stroke:col, 'stroke-width':'0.8', opacity:'0.35' });
-    svgEl.appendChild(line);
+    svgEl.appendChild(mkSVG('line', {
+      x1:x, y1:ly+6, x2:x, y2:cardY-2,
+      stroke:col, 'stroke-width':'1', opacity:'0.35'
+    }));
+    svgEl.appendChild(mkSVG('circle', {
+      cx:x, cy:ly, r:6,
+      fill:'var(--cream)', stroke:col, 'stroke-width':'2.2'
+    }));
 
-    const dot = makeSVGEl('circle', { cx:x, cy:lineY, r:5,
-      fill:'#0d0f0b', stroke:col, 'stroke-width':'2' });
-    dot.style.cursor = 'pointer';
-    svgEl.appendChild(dot);
-
-    const card = document.createElement('div');
-    card.className = 'node-card';
-    card.style.cssText = `
-      position:absolute; left:${x}px; top:${cardY}px;
-      transform:translateX(-50%);
-      border-color:${col}44; max-width:150px; opacity:0.82;
-    `;
-    const typeBadge = document.createElement('div');
-    typeBadge.className = 'node-type-badge';
-    typeBadge.style.color = col;
-    typeBadge.textContent = ev.type === 'service' ? '▪ SERVICE' : '▸ PROJECT';
-    const lbl = document.createElement('div');
-    lbl.className = 'node-label';
+    const card = el('div', 'node-card');
+    card.style.cssText = `left:${x}px; top:${cardY}px; transform:translateX(-50%); border-color:${col}55;`;
+    const badge = el('div', 'node-type-badge');
+    badge.style.color = col;
+    badge.textContent = ev.type === 'service' ? '▪  SERVICE' : '▸  PROJECT';
+    const lbl = el('div', 'node-label');
     lbl.textContent = ev.label;
-    card.appendChild(typeBadge);
-    card.appendChild(lbl);
-    card.addEventListener('mouseenter', e => showTip(e, ev.label, ev.full, col));
-    card.addEventListener('mouseleave', hideTip);
-    card.style.cursor = 'pointer';
+    card.append(badge, lbl);
+    addTip(card, ev.label, ev.full, col);
     wrap.appendChild(card);
-
-    nodePos[ev.id] = { x, y: lineY };
+    nodePos[ev.id] = { x, y: ly };
   });
 
   // ── SKILLS ──
-  const SKILL_ROW_H = 48;
-  // Track x-positions used at each stagger to avoid overlap (simple)
   SKILLS.forEach(sk => {
     const x   = dateToX(sk.date);
     const col = sk.level === 'proficient' ? C.proficient : C.familiar;
-    const pips = sk.level === 'proficient' ? 3 : 1;
-    const totalPips = 3;
-    const rowOffset = sk.stagger * SKILL_ROW_H;
-    const badgeTopY = lineY + 12 + rowOffset;
+    const filledPips = sk.level === 'proficient' ? 2 : 1;
+    const badgeY = ly + ROW_H_BELOW * (sk.stagger + 1);
 
-    // connector from timeline to badge
-    const connLen = rowOffset + 12;
-    const svgConn = makeSVGEl('line', { x1:x, y1:lineY+5, x2:x, y2:badgeTopY,
-      stroke:col, 'stroke-width':'0.8', opacity:'0.2' });
-    svgEl.appendChild(svgConn);
+    // connector from line to badge
+    svgEl.appendChild(mkSVG('line', {
+      x1:x, y1:ly+6, x2:x, y2:badgeY-4,
+      stroke:col, 'stroke-width':'0.8', opacity:'0.2'
+    }));
 
-    // badge element
-    const badge = document.createElement('div');
-    badge.className = 'skill-badge';
-    badge.style.cssText = `left:${x}px; top:${badgeTopY}px;`;
-    badge.style.color = col;
+    // dashed line to project node
+    if (sk.projectId && nodePos[sk.projectId]) {
+      const proj = nodePos[sk.projectId];
+      const mx = (proj.x + x) / 2;
+      svgEl.appendChild(mkSVG('path', {
+        d: `M${proj.x},${proj.y+6} C${proj.x},${badgeY-20} ${x},${proj.y+6} ${x},${badgeY}`,
+        stroke: col, 'stroke-width':'1', 'stroke-dasharray':'4 3',
+        fill:'none', opacity:'0.45'
+      }));
+    }
 
-    // pip row
-    const pipRow = document.createElement('div');
-    pipRow.className = 'skill-pip-row';
-    for (let i = 0; i < totalPips; i++) {
-      const pip = document.createElement('div');
-      pip.className = 'skill-pip ' + (i < pips ? 'filled' : 'empty');
+    // badge DOM
+    const badge = el('div','skill-badge');
+    badge.style.cssText = `left:${x}px; top:${badgeY}px; color:${col};`;
+
+    const pipRow = el('div','skill-pip-row');
+    for (let i = 0; i < 2; i++) {
+      const pip = el('div', 'skill-pip ' + (i < filledPips ? 'filled' : 'empty'));
       pip.style.background = col;
       pipRow.appendChild(pip);
     }
 
-    const inner = document.createElement('div');
-    inner.className = 'skill-inner';
-    inner.style.borderColor = col + '55';
+    const inner = el('div','skill-inner');
+    inner.style.borderColor = col + '66';
 
-    const sName = document.createElement('div');
-    sName.className = 'skill-name';
-    sName.textContent = sk.name.replace(/\n/g, ' ');
+    const sName = el('div','skill-name');
+    sName.textContent = sk.name.replace(/\n/g,' ');
 
-    const sLevel = document.createElement('div');
-    sLevel.className = 'skill-level-text';
+    const sLevel = el('div','skill-level-text');
     sLevel.style.color = col;
     sLevel.textContent = sk.level === 'proficient' ? '▲ PROFICIENT' : '◉ FAMILIAR';
 
-    inner.appendChild(sName);
-    inner.appendChild(sLevel);
-    badge.appendChild(pipRow);
-    badge.appendChild(inner);
-    badge.addEventListener('mouseenter', e => showTip(e, sk.name.replace(/\n/g,' '), sk.full, col));
-    badge.addEventListener('mouseleave', hideTip);
-    badge.style.cursor = 'pointer';
+    inner.append(sName, sLevel);
+    badge.append(pipRow, inner);
+    addTip(badge, sk.name.replace(/\n/g,' '), sk.full, col);
     wrap.appendChild(badge);
-
-    // Store position for dashed line
-    nodePos['skill-' + sk.name + sk.date] = { x, y: badgeTopY };
-
-    // Dashed line to project
-    if (sk.projectId && nodePos[sk.projectId]) {
-      const proj = nodePos[sk.projectId];
-      const d = `M${proj.x},${proj.y + 5} C${proj.x},${proj.y + 40} ${x},${badgeTopY - 30} ${x},${badgeTopY}`;
-      const dash = makeSVGEl('path', { d,
-        stroke:col, 'stroke-width':'0.8', 'stroke-dasharray':'3 3',
-        fill:'none', opacity:'0.35' });
-      svgEl.appendChild(dash);
-    }
   });
 }
 
-function makeSVGEl(tag, attrs = {}) {
-  const el = document.createElementNS('http://www.w3.org/2000/svg', tag);
-  for (const [k, v] of Object.entries(attrs)) el.setAttribute(k, v);
-  return el;
+// ─── HELPERS ──────────────────────────────────────────────
+function mkSVG(tag, attrs = {}) {
+  const e = document.createElementNS('http://www.w3.org/2000/svg', tag);
+  for (const [k,v] of Object.entries(attrs)) e.setAttribute(k,v);
+  return e;
+}
+function el(tag, cls = '') {
+  const e = document.createElement(tag.split('.')[0]);
+  if (cls) e.className = cls;
+  return e;
 }
 
 // ─── TOOLTIP ──────────────────────────────────────────────
 const tip = document.getElementById('tooltip');
-function showTip(e, title, body, col) {
-  tip.innerHTML = `<div class="tt-title" style="color:${col}">${title}</div>${body}`;
-  tip.classList.add('visible');
-  moveTip(e);
+function addTip(target, title, body, col) {
+  target.addEventListener('mouseenter', e => {
+    tip.innerHTML = `<div class="tt-title" style="color:${lighten(col)}">${title}</div>${body}`;
+    tip.classList.add('visible');
+    moveTip(e);
+  });
+  target.addEventListener('mouseleave', () => tip.classList.remove('visible'));
 }
-function hideTip() { tip.classList.remove('visible'); }
 function moveTip(e) {
   let x = e.clientX + 14, y = e.clientY - 8;
   if (x + 270 > window.innerWidth)  x = e.clientX - 280;
-  if (y + 100 > window.innerHeight) y = e.clientY - 100;
-  tip.style.left = x + 'px';
-  tip.style.top  = y + 'px';
+  if (y + 90  > window.innerHeight) y = e.clientY - 95;
+  tip.style.left = x + 'px'; tip.style.top = y + 'px';
 }
+function lighten(hex) { return hex; } // colors already chosen for cream bg
 document.addEventListener('mousemove', e => { if (tip.classList.contains('visible')) moveTip(e); });
 
-// ─── DRAG TO SCROLL ───────────────────────────────────────
-let isDown = false, startX, scrollLeft;
+// ─── DRAG ─────────────────────────────────────────────────
+let isDown = false, startX, startY, sLeft, sTop;
 scrollEl.addEventListener('mousedown', e => {
-  isDown = true; startX = e.pageX - scrollEl.offsetLeft; scrollLeft = scrollEl.scrollLeft;
+  isDown = true; startX = e.pageX; startY = e.pageY;
+  sLeft = scrollEl.scrollLeft; sTop = scrollEl.scrollTop;
   scrollEl.style.cursor = 'grabbing';
 });
 scrollEl.addEventListener('mouseleave', () => { isDown = false; scrollEl.style.cursor = 'grab'; });
 scrollEl.addEventListener('mouseup',    () => { isDown = false; scrollEl.style.cursor = 'grab'; });
 scrollEl.addEventListener('mousemove', e => {
-  if (!isDown) return;
-  e.preventDefault();
-  const x    = e.pageX - scrollEl.offsetLeft;
-  const walk = (x - startX) * 1.2;
-  scrollEl.scrollLeft = scrollLeft - walk;
+  if (!isDown) return; e.preventDefault();
+  scrollEl.scrollLeft = sLeft - (e.pageX - startX) * 1.2;
+  scrollEl.scrollTop  = sTop  - (e.pageY - startY) * 1.2;
 });
 
 // ─── INIT ─────────────────────────────────────────────────
 build();
-
-// Scroll to rightmost on load
 requestAnimationFrame(() => {
   scrollEl.scrollLeft = scrollEl.scrollWidth - scrollEl.clientWidth;
+  scrollEl.scrollTop = 0;
 });
-
-window.addEventListener('resize', () => {
-  // Clear dynamic children (keep svg), rebuild
-  Array.from(wrap.children).forEach(c => { if (c !== svgEl) c.remove(); });
-  build();
-});
+window.addEventListener('resize', build);
 </script>
 </body>
 </html>
