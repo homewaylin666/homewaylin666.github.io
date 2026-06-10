@@ -12,7 +12,7 @@
 
     :root {
       --sage:  #8a9e7e;
-      --cream: #eef1ea;
+      --cream: #f7f8f5;
       --dark:  #1a1c18;
       --muted: #4a4c45;
       --border: rgba(26,28,24,0.1);
@@ -37,7 +37,7 @@
       align-items: center;
       justify-content: space-between;
       padding: 0 2.5rem;
-      background: rgba(238,241,234,0.92);
+      background: rgba(247,248,245,0.92);
       backdrop-filter: blur(12px);
       border-bottom: 0.5px solid var(--border);
     }
@@ -131,55 +131,79 @@
       scroll-margin-top: calc(var(--nav-h) + 1.5rem);
     }
 
-    /* FLOATING TOC */
+    /* FLOATING TOC — framed card */
     .cv-toc {
       position: fixed;
-      top: 50%;
-      left: 0;
-      transform: translateY(-50%);
       z-index: 90;
       display: flex;
       flex-direction: column;
-      gap: 0.5rem;
+      background: var(--cream);
+      border: 0.5px solid var(--border);
+      border-radius: 10px;
+      padding: 1.1rem 1.2rem;
+    }
+    .cv-toc-title {
+      font-size: 0.66rem;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--sage);
+      font-weight: 500;
+      margin-bottom: 1rem;
     }
     .cv-toc a {
-      font-size: 0.72rem;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
+      position: relative;
+      font-size: 0.9rem;
+      letter-spacing: 0.01em;
       color: var(--muted);
       text-decoration: none;
-      border-left: 2px solid transparent;
-      padding: 0.12rem 0 0.12rem 0.8rem;
-      transition: color 0.2s, border-color 0.2s;
+      padding: 0.42rem 0 0.42rem 1.35rem;
+      line-height: 1.2;
+      transition: color 0.2s;
       white-space: nowrap;
     }
-    .cv-toc a:hover, .cv-toc a.active {
-      color: var(--dark);
-      border-left-color: var(--sage);
+    .cv-toc a::before {
+      content: "";
+      position: absolute;
+      left: 0;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      border: 1px solid rgba(138,158,126,0.55);
+      background: transparent;
+      transition: background 0.2s, border-color 0.2s, transform 0.2s;
     }
-    /* Roomy far-left placement when there is margin space */
-    @media (min-width: 1180px) {
-      .cv-toc { left: 2rem; gap: 0.62rem; }
-      .cv-toc a { font-size: 0.76rem; }
+    .cv-toc a:hover { color: var(--dark); }
+    .cv-toc a:hover::before { border-color: var(--sage); }
+    .cv-toc a.active { color: var(--dark); font-weight: 500; }
+    .cv-toc a.active::before {
+      background: var(--sage);
+      border-color: var(--sage);
+      transform: translateY(-50%) scale(1.3);
     }
-    /* Compact pill floating over the empty left strip (tablet + mobile) */
-    @media (max-width: 1179px) {
+    /* Desktop: framed card hugging the left of the centred 820px column */
+    @media (min-width: 1200px) {
       .cv-toc {
-        left: 0.45rem;
-        gap: 0.28rem;
-        padding: 0.7rem 0.65rem;
-        background: var(--cream);
-        border: 0.5px solid var(--border);
-        border-radius: 7px;
+        top: 50%;
+        transform: translateY(-50%);
+        left: calc(50% - 410px - 180px);
+        width: 162px;
       }
-      .cv-toc a {
-        font-size: 0.6rem;
-        letter-spacing: 0.05em;
-        border-left: none;
-        padding: 0.06rem 0;
-        color: var(--muted);
+    }
+    /* Tablet + mobile: same card, pinned to the left edge */
+    @media (max-width: 1199px) {
+      .cv-toc {
+        top: 50%;
+        transform: translateY(-50%);
+        left: 0.6rem;
+        padding: 0.9rem 1rem;
       }
-      .cv-toc a:hover, .cv-toc a.active { border-left: none; color: var(--sage); }
+      .cv-toc-title { font-size: 0.58rem; margin-bottom: 0.7rem; }
+      .cv-toc a { font-size: 0.76rem; padding: 0.3rem 0 0.3rem 1.15rem; }
+    }
+    @media (max-width: 480px) {
+      .cv-toc a { font-size: 0.7rem; }
     }
     .section-content {
       padding: 3rem 0 0;
@@ -289,6 +313,7 @@
   </nav>
 
   <nav class="cv-toc" aria-label="CV sections">
+    <span class="cv-toc-title">On this page</span>
     <a href="#education">Education</a>
     <a href="#skills">Skills</a>
     <a href="#publications">Publications</a>
