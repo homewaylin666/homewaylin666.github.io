@@ -12,7 +12,7 @@
 
     :root {
       --sage:  #8a9e7e;
-      --cream: #f3f4f2;
+      --cream: #eef1ea;
       --dark:  #1a1c18;
       --muted: #4a4c45;
       --border: rgba(26,28,24,0.1);
@@ -37,7 +37,7 @@
       align-items: center;
       justify-content: space-between;
       padding: 0 2.5rem;
-      background: rgba(245,241,235,0.92);
+      background: rgba(238,241,234,0.92);
       backdrop-filter: blur(12px);
       border-bottom: 0.5px solid var(--border);
     }
@@ -128,6 +128,58 @@
       text-transform: uppercase;
       color: var(--sage);
       font-weight: 500;
+      scroll-margin-top: calc(var(--nav-h) + 1.5rem);
+    }
+
+    /* FLOATING TOC */
+    .cv-toc {
+      position: fixed;
+      top: 50%;
+      left: 0;
+      transform: translateY(-50%);
+      z-index: 90;
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+    .cv-toc a {
+      font-size: 0.72rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--muted);
+      text-decoration: none;
+      border-left: 2px solid transparent;
+      padding: 0.12rem 0 0.12rem 0.8rem;
+      transition: color 0.2s, border-color 0.2s;
+      white-space: nowrap;
+    }
+    .cv-toc a:hover, .cv-toc a.active {
+      color: var(--dark);
+      border-left-color: var(--sage);
+    }
+    /* Roomy far-left placement when there is margin space */
+    @media (min-width: 1180px) {
+      .cv-toc { left: 2rem; gap: 0.62rem; }
+      .cv-toc a { font-size: 0.76rem; }
+    }
+    /* Compact pill floating over the empty left strip (tablet + mobile) */
+    @media (max-width: 1179px) {
+      .cv-toc {
+        left: 0.45rem;
+        gap: 0.28rem;
+        padding: 0.7rem 0.65rem;
+        background: var(--cream);
+        border: 0.5px solid var(--border);
+        border-radius: 7px;
+      }
+      .cv-toc a {
+        font-size: 0.6rem;
+        letter-spacing: 0.05em;
+        border-left: none;
+        padding: 0.06rem 0;
+        color: var(--muted);
+      }
+      .cv-toc a:hover, .cv-toc a.active { border-left: none; color: var(--sage); }
     }
     .section-content {
       padding: 3rem 0 0;
@@ -236,6 +288,17 @@
     </ul>
   </nav>
 
+  <nav class="cv-toc" aria-label="CV sections">
+    <a href="#education">Education</a>
+    <a href="#skills">Skills</a>
+    <a href="#publications">Publications</a>
+    <a href="#projects">Projects</a>
+    <a href="#teaching">Teaching</a>
+    <a href="#memberships">Memberships</a>
+    <a href="#conferences">Conferences</a>
+    <a href="#referees">Referees</a>
+  </nav>
+
   <header class="page-header">
     <p class="page-header-label">Curriculum Vitae</p>
     <h1>Hung-wei Lin <span style="font-family:'Playfair Display',serif;opacity:0.4;font-size:1.5rem;">林宏為</span></h1>
@@ -253,7 +316,7 @@
 
     <!-- EDUCATION -->
     <div class="cv-section">
-      <div class="section-label">Education</div>
+      <div class="section-label" id="education">Education</div>
       <div class="section-content">
         <div class="entry">
           <div class="entry-year">2024 – present</div>
@@ -281,7 +344,7 @@
 
     <!-- SKILLS -->
     <div class="cv-section">
-      <div class="section-label">Research Skills</div>
+      <div class="section-label" id="skills">Research Skills</div>
       <div class="section-content">
         <div class="skills-block">
           <div class="skills-level">Proficient</div>
@@ -313,12 +376,12 @@
 
     <!-- PUBLICATIONS -->
     <div class="cv-section">
-      <div class="section-label">Publications</div>
+      <div class="section-label" id="publications">Publications</div>
       <div class="section-content">
         <div class="entry">
           <div class="entry-year">2026</div>
           <div class="entry-body">
-            <div class="entry-title">Still Lost in Definitions: How 'Resilience' Is Used in Ecology <span class="badge badge-first">1st author</span> <span class="badge badge-prep">Preprint</span></div>
+            <div class="entry-title">Still Lost in Definitions: How 'Resilience' Is Used in Ecology</div>
             <div class="entry-sub"><strong>Lin, H. W.</strong>, Krishna Moorthy, S. M., Hector, A., &amp; Salguero-Gómez, R. &mdash; <em>bioRxiv</em>, 2026.06.03.729936. <a href="https://doi.org/10.64898/2026.06.03.729936" target="_blank" rel="noopener">DOI ↗</a></div>
           </div>
         </div>
@@ -356,7 +419,7 @@
 
     <!-- PROJECTS -->
     <div class="cv-section">
-      <div class="section-label">Research Projects</div>
+      <div class="section-label" id="projects">Research Projects</div>
       <div class="section-content">
         <div class="entry"><div class="entry-year">2025</div><div class="entry-body"><div class="entry-title">Wytham Digital Twin Project</div><div class="entry-sub">Scanning trees with Luma AI</div></div></div>
         <div class="entry"><div class="entry-year">2025</div><div class="entry-body"><div class="entry-title">Life-history traits predict the contribution of transient dynamics to population growth</div></div></div>
@@ -375,7 +438,7 @@
 
     <!-- TEACHING & SERVICE -->
     <div class="cv-section">
-      <div class="section-label">Teaching &amp; Service</div>
+      <div class="section-label" id="teaching">Teaching &amp; Service</div>
       <div class="section-content">
         <div class="entry">
           <div class="entry-year">2025 – present</div>
@@ -408,7 +471,7 @@
 
     <!-- MEMBERSHIPS -->
     <div class="cv-section">
-      <div class="section-label">Memberships</div>
+      <div class="section-label" id="memberships">Memberships</div>
       <div class="section-content">
         <div class="entry"><div class="entry-year">2025 – present</div><div class="entry-body"><div class="entry-title">Evolutionary Demography Society</div></div></div>
         <div class="entry"><div class="entry-year">2024 – present</div><div class="entry-body"><div class="entry-title">British Ecological Society</div></div></div>
@@ -420,7 +483,7 @@
 
     <!-- CONFERENCES -->
     <div class="cv-section">
-      <div class="section-label">Conferences</div>
+      <div class="section-label" id="conferences">Conferences</div>
       <div class="section-content">
         <div class="entry">
           <div class="entry-year">2025</div>
@@ -441,7 +504,7 @@
 
     <!-- REFEREES -->
     <div class="cv-section">
-      <div class="section-label">Referees</div>
+      <div class="section-label" id="referees">Referees</div>
       <div class="section-content">
         <div class="referees">
           <div class="referee-card"><div class="referee-name">Prof. Roberto Salguero‐Gómez</div><div class="referee-inst">Department of Biology<br>University of Oxford</div></div>
@@ -459,6 +522,24 @@
   <footer>
     &copy; 2026 Hung-wei Lin 林宏為 &nbsp;&middot;&nbsp; University of Oxford
   </footer>
+
+  <script>
+    (function () {
+      var links = document.querySelectorAll('.cv-toc a');
+      var map = {};
+      links.forEach(function (l) { map[l.getAttribute('href').slice(1)] = l; });
+      if (!('IntersectionObserver' in window)) return;
+      var obs = new IntersectionObserver(function (entries) {
+        entries.forEach(function (e) {
+          if (e.isIntersecting) {
+            links.forEach(function (l) { l.classList.remove('active'); });
+            if (map[e.target.id]) map[e.target.id].classList.add('active');
+          }
+        });
+      }, { rootMargin: '-20% 0px -70% 0px' });
+      document.querySelectorAll('.section-label').forEach(function (s) { obs.observe(s); });
+    })();
+  </script>
 
 </body>
 </html>
