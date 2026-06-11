@@ -132,13 +132,24 @@
     }
 
     /* FLOATING TOC — framed white card.
-       Desktop bottom-left is the DEFAULT (not behind a min-width query),
-       so there is no breakpoint gap; mobile simply overrides below. */
+       NOTE: this is a <nav>, so the generic `nav { top:0; right:0; height; padding;
+       background; ... }` rule leaks in. We must explicitly neutralise it here,
+       otherwise the inherited `top:0` pins the card to the top of the page.
+       Desktop bottom-left is the DEFAULT; mobile overrides below. */
     .cv-toc {
       position: fixed;
       z-index: 95;
+      top: auto;
+      right: auto;
       bottom: 2rem;
       left: 1.5rem;
+      height: auto;
+      padding: 0;
+      margin: 0;
+      background: transparent;
+      border: none;
+      backdrop-filter: none;
+      display: block;
     }
 
     .cv-toc-panel {
@@ -584,7 +595,7 @@
 
   <footer>
     &copy; 2026 Hung-wei Lin 林宏為 &nbsp;&middot;&nbsp; University of Oxford
-    <span style="opacity:0.5;">&nbsp;&middot;&nbsp; build TOC-R9</span>
+    <span style="opacity:0.5;">&nbsp;&middot;&nbsp; build TOC-R10</span>
   </footer>
 
   <script>
