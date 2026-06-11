@@ -276,6 +276,16 @@
       letter-spacing: -0.02em;
       line-height: 1;
     }
+    .profile-tile-logo .qq-text {
+      font-family: 'Inter', sans-serif;
+      font-weight: 700;
+      font-size: 22px;
+      color: var(--sage);
+      letter-spacing: -0.05em;
+      line-height: 1;
+    }
+    .profile-tile.is-placeholder { cursor: default; opacity: 0.85; }
+    .profile-tile.is-placeholder:hover { transform: none; border-color: var(--border); background: transparent; }
     .profile-tile-name {
       font-size: 0.78rem;
       letter-spacing: 0.1em;
@@ -430,10 +440,9 @@
         <p class="section-label">Academic Profiles</p>
         <div class="profiles-grid">
 
-          <!-- ORCID -->
+          <!-- 1 · ORCID -->
           <a class="profile-tile" href="https://orcid.org/0000-0002-2632-2070" target="_blank" rel="noopener">
             <div class="profile-tile-logo">
-              <!-- ORCID logo -->
               <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 0C5.372 0 0 5.372 0 12s5.372 12 12 12 12-5.372 12-12S18.628 0 12 0zM7.369 4.378c.525 0 .947.431.947.947s-.422.947-.947.947a.95.95 0 0 1-.947-.947c0-.525.422-.947.947-.947zm-.722 3.038h1.444v10.041H6.647V7.416zm3.562 0h3.9c3.712 0 5.344 2.653 5.344 5.025 0 2.578-2.016 5.016-5.325 5.016h-3.919V7.416zm1.444 1.303v7.444h2.297c3.272 0 3.872-2.412 3.872-3.722 0-2.016-1.284-3.722-3.872-3.722h-2.297z"/></svg>
             </div>
             <span class="profile-tile-name">ORCID</span>
@@ -441,7 +450,7 @@
             <span class="profile-tile-arrow">↗</span>
           </a>
 
-          <!-- ResearchGate -->
+          <!-- 2 · ResearchGate -->
           <a class="profile-tile" href="https://www.researchgate.net/profile/Hung-Wei-Lin-4" target="_blank" rel="noopener">
             <div class="profile-tile-logo">
               <span class="rg-text">RG</span>
@@ -451,17 +460,18 @@
             <span class="profile-tile-arrow">↗</span>
           </a>
 
-          <!-- SalGo Team -->
-          <a class="profile-tile" href="https://salgo.web.ox.ac.uk/welcome" target="_blank" rel="noopener">
+          <!-- 3 · Google Scholar (replaces SalGo's old spot) -->
+          <a class="profile-tile" href="https://scholar.google.com/citations?hl=en&amp;user=3xQz01AAAAAJ" target="_blank" rel="noopener">
             <div class="profile-tile-logo">
-              <span style="font-family:Georgia,serif;font-style:italic;font-weight:bold;font-size:12px;color:var(--sage);line-height:1;">SalGo</span>
+              <!-- self-made graduation-cap logo -->
+              <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 3 1 9l11 6 9-4.909V17h2V9L12 3zM5 13.18v3.999L12 21l7-3.82V13.18L12 17l-7-3.82z"/></svg>
             </div>
-            <span class="profile-tile-name">SalGo Team</span>
-            <span class="profile-tile-desc">My research group at Oxford — led by Prof. Rob Salguero-Gómez.</span>
+            <span class="profile-tile-name">Google Scholar</span>
+            <span class="profile-tile-desc">Citations, h-index, and the full record of my published work.</span>
             <span class="profile-tile-arrow">↗</span>
           </a>
 
-          <!-- GitHub -->
+          <!-- 4 · GitHub -->
           <a class="profile-tile" href="https://github.com/homewaylin666" target="_blank" rel="noopener">
             <div class="profile-tile-logo">
               <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0 0 24 12c0-6.63-5.37-12-12-12z"/></svg>
@@ -471,10 +481,19 @@
             <span class="profile-tile-arrow">↗</span>
           </a>
 
-          <!-- Bluesky -->
+          <!-- 5 · Bilibili (moved to the left/lower area) -->
+          <a class="profile-tile" href="https://space.bilibili.com/93414992" target="_blank" rel="noopener">
+            <div class="profile-tile-logo">
+              <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M17.813 4.653h.854c1.51.054 2.769.578 3.773 1.574 1.004.995 1.524 2.249 1.56 3.76v7.36c-.036 1.51-.556 2.769-1.56 3.773s-2.262 1.524-3.773 1.56H5.333c-1.51-.036-2.769-.556-3.773-1.56S.036 18.858 0 17.347v-7.36c.036-1.511.556-2.765 1.56-3.76 1.004-.996 2.262-1.52 3.773-1.574h.774l-1.174-1.12a1.234 1.234 0 0 1-.373-.906c0-.356.124-.658.373-.907l.027-.027c.267-.249.573-.373.92-.373.347 0 .653.124.92.373L9.653 4.44c.071.071.134.142.187.213h4.267a.836.836 0 0 1 .16-.213l2.853-2.747c.267-.249.573-.373.92-.373.347 0 .662.151.929.4.267.249.391.551.391.907 0 .355-.124.657-.373.906zM5.333 7.24c-.746.018-1.373.276-1.88.773-.506.498-.769 1.13-.786 1.894v7.52c.017.764.28 1.395.786 1.893.507.498 1.134.756 1.88.773h13.334c.746-.017 1.373-.275 1.88-.773.506-.498.769-1.129.786-1.893v-7.52c-.017-.765-.28-1.396-.786-1.894-.507-.497-1.134-.755-1.88-.773zM8 11.107c.373 0 .684.124.933.373.25.249.383.569.4.96v1.173c-.017.391-.15.711-.4.96-.249.25-.56.374-.933.374s-.684-.125-.933-.374c-.25-.249-.383-.569-.4-.96V12.44c0-.373.129-.689.386-.947.258-.257.574-.386.947-.386zm8 0c.373 0 .684.124.933.373.25.249.383.569.4.96v1.173c-.017.391-.15.711-.4.96-.249.25-.56.374-.933.374s-.684-.125-.933-.374c-.25-.249-.383-.569-.4-.96V12.44c.017-.391.15-.711.4-.96.249-.249.56-.373.933-.373z"/></svg>
+            </div>
+            <span class="profile-tile-name">Bilibili</span>
+            <span class="profile-tile-desc">Science communication videos on ecology and natural history (coming soon).</span>
+            <span class="profile-tile-arrow">↗</span>
+          </a>
+
+          <!-- 6 · Bluesky -->
           <a class="profile-tile" href="https://bsky.app/profile/homewaylin.bsky.social" target="_blank" rel="noopener">
             <div class="profile-tile-logo">
-              <!-- Bluesky butterfly logo -->
               <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 10.8c-1.087-2.114-4.046-6.053-6.798-7.995C2.566.944 1.561 1.266.902 1.565.139 1.908 0 3.08 0 3.768c0 .69.378 5.65.624 6.479.815 2.736 3.713 3.66 6.383 3.364.136-.02.275-.039.415-.056-.138.022-.276.04-.415.056-3.912.58-7.387 2.005-2.83 7.078 5.013 5.19 6.87-1.113 7.823-4.308.953 3.195 2.05 9.271 7.733 4.308 4.267-4.308 1.172-6.498-2.74-7.078a8.741 8.741 0 0 1-.415-.056c.14.017.279.036.415.056 2.67.297 5.568-.628 6.383-3.364.246-.828.624-5.79.624-6.478 0-.69-.139-1.861-.902-2.204-.659-.299-1.664-.62-4.3 1.24C16.046 4.748 13.087 8.687 12 10.8z"/></svg>
             </div>
             <span class="profile-tile-name">Bluesky</span>
@@ -482,16 +501,24 @@
             <span class="profile-tile-arrow">↗</span>
           </a>
 
-          <!-- Bilibili -->
-          <a class="profile-tile" href="https://space.bilibili.com/93414992" target="_blank" rel="noopener">
+          <!-- 7 · SalGo Team (moved to bottom-left) -->
+          <a class="profile-tile" href="https://salgo.web.ox.ac.uk/welcome" target="_blank" rel="noopener">
             <div class="profile-tile-logo">
-              <!-- Bilibili TV logo -->
-              <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M17.813 4.653h.854c1.51.054 2.769.578 3.773 1.574 1.004.995 1.524 2.249 1.56 3.76v7.36c-.036 1.51-.556 2.769-1.56 3.773s-2.262 1.524-3.773 1.56H5.333c-1.51-.036-2.769-.556-3.773-1.56S.036 18.858 0 17.347v-7.36c.036-1.511.556-2.765 1.56-3.76 1.004-.996 2.262-1.52 3.773-1.574h.774l-1.174-1.12a1.234 1.234 0 0 1-.373-.906c0-.356.124-.658.373-.907l.027-.027c.267-.249.573-.373.92-.373.347 0 .653.124.92.373L9.653 4.44c.071.071.134.142.187.213h4.267a.836.836 0 0 1 .16-.213l2.853-2.747c.267-.249.573-.373.92-.373.347 0 .662.151.929.4.267.249.391.551.391.907 0 .355-.124.657-.373.906zM5.333 7.24c-.746.018-1.373.276-1.88.773-.506.498-.769 1.13-.786 1.894v7.52c.017.764.28 1.395.786 1.893.507.498 1.134.756 1.88.773h13.334c.746-.017 1.373-.275 1.88-.773.506-.498.769-1.129.786-1.893v-7.52c-.017-.765-.28-1.396-.786-1.894-.507-.497-1.134-.755-1.88-.773zM8 11.107c.373 0 .684.124.933.373.25.249.383.569.4.96v1.173c-.017.391-.15.711-.4.96-.249.25-.56.374-.933.374s-.684-.125-.933-.374c-.25-.249-.383-.569-.4-.96V12.44c0-.373.129-.689.386-.947.258-.257.574-.386.947-.386zm8 0c.373 0 .684.124.933.373.25.249.383.569.4.96v1.173c-.017.391-.15.711-.4.96-.249.25-.56.374-.933.374s-.684-.125-.933-.374c-.25-.249-.383-.569-.4-.96V12.44c.017-.391.15-.711.4-.96.249-.249.56-.373.933-.373z"/></svg>
+              <span style="font-family:Georgia,serif;font-style:italic;font-weight:bold;font-size:12px;color:var(--sage);line-height:1;">SalGo</span>
             </div>
-            <span class="profile-tile-name">Bilibili</span>
-            <span class="profile-tile-desc">Science communication videos on ecology and natural history (coming soon).</span>
+            <span class="profile-tile-name">SalGo Team</span>
+            <span class="profile-tile-desc">My research group at Oxford — led by Prof. Rob Salguero-Gómez.</span>
             <span class="profile-tile-arrow">↗</span>
           </a>
+
+          <!-- 8 · Placeholder (bottom-right) -->
+          <div class="profile-tile is-placeholder">
+            <div class="profile-tile-logo">
+              <span class="qq-text">??</span>
+            </div>
+            <span class="profile-tile-name">To Be Developed</span>
+            <span class="profile-tile-desc">有待開發 — a new corner of the site, coming soon.</span>
+          </div>
 
         </div>
       </div>
