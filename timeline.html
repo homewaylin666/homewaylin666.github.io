@@ -18,20 +18,14 @@
       --border:  rgba(26,28,24,0.12);
       --nav-h:   56px;
 
-      /* Education bar colors (on cream bg) */
-      --edu-bsc:   rgba(130,210,150,0.45);
-      --edu-mres:  rgba(80,170,105,0.55);
-      --edu-gap:   rgba(160,155,140,0.4);
-      --edu-mil:   rgba(90,105,72,0.6);
-      --edu-dphil: rgba(55,120,80,0.65);
-
-      /* Event colors (dark enough to read on cream) */
-      --col-pub:       #1a4e6a;
-      --col-honor:     #8a6000;
-      --col-project:   #1a5a8a;
-      --col-service:   #5a2a8a;
-      --col-familiar:  #0a6a7a;
-      --col-proficient:#2a6a0a;
+      /* Event type colours */
+      --col-pub:        #1e5631;   /* deep green   */
+      --col-project:    #8cbf5c;   /* light green  */
+      --col-service:    #173a8a;   /* deep blue    */
+      --col-familiar:   #b87333;   /* copper       */
+      --col-proficient: #d4af37;   /* gold         */
+      /* honour = rainbow (handled via gradients) */
+      --rainbow: linear-gradient(90deg,#e11d48,#f59e0b,#eab308,#22c55e,#3b82f6,#8b5cf6);
     }
 
     html, body { height: 100%; }
@@ -39,241 +33,176 @@
       font-family: 'Inter', sans-serif;
       background: var(--cream);
       color: var(--dark);
-      overflow: hidden;
+      overflow: hidden;            /* page itself never scrolls */
     }
 
     /* ── NAV ── */
     nav {
-      position: fixed;
-      top: 0; left: 0; right: 0;
-      z-index: 200;
+      position: fixed; top: 0; left: 0; right: 0; z-index: 200;
       height: var(--nav-h);
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
+      display: flex; align-items: center; justify-content: space-between;
       padding: 0 2.5rem;
       background: rgba(247,248,245,0.92);
       backdrop-filter: blur(12px);
       border-bottom: 0.5px solid var(--border);
     }
     .nav-name {
-      font-family: 'Playfair Display', serif;
-      font-weight: 400;
-      font-size: 1.05rem;
-      letter-spacing: 0.1em;
-      color: var(--dark);
-      text-decoration: none;
-      text-transform: uppercase;
+      font-family: 'Playfair Display', serif; font-weight: 400;
+      font-size: 1.05rem; letter-spacing: 0.1em; color: var(--dark);
+      text-decoration: none; text-transform: uppercase;
     }
     .nav-links { display: flex; gap: 2.2rem; list-style: none; }
     .nav-links a {
-      font-size: 0.75rem;
-      letter-spacing: 0.14em;
-      text-transform: uppercase;
-      color: var(--muted);
-      text-decoration: none;
-      transition: color 0.2s;
+      font-size: 0.75rem; letter-spacing: 0.14em; text-transform: uppercase;
+      color: var(--muted); text-decoration: none; transition: color 0.2s;
     }
     .nav-links a:hover { color: var(--dark); }
     .nav-links a.active { color: var(--sage); }
 
     /* ── LEGENDS ── */
-    .legend {
-      position: fixed;
-      top: calc(var(--nav-h) + 12px);
-      right: 1.5rem;
-      z-index: 150;
-      display: flex;
-      flex-direction: column;
-      gap: 5px;
+    .legend, .edu-legend {
+      position: fixed; top: calc(var(--nav-h) + 10px); z-index: 150;
+      display: flex; flex-direction: column; gap: 4px;
       background: rgba(247,248,245,0.95);
-      border: 0.5px solid var(--border);
-      border-radius: 4px;
-      padding: 10px 13px;
-      box-shadow: 0 2px 12px rgba(26,28,24,0.07);
+      border: 0.5px solid var(--border); border-radius: 4px;
+      padding: 9px 12px; box-shadow: 0 2px 12px rgba(26,28,24,0.07);
     }
-    .edu-legend {
-      position: fixed;
-      top: calc(var(--nav-h) + 12px);
-      left: 1.5rem;
-      z-index: 150;
-      display: flex;
-      flex-direction: column;
-      gap: 5px;
-      background: rgba(247,248,245,0.95);
-      border: 0.5px solid var(--border);
-      border-radius: 4px;
-      padding: 10px 13px;
-      box-shadow: 0 2px 12px rgba(26,28,24,0.07);
-    }
+    .legend { right: 1.25rem; }
+    .edu-legend { left: 1.25rem; }
     .legend-title {
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 0.6rem;
-      letter-spacing: 0.18em;
-      text-transform: uppercase;
-      color: var(--muted);
-      margin-bottom: 4px;
+      font-family: 'JetBrains Mono', monospace; font-size: 0.58rem;
+      letter-spacing: 0.16em; text-transform: uppercase; color: var(--muted);
+      margin-bottom: 3px;
     }
     .legend-row {
-      display: flex;
-      align-items: center;
-      gap: 7px;
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 0.62rem;
-      color: var(--muted);
+      display: flex; align-items: center; gap: 7px;
+      font-family: 'JetBrains Mono', monospace; font-size: 0.6rem; color: var(--muted);
     }
-    .legend-dot { width: 9px; height: 9px; border-radius: 50%; flex-shrink: 0; }
-    .legend-dash { width: 14px; border-top: 1.5px dashed; flex-shrink: 0; }
+    .legend-dot { width: 10px; height: 10px; border-radius: 50%; flex-shrink: 0; }
+    .legend-dot.rainbow { background: var(--rainbow); }
     .edu-bar-legend { width: 22px; height: 9px; border-radius: 1px; flex-shrink: 0; }
 
-    /* ── SCROLL CONTAINER ── */
+    /* ── SCROLL CONTAINER (horizontal only) ── */
     .scroll-outer {
-      position: fixed;
-      top: var(--nav-h);
-      left: 0; right: 0; bottom: 0;
-      overflow: auto;
-      cursor: grab;
+      position: fixed; top: var(--nav-h); left: 0; right: 0; bottom: 0;
+      overflow-x: auto; overflow-y: hidden; cursor: grab;
     }
     .scroll-outer:active { cursor: grabbing; }
-    .scroll-outer::-webkit-scrollbar { width: 4px; height: 4px; }
+    .scroll-outer::-webkit-scrollbar { height: 5px; }
     .scroll-outer::-webkit-scrollbar-track { background: rgba(26,28,24,0.04); }
-    .scroll-outer::-webkit-scrollbar-thumb { background: rgba(138,158,126,0.35); border-radius: 2px; }
+    .scroll-outer::-webkit-scrollbar-thumb { background: rgba(138,158,126,0.4); border-radius: 2px; }
 
-    /* ── CANVAS ── */
-    #canvas-wrap {
-      position: relative;
-      /* width & height set by JS */
-    }
-
-    /* subtle grid */
+    #canvas-wrap { position: relative; font-size: 13px; }   /* font-size scaled by JS for auto-fit */
     #canvas-wrap::before {
-      content: '';
-      position: absolute;
-      inset: 0;
+      content: ''; position: absolute; inset: 0;
       background-image:
-        linear-gradient(rgba(26,28,24,0.03) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(26,28,24,0.03) 1px, transparent 1px);
-      background-size: 60px 60px;
-      pointer-events: none;
+        linear-gradient(rgba(26,28,24,0.025) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(26,28,24,0.025) 1px, transparent 1px);
+      background-size: 60px 60px; pointer-events: none;
     }
-
     #svg-layer { position: absolute; inset: 0; pointer-events: none; }
 
     /* ── YEAR LABELS ── */
     .year-label {
-      position: absolute;
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 0.88rem;
-      letter-spacing: 0.1em;
-      color: rgba(26,28,24,0.22);
-      transform: translateX(-50%);
-      white-space: nowrap;
-      pointer-events: none;
-      font-weight: 500;
+      position: absolute; font-family: 'JetBrains Mono', monospace;
+      font-size: 0.85rem; letter-spacing: 0.1em; color: rgba(26,28,24,0.22);
+      transform: translateX(-50%); white-space: nowrap; pointer-events: none; font-weight: 500;
+    }
+    .end-label {
+      position: absolute; font-family: 'JetBrains Mono', monospace;
+      font-size: 0.62rem; letter-spacing: 0.08em; color: var(--muted);
+      transform: translateX(-50%); white-space: nowrap; pointer-events: none;
+      text-align: center; text-transform: uppercase;
     }
 
-    /* ── NODE CARDS ── */
+    /* ── EVENT BLOCKS ── */
+    .tl-block {
+      position: absolute; display: flex; flex-direction: column; gap: 0.34em;
+      width: max-content; transform: translateX(-50%);
+    }
     .node-card {
-      position: absolute;
-      padding: 8px 11px;
-      border-radius: 3px;
-      border: 0.5px solid;
-      background: rgba(255,255,255,0.82);
-      max-width: 185px;
-      cursor: pointer;
-      transition: background 0.15s, box-shadow 0.15s;
+      padding: 0.42em 0.62em; border-radius: 4px; border: 2.5px solid;
+      background: rgba(255,255,255,0.92);
+      max-width: 15em; cursor: pointer; transition: box-shadow 0.15s, background 0.15s;
     }
-    .node-card:hover {
-      background: #fff;
-      box-shadow: 0 2px 12px rgba(26,28,24,0.12);
-    }
+    .node-card:hover { background:#fff; box-shadow: 0 3px 14px rgba(26,28,24,0.16); }
+    .node-card.rainbow { border: none; border-image: var(--rainbow) 1; border-width: 2.5px; border-style: solid; }
     .node-type-badge {
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 0.62rem;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      opacity: 0.75;
-      margin-bottom: 3px;
+      font-family: 'JetBrains Mono', monospace; font-size: 0.62em;
+      letter-spacing: 0.1em; text-transform: uppercase; font-weight: 500; margin-bottom: 2px;
+    }
+    .node-type-badge.rainbow {
+      background: var(--rainbow); -webkit-background-clip: text; background-clip: text; color: transparent;
     }
     .node-label {
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 0.8rem;
-      letter-spacing: 0.03em;
-      line-height: 1.45;
-      color: var(--dark);
+      font-family: 'JetBrains Mono', monospace; font-size: 0.8em;
+      letter-spacing: 0.02em; line-height: 1.4; color: var(--dark);
     }
 
-    /* ── SKILL BADGES ── */
-    .skill-badge {
-      position: absolute;
-      transform: translateX(-50%);
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      cursor: pointer;
+    /* ── SKILL SUB-CARDS (2 sizes smaller) ── */
+    .skill-card {
+      padding: 0.4em 0.55em; border-radius: 4px; border: 2.5px solid;
+      background: rgba(255,255,255,0.92); font-size: 0.7em;   /* whole skill smaller */
+      cursor: pointer; transition: box-shadow 0.15s, background 0.15s;
     }
-    .skill-pip-row {
-      display: flex;
-      gap: 3px;
-      margin-bottom: 4px;
-    }
-    .skill-pip {
-      width: 7px; height: 7px;
-      border-radius: 1px;
-    }
-    .skill-pip.empty { opacity: 0.18; border: 1px solid; background: transparent !important; }
-    .skill-inner {
-      padding: 6px 10px;
-      border-radius: 2px;
-      border: 0.5px solid;
-      background: rgba(255,255,255,0.82);
-      text-align: center;
-      min-width: 88px;
-      transition: background 0.15s, box-shadow 0.15s;
-    }
-    .skill-badge:hover .skill-inner {
-      background: #fff;
-      box-shadow: 0 2px 10px rgba(26,28,24,0.1);
+    .skill-card:hover { background:#fff; box-shadow: 0 3px 12px rgba(26,28,24,0.14); }
+    .skill-badge-label {
+      font-family: 'JetBrains Mono', monospace; font-size: 0.62em;
+      letter-spacing: 0.12em; text-transform: uppercase; font-weight: 500; margin-bottom: 2px;
     }
     .skill-name {
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 0.72rem;
-      letter-spacing: 0.04em;
-      color: var(--dark);
-      line-height: 1.35;
+      font-family: 'JetBrains Mono', monospace; font-size: 0.82em;
+      letter-spacing: 0.02em; line-height: 1.35; color: var(--dark);
     }
-    .skill-level-text {
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 0.58rem;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      margin-top: 2px;
+    .skill-prog {
+      font-family: 'JetBrains Mono', monospace; font-size: 0.66em;
+      letter-spacing: 0.05em; margin-top: 2px; font-weight: 500;
     }
+
+    /* ── MINIMAP / RANGE (bottom-right) ── */
+    #minimap-panel {
+      position: fixed; right: 1.25rem; bottom: 14px; z-index: 160;
+      width: 320px; background: rgba(247,248,245,0.96);
+      border: 0.5px solid var(--border); border-radius: 5px;
+      padding: 8px 10px 9px; box-shadow: 0 2px 14px rgba(26,28,24,0.1);
+    }
+    #range-readout {
+      font-family: 'JetBrains Mono', monospace; font-size: 0.64rem;
+      letter-spacing: 0.06em; color: var(--muted); margin-bottom: 6px; text-align: center;
+    }
+    #range-readout b { color: var(--dark); font-weight: 500; }
+    #mini-window-track { position: relative; height: 13px; }
+    #mini-window {
+      position: absolute; top: 0; height: 13px;
+      border: 1px solid var(--sage); border-bottom: none;
+      background: rgba(138,158,126,0.16); box-sizing: border-box;
+    }
+    #mini-window::after {
+      content: ''; position: absolute; left: 50%; bottom: -5px; transform: translateX(-50%);
+      border-left: 4px solid transparent; border-right: 4px solid transparent;
+      border-top: 5px solid var(--sage);
+    }
+    #minimap-svg { display: block; width: 100%; }
 
     /* ── TOOLTIP ── */
     #tooltip {
-      position: fixed;
-      z-index: 300;
-      background: rgba(26,28,24,0.92);
-      border-radius: 4px;
-      padding: 8px 12px;
-      max-width: 260px;
-      pointer-events: none;
-      opacity: 0;
-      transition: opacity 0.15s;
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 0.65rem;
-      line-height: 1.6;
-      color: rgba(255,255,255,0.8);
+      position: fixed; z-index: 300; background: rgba(26,28,24,0.93);
+      border-radius: 4px; padding: 8px 12px; max-width: 260px;
+      pointer-events: none; opacity: 0; transition: opacity 0.15s;
+      font-family: 'JetBrains Mono', monospace; font-size: 0.65rem; line-height: 1.6;
+      color: rgba(255,255,255,0.82);
     }
     #tooltip.visible { opacity: 1; }
-    #tooltip .tt-title { font-size: 0.7rem; color: #fff; margin-bottom: 3px; font-family:'Inter',sans-serif; }
+    #tooltip .tt-title { font-size: 0.72rem; color: #fff; margin-bottom: 3px; font-family:'Inter',sans-serif; }
 
-    @media (max-width: 640px) {
+    @media (max-width: 760px) {
       nav { padding: 0 1rem; }
-      .nav-links { gap: 0.8rem; }
-      .nav-links a { font-size: 0.55rem; }
-      .legend, .edu-legend { display: none; }
+      .nav-links { gap: 0.7rem; }
+      .nav-links a { font-size: 0.5rem; }
+      .legend, .edu-legend { padding: 6px 8px; }
+      .legend-row { font-size: 0.5rem; gap: 5px; }
+      .legend-title { font-size: 0.5rem; }
+      #minimap-panel { width: 220px; right: 0.6rem; }
     }
   </style>
 </head>
@@ -292,21 +221,18 @@
 
   <!-- Event type legend -->
   <div class="legend">
-    <div class="legend-title">Event Type</div>
+    <div class="legend-title">Event Type (Dot)</div>
     <div class="legend-row"><div class="legend-dot" style="background:var(--col-pub)"></div>Publication</div>
-    <div class="legend-row"><div class="legend-dot" style="background:var(--col-honor)"></div>Honour</div>
     <div class="legend-row"><div class="legend-dot" style="background:var(--col-project)"></div>Project</div>
+    <div class="legend-row"><div class="legend-dot rainbow"></div>Honour</div>
     <div class="legend-row"><div class="legend-dot" style="background:var(--col-service)"></div>Service / Role</div>
     <div class="legend-row"><div class="legend-dot" style="background:var(--col-familiar)"></div>Skill · Familiar</div>
     <div class="legend-row"><div class="legend-dot" style="background:var(--col-proficient)"></div>Skill · Proficient</div>
-    <div class="legend-row" style="margin-top:2px">
-      <div class="legend-dash" style="border-color:var(--col-familiar)"></div>Skill ↔ Project
-    </div>
   </div>
 
   <!-- Education legend -->
   <div class="edu-legend">
-    <div class="legend-title">Education</div>
+    <div class="legend-title">Education (Line)</div>
     <div class="legend-row"><div class="edu-bar-legend" style="background:rgba(130,210,150,0.6)"></div>BSc · Nanjing</div>
     <div class="legend-row"><div class="edu-bar-legend" style="background:rgba(80,170,105,0.7)"></div>MRes · Imperial</div>
     <div class="legend-row"><div class="edu-bar-legend" style="background:rgba(160,155,140,0.55)"></div>Gap Year</div>
@@ -320,438 +246,404 @@
     </div>
   </div>
 
+  <!-- Minimap + range -->
+  <div id="minimap-panel">
+    <div id="range-readout"></div>
+    <div id="mini-window-track"><div id="mini-window"></div></div>
+    <svg id="minimap-svg" height="46"></svg>
+  </div>
+
   <div id="tooltip"></div>
 
 <script>
-// ─── CONFIG ───────────────────────────────────────────────
-const START      = new Date('2018-07-01');
-const END        = new Date('2026-10-01');
-const PX_PER_DAY = 3.4;
-const MARGIN_L   = 100;
-const MARGIN_R   = 140;
-const LINE_Y     = 300;         // px from canvas top
-
-const ROW_H_ABOVE = 110;        // px per stagger row, above line
-const ROW_H_BELOW = 92;         // px per stagger row, below line (projects + skills)
+// ═══ CONFIG ═══════════════════════════════════════════════
+const NAV_H      = 56;
+const START      = new Date('2018-09-15');   // BSc enrolment
+const END        = new Date();               // visit day (today)
+let   PX_PER_DAY = 3.0;          // adjusted by auto-fit (spread horizontally to fit height)
+const MARGIN_L   = 140;
+const MARGIN_R   = 150;
 
 const totalDays  = (END - START) / 86400000;
-const TOTAL_W    = MARGIN_L + totalDays * PX_PER_DAY + MARGIN_R;
+function totalW(){ return MARGIN_L + totalDays * PX_PER_DAY + MARGIN_R; }
 
-// Canvas height: enough for 9 below-rows + some padding
-const MAX_STAGGER_BELOW = 8;
-const CANVAS_H = LINE_Y + (MAX_STAGGER_BELOW + 1) * ROW_H_BELOW + 40;
+const MONTHS = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
 
-function dateToX(dateStr) {
-  return MARGIN_L + (new Date(dateStr) - START) / 86400000 * PX_PER_DAY;
-}
+function dateToX(d){ return MARGIN_L + (new Date(d) - START)/86400000*PX_PER_DAY; }
+function xToDate(x){ return new Date(START.getTime() + (x - MARGIN_L)/PX_PER_DAY*86400000); }
+function fmtMonthYear(d){ return d.getFullYear() + ' ' + MONTHS[d.getMonth()]; }
+function fmtDay(d){ return d.getDate() + ' ' + MONTHS[d.getMonth()] + ' ' + d.getFullYear(); }
 
-// ─── COLOR HELPERS ────────────────────────────────────────
-function cssVar(name) {
-  return getComputedStyle(document.documentElement).getPropertyValue(name).trim();
-}
-const C = {
-  pub:        cssVar('--col-pub'),
-  honor:      cssVar('--col-honor'),
-  project:    cssVar('--col-project'),
-  service:    cssVar('--col-service'),
-  familiar:   cssVar('--col-familiar'),
-  proficient: cssVar('--col-proficient'),
-};
-
-// ─── DATA ─────────────────────────────────────────────────
-
+// ═══ DATA ═════════════════════════════════════════════════
 const EDU_PHASES = [
-  { start:'2018-09-15', end:'2022-09-14', color:'rgba(130,210,150,0.45)', camouflage:false, label:'BSc · Nanjing University' },
-  { start:'2022-09-15', end:'2023-09-14', color:'rgba(80,170,105,0.55)',  camouflage:false, label:'MRes · Imperial College London' },
-  { start:'2023-09-15', end:'2023-12-31', color:'rgba(160,155,140,0.4)',  camouflage:false, label:'Gap Year' },
-  { start:'2024-01-01', end:'2024-05-31', color:'rgba(90,105,72,0.6)',    camouflage:true,  label:'Military Service' },
-  { start:'2024-06-01', end:'2024-09-14', color:'rgba(160,155,140,0.4)',  camouflage:false, label:'Gap Year' },
-  { start:'2024-09-15', end:'2026-10-01', color:'rgba(55,120,80,0.65)',   camouflage:false, label:'DPhil · University of Oxford' },
+  { start:'2018-09-15', end:'2022-09-14', color:'rgba(130,210,150,0.45)', camouflage:false },
+  { start:'2022-09-15', end:'2023-09-14', color:'rgba(80,170,105,0.55)',  camouflage:false },
+  { start:'2023-09-15', end:'2023-12-31', color:'rgba(160,155,140,0.4)',  camouflage:false },
+  { start:'2024-01-01', end:'2024-05-31', color:'rgba(90,105,72,0.6)',    camouflage:true  },
+  { start:'2024-06-01', end:'2024-09-14', color:'rgba(160,155,140,0.4)',  camouflage:false },
+  { start:'2024-09-15', end:'2026-12-31', color:'rgba(55,120,80,0.65)',   camouflage:false },
 ];
 
-// ABOVE: publications & honours (stagger 0 = closest to line)
-const ABOVE_EVENTS = [
-  { date:'2022-01-15', type:'pub',   stagger:0, id:'pub-claw',
-    label:'Signs of claw asymmetry in a homochelate crab',
-    full:'Applied Animal Behaviour Science, 246, 105537 (2022)' },
-  { date:'2022-10-13', type:'pub',   stagger:1, id:'pub-sassa',
-    label:'Genetic diversity of Sassafras tzumu',
-    full:'Plants, 11(20), 2706 (2022)' },
-  { date:'2023-03-01', type:'pub',   stagger:0, id:'pub-callitrich',
-    label:'Inhibitory tasks & handedness in Callitrichids',
-    full:'Animal Cognition, 26(2), 415–423 (2023)' },
-  { date:'2023-03-20', type:'honor', stagger:1, id:'hon-wildlife',
-    label:'Champions — National Wildlife Competition (UK)',
-    full:'Imperial College London · UK Mammal Challenge Team' },
-  { date:'2025-04-21', type:'pub',   stagger:0, id:'pub-elevational',
-    label:'Elevational constraints on avian wing morphology',
-    full:'Current Biology, 35(8), 1890–1900 (2025)' },
-  { date:'2026-06-07', type:'pub',   stagger:1, id:'pub-resilience',
-    label:'Still Lost in Definitions: How \'Resilience\' Is Used in Ecology',
-    full:'Lin et al. — bioRxiv, 2026.06.03.729936 (Preprint)' },
+// type: pub | honor | project | service
+const EVENTS = [
+  { date:'2018-12-07', type:'service', id:'ev-envteach', label:'Environmental Education Instructor', full:'Nanjing Jingling Primary School' },
+  { date:'2019-08-01', type:'project', id:'ev-deer',     label:"Père David's Deer Social Networks", full:'Social network analysis · Nanjing University' },
+  { date:'2019-10-01', type:'project', id:'ev-handedness', label:'Handedness & Cognition in Primates', full:'Nanjing University' },
+  { date:'2020-01-01', type:'project', id:'ev-eriocheir', label:'Asymmetry in Eriocheir sinensis', full:'Nanjing University' },
+  { date:'2020-04-01', type:'project', id:'ev-porcellio', label:'Spatial Memory in Porcellio laevis', full:'Nanjing University' },
+  { date:'2020-10-01', type:'project', id:'ev-spp1685',  label:'SPP 1685 Ecosystem Nutrition', full:'University of Fribourg initiative' },
+  { date:'2021-10-01', type:'project', id:'ev-sassa-proj', label:'Genetic Diversity of Sassafras tzumu', full:'Nanjing University' },
+  { date:'2022-01-15', type:'pub',     id:'pub-claw',     label:'Signs of claw asymmetry in a homochelate crab', full:'Applied Animal Behaviour Science, 246, 105537 (2022)' },
+  { date:'2022-03-01', type:'project', id:'ev-alan',      label:'Artificial Light at Night & Detritivores', full:'Effects on litter decomposition · Nanjing University' },
+  { date:'2022-10-13', type:'pub',     id:'pub-sassa',    label:'Genetic diversity of Sassafras tzumu', full:'Plants, 11(20), 2706 (2022)' },
+  { date:'2023-01-01', type:'project', id:'ev-elev-proj', label:'Elevational Constraints on Wing Morphology', full:'Avian macroecology · Imperial College London' },
+  { date:'2023-03-01', type:'pub',     id:'pub-callitrich', label:'Inhibitory tasks & handedness in Callitrichids', full:'Animal Cognition, 26(2), 415–423 (2023)' },
+  { date:'2023-03-20', type:'honor',   id:'hon-wildlife', label:'Champions — National Wildlife Competition (UK)', full:'Imperial College London · UK Mammal Challenge Team' },
+  { date:'2023-04-01', type:'project', id:'ev-evohist',   label:'Evolutionary History & Population Trends', full:'Imperial College London' },
+  { date:'2023-05-01', type:'service', id:'ev-lpd',       label:'Contributor — Living Planet Database', full:'ZSL / WWF Living Planet Index' },
+  { date:'2024-10-01', type:'project', id:'ev-resilience', label:'Systematic Review: Resilience in Ecology', full:'University of Oxford · SalGo Team' },
+  { date:'2025-01-01', type:'service', id:'ev-compadre',  label:'Contributor — COMPADRE & COMADRE', full:'Matrix population model database' },
+  { date:'2025-04-21', type:'pub',     id:'pub-elevational', label:'Elevational constraints on avian wing morphology', full:'Current Biology, 35(8), 1890–1900 (2025)' },
+  { date:'2025-10-01', type:'project', id:'ev-transient', label:'Transient Dynamics & Population Growth', full:'Life-history traits · University of Oxford' },
+  { date:'2025-11-01', type:'service', id:'ev-ta',        label:'Teaching Assistant · Oxford', full:'Large Datasets: Online Access & Management in R' },
+  { date:'2025-11-19', type:'project', id:'ev-wytham',    label:'Wytham Digital Twin Project', full:'Tree scanning with Luma AI · University of Oxford' },
+  { date:'2026-06-07', type:'pub',     id:'pub-resilience', label:"Still Lost in Definitions: How 'Resilience' Is Used in Ecology", full:'Lin et al. — bioRxiv, 2026.06.03.729936 (Preprint)' },
 ];
 
-// BELOW: projects & service (stagger 0 closest to line, max 2)
-const BELOW_EVENTS = [
-  { date:'2018-12-07', type:'service', stagger:1, id:'ev-envteach',
-    label:'Environmental Education Instructor',
-    full:'Nanjing Jingling Primary School' },
-  { date:'2019-08-01', type:'project', stagger:2, id:'ev-deer',
-    label:"Père David's Deer Social Networks",
-    full:'Social network analysis · Nanjing University' },
-  { date:'2019-10-01', type:'project', stagger:0, id:'ev-handedness',
-    label:'Handedness & Cognition in Primates',
-    full:'Nanjing University' },
-  { date:'2020-01-01', type:'project', stagger:1, id:'ev-eriocheir',
-    label:'Asymmetry in Eriocheir sinensis',
-    full:'Nanjing University' },
-  { date:'2020-04-01', type:'project', stagger:2, id:'ev-porcellio',
-    label:'Spatial Memory in Porcellio laevis',
-    full:'Nanjing University' },
-  { date:'2020-10-01', type:'project', stagger:0, id:'ev-spp1685',
-    label:'SPP 1685 Ecosystem Nutrition',
-    full:'University of Fribourg initiative' },
-  { date:'2021-10-01', type:'project', stagger:1, id:'ev-sassa-proj',
-    label:'Genetic Diversity of Sassafras tzumu',
-    full:'Nanjing University' },
-  { date:'2022-03-01', type:'project', stagger:2, id:'ev-alan',
-    label:'Artificial Light at Night & Detritivores',
-    full:'Effects on litter decomposition · Nanjing University' },
-  { date:'2023-01-01', type:'project', stagger:0, id:'ev-elev-proj',
-    label:'Elevational Constraints on Wing Morphology',
-    full:'Avian macroecology · Imperial College London' },
-  { date:'2023-04-01', type:'project', stagger:1, id:'ev-evohist',
-    label:'Evolutionary History & Population Trends',
-    full:'Imperial College London' },
-  { date:'2023-05-01', type:'service', stagger:2, id:'ev-lpd',
-    label:'Contributor — Living Planet Database',
-    full:'ZSL / WWF Living Planet Index' },
-  { date:'2024-10-01', type:'project', stagger:0, id:'ev-resilience',
-    label:'Systematic Review: Resilience in Ecology',
-    full:'University of Oxford · SalGo Team' },
-  { date:'2025-01-01', type:'service', stagger:1, id:'ev-compadre',
-    label:'Contributor — COMPADRE & COMADRE',
-    full:'Matrix population model database' },
-  { date:'2025-10-01', type:'project', stagger:2, id:'ev-transient',
-    label:'Transient Dynamics & Population Growth',
-    full:'Life-history traits · University of Oxford' },
-  { date:'2025-11-01', type:'service', stagger:0, id:'ev-ta',
-    label:'Teaching Assistant · Oxford',
-    full:'Large Datasets: Online Access & Management in R' },
-  { date:'2025-11-19', type:'project', stagger:1, id:'ev-wytham',
-    label:'Wytham Digital Twin Project',
-    full:'Tree scanning with Luma AI · University of Oxford' },
-];
-
-// SKILLS: placed ~1 month after their trigger project
-// stagger: 3–8 (below project rows 0–2)
-// pips: FAMILIAR=1/2 filled, PROFICIENT=2/2 filled
+// level: familiar | proficient ; projectId: bound project or null
 const SKILLS = [
-  // ── R ──
-  { date:'2020-11-01', name:'R',
-    level:'familiar',   stagger:3, projectId:'ev-spp1685',
-    full:'Acquired during SPP 1685 Ecosystem Nutrition' },
-  { date:'2023-02-01', name:'R',
-    level:'proficient',  stagger:3, projectId:'ev-elev-proj',
-    full:'Upgraded via Elevational Constraints project' },
-
-  // ── Statistical Modelling ──
-  { date:'2022-04-01', name:'Statistical Modelling',
-    level:'familiar',   stagger:4, projectId:'ev-alan',
-    full:'Acquired during ALAN & detritivores project' },
-  { date:'2023-03-01', name:'Statistical Modelling',
-    level:'proficient',  stagger:4, projectId:'ev-elev-proj',
-    full:'Upgraded via Elevational Constraints project' },
-
-  // ── PGLS Methods ──
-  { date:'2023-02-01', name:'PGLS Methods',
-    level:'familiar',   stagger:5, projectId:'ev-elev-proj',
-    full:'Acquired during Elevational Constraints project' },
-  { date:'2023-05-01', name:'PGLS Methods',
-    level:'proficient',  stagger:5, projectId:'ev-evohist',
-    full:'Upgraded via Evolutionary History & Population Trends' },
-
-  // ── Matrix Population Models ──
-  { date:'2024-07-01', name:'Matrix Population\nModels',
-    level:'familiar',   stagger:3, projectId:null,
-    full:'Self-study · July 2024' },
-  { date:'2025-11-01', name:'Matrix Population\nModels',
-    level:'proficient',  stagger:3, projectId:'ev-transient',
-    full:'Upgraded via Transient Dynamics project' },
-
-  // ── Bayesian Methods ──
-  { date:'2024-08-01', name:'Bayesian Methods',
-    level:'familiar',   stagger:4, projectId:null,
-    full:'Self-study · August 2024' },
-  { date:'2025-11-15', name:'Bayesian Methods',
-    level:'proficient',  stagger:4, projectId:'ev-transient',
-    full:'Upgraded via Transient Dynamics project' },
-
-  // ── Resilience review cluster ──
-  { date:'2024-11-01', name:'LLM Data Extraction',
-    level:'familiar',   stagger:5, projectId:'ev-resilience',
-    full:'Acquired during Resilience systematic review' },
-  { date:'2026-01-01', name:'LLM Data Extraction',
-    level:'proficient',  stagger:5, projectId:null,
-    full:'Proficient · January 2026' },
-
-  { date:'2024-11-15', name:'Tree-based Ensemble',
-    level:'familiar',   stagger:6, projectId:'ev-resilience',
-    full:'Acquired during Resilience systematic review' },
-  { date:'2026-02-01', name:'Tree-based Ensemble',
-    level:'proficient',  stagger:6, projectId:null,
-    full:'Proficient · February 2026' },
-
-  { date:'2025-01-01', name:'Python',
-    level:'familiar',   stagger:7, projectId:'ev-resilience',
-    full:'Acquired during Resilience systematic review' },
-
-  { date:'2025-02-01', name:'Meta-analysis',
-    level:'familiar',   stagger:5, projectId:'ev-resilience',
-    full:'Acquired during Resilience systematic review' },
-
-  // ── Field skills ──
-  { date:'2019-09-01', name:'Large Animal Handling',
-    level:'familiar',   stagger:6, projectId:'ev-deer',
-    full:"Acquired during Père David's Deer project" },
-
-  { date:'2021-11-01', name:'Field Work',
-    level:'familiar',   stagger:7, projectId:'ev-sassa-proj',
-    full:'Acquired during Sassafras tzumu fieldwork' },
-
-  { date:'2022-05-01', name:'GIS',
-    level:'familiar',   stagger:8, projectId:'ev-alan',
-    full:'Acquired during ALAN & detritivores project' },
-
-  { date:'2022-11-01', name:'Camera Trap',
-    level:'familiar',   stagger:3, projectId:null,
-    full:'Camera trap surveys · November 2022' },
-
-  { date:'2020-11-01', name:'Metagenomics Analysis',
-    level:'familiar',   stagger:8, projectId:null,
-    full:'Bioinformatics · November 2020' },
+  { date:'2020-11-01', name:'R language',            level:'familiar',   projectId:'ev-spp1685',   full:'Acquired during SPP 1685 Ecosystem Nutrition' },
+  { date:'2023-02-01', name:'R language',            level:'proficient', projectId:'ev-elev-proj', full:'Upgraded via Elevational Constraints project' },
+  { date:'2022-04-01', name:'Statistical Modelling', level:'familiar',   projectId:'ev-alan',      full:'Acquired during ALAN & detritivores project' },
+  { date:'2023-03-01', name:'Statistical Modelling', level:'proficient', projectId:'ev-elev-proj', full:'Upgraded via Elevational Constraints project' },
+  { date:'2023-02-01', name:'PGLS Methods',          level:'familiar',   projectId:'ev-elev-proj', full:'Acquired during Elevational Constraints project' },
+  { date:'2023-05-01', name:'PGLS Methods',          level:'proficient', projectId:'ev-evohist',   full:'Upgraded via Evolutionary History & Population Trends' },
+  { date:'2024-07-01', name:'Matrix Population Models', level:'familiar', projectId:null,          full:'Self-study · July 2024' },
+  { date:'2025-10-15', name:'Matrix Population Models', level:'proficient', projectId:'ev-transient', full:'Upgraded via Transient Dynamics project' },
+  { date:'2024-08-01', name:'Bayesian Methods',      level:'familiar',   projectId:null,           full:'Self-study · August 2024' },
+  { date:'2025-10-20', name:'Bayesian Methods',      level:'proficient', projectId:'ev-transient', full:'Upgraded via Transient Dynamics project' },
+  { date:'2024-10-15', name:'LLM Data Extraction',   level:'familiar',   projectId:'ev-resilience', full:'Acquired during Resilience systematic review' },
+  { date:'2026-01-01', name:'LLM Data Extraction',   level:'proficient', projectId:null,           full:'Proficient · January 2026' },
+  { date:'2024-10-20', name:'Tree-based Ensemble',   level:'familiar',   projectId:'ev-resilience', full:'Acquired during Resilience systematic review' },
+  { date:'2026-02-01', name:'Tree-based Ensemble',   level:'proficient', projectId:null,           full:'Proficient · February 2026' },
+  { date:'2024-11-01', name:'Python',                level:'familiar',   projectId:'ev-resilience', full:'Acquired during Resilience systematic review' },
+  { date:'2024-11-10', name:'Meta-analysis',         level:'familiar',   projectId:'ev-resilience', full:'Acquired during Resilience systematic review' },
+  { date:'2019-08-15', name:'Large Animal Handling', level:'familiar',   projectId:'ev-deer',      full:"Acquired during Père David's Deer project" },
+  { date:'2021-10-15', name:'Field Work',            level:'familiar',   projectId:'ev-sassa-proj', full:'Acquired during Sassafras tzumu fieldwork' },
+  { date:'2022-03-15', name:'GIS',                   level:'familiar',   projectId:'ev-alan',      full:'Acquired during ALAN & detritivores project' },
+  { date:'2022-11-01', name:'Camera Trap',           level:'familiar',   projectId:null,           full:'Camera trap surveys · November 2022' },
+  { date:'2020-11-15', name:'Metagenomics Analysis', level:'familiar',   projectId:null,           full:'Bioinformatics · November 2020' },
 ];
 
-// ─── BUILD ────────────────────────────────────────────────
+const TYPE_META = {
+  pub:     { col:'var(--col-pub)',     badge:'◆  PUB',     mini:'#1e5631' },
+  honor:   { col:'rainbow',            badge:'★  HONOUR',  mini:'#f59e0b' },
+  project: { col:'var(--col-project)', badge:'▸  PROJECT', mini:'#8cbf5c' },
+  service: { col:'var(--col-service)', badge:'▪  SERVICE', mini:'#173a8a' },
+};
+const SKILL_COL = { familiar:'var(--col-familiar)', proficient:'var(--col-proficient)' };
+const SKILL_MINI = { familiar:'#b87333', proficient:'#d4af37' };
+const SKILL_PROG = { familiar:'Unfamiliar → Familiar', proficient:'Familiar → Proficient' };
+
+// ═══ DOM REFS ═════════════════════════════════════════════
 const wrap     = document.getElementById('canvas-wrap');
-let   svgEl    = document.getElementById('svg-layer');
+const svgEl    = document.getElementById('svg-layer');
 const scrollEl = document.getElementById('scrollOuter');
+const tip      = document.getElementById('tooltip');
 
-function build() {
-  // Clear previous dynamic elements
-  Array.from(wrap.children).forEach(c => { if (c.id !== 'svg-layer') c.remove(); });
+function mkSVG(tag, a={}) { const e=document.createElementNS('http://www.w3.org/2000/svg',tag); for(const k in a) e.setAttribute(k,a[k]); return e; }
+function el(tag, cls){ const e=document.createElement(tag); if(cls) e.className=cls; return e; }
+function colOf(meta){ return meta.col==='rainbow' ? null : meta.col; }
+
+// ═══ BUILD BLOCKS (returns array, appended + measured) ════
+function makeEventBlock(ev, attachedSkills){
+  const meta = TYPE_META[ev.type];
+  const isRainbow = meta.col === 'rainbow';
+  const block = el('div','tl-block');
+
+  const card = el('div','node-card' + (isRainbow?' rainbow':''));
+  if(!isRainbow) card.style.borderColor = meta.col;
+  const badge = el('div','node-type-badge' + (isRainbow?' rainbow':''));
+  if(!isRainbow) badge.style.color = meta.col;
+  badge.textContent = meta.badge;
+  const lbl = el('div','node-label');
+  lbl.textContent = ev.label;
+  card.append(badge, lbl);
+  addTip(card, ev.label, ev.full, isRainbow?'#f59e0b':null);
+
+  const skillCards = attachedSkills.map(sk => makeSkillCard(sk));
+  block._project = card;
+  block._skills  = skillCards;
+  // default order: project first (line side), skills after  → set per side later
+  block.append(card, ...skillCards);
+  block.dataset.type = ev.type;
+  block.dataset.anchorId = ev.id;
+  block._date = ev.date;
+  block._type = ev.type;
+  return block;
+}
+function makeSkillCard(sk){
+  const col = SKILL_COL[sk.level];
+  const card = el('div','skill-card');
+  card.style.borderColor = col;
+  const b = el('div','skill-badge-label'); b.style.color = col; b.textContent = 'SKILL';
+  const n = el('div','skill-name'); n.textContent = sk.name;
+  const p = el('div','skill-prog'); p.style.color = col; p.textContent = SKILL_PROG[sk.level];
+  card.append(b,n,p);
+  addTip(card, sk.name, sk.full + ' · ' + SKILL_PROG[sk.level], null);
+  return card;
+}
+function makeStandaloneSkillBlock(sk){
+  const block = el('div','tl-block');
+  const card = makeSkillCard(sk);
+  block.append(card);
+  block._project = card; block._skills = [];
+  block.dataset.type = 'skill-'+sk.level;
+  block._date = sk.date;
+  block._type = 'skill';
+  block._skillLevel = sk.level;
+  return block;
+}
+
+// ═══ PACKING + AUTO-FIT ═══════════════════════════════════
+let blocks = [];           // current rendered blocks (for scroll handlers not needed)
+function render(scale){
+  // clear
+  Array.from(wrap.children).forEach(c => { if(c.id!=='svg-layer') c.remove(); });
   svgEl.innerHTML = '';
+  wrap.style.fontSize = (13*scale)+'px';
 
+  const TOTAL_W = totalW();
+  const VH = window.innerHeight;
+  const CANVAS_H = VH - NAV_H;
   wrap.style.width  = TOTAL_W + 'px';
   wrap.style.height = CANVAS_H + 'px';
-  svgEl.setAttribute('width',  TOTAL_W);
+  svgEl.setAttribute('width', TOTAL_W);
   svgEl.setAttribute('height', CANVAS_H);
 
-  const ly = LINE_Y;
+  // overlay-safe region
+  const TOP_PAD = 150, BOT_PAD = 96, NEAR = 30*scale, GAP_Y = 14*scale, GAP_X = 12*scale;
+  const avail   = CANVAS_H - TOP_PAD - BOT_PAD;
+  const LINE_Y  = TOP_PAD + avail/2;
+  const availSide = avail/2 - NEAR;
 
-  // ── center line ──
-  svgEl.appendChild(mkSVG('line', {
-    x1:0, y1:ly, x2:TOTAL_W, y2:ly,
-    stroke:'rgba(26,28,24,0.15)', 'stroke-width':'1.5'
-  }));
+  // rainbow gradient def (for honour dots)
+  const defs = mkSVG('defs');
+  const grad = mkSVG('linearGradient', { id:'rainbowGrad', x1:'0', y1:'0', x2:'1', y2:'0' });
+  [['0','#e11d48'],['0.2','#f59e0b'],['0.4','#eab308'],['0.6','#22c55e'],['0.8','#3b82f6'],['1','#8b5cf6']]
+    .forEach(([o,c]) => grad.appendChild(mkSVG('stop',{offset:o,'stop-color':c})));
+  defs.appendChild(grad); svgEl.appendChild(defs);
 
-  // ── education bars ──
+  // center line
+  svgEl.appendChild(mkSVG('line',{x1:0,y1:LINE_Y,x2:TOTAL_W,y2:LINE_Y,stroke:'rgba(26,28,24,0.16)','stroke-width':'1.5'}));
+
+  // education bars
   EDU_PHASES.forEach(ph => {
-    const x1 = dateToX(ph.start), x2 = dateToX(ph.end), w = x2-x1;
-    const BAR_H = 8;
-    if (ph.camouflage) {
-      const pid = 'camo' + Math.random().toString(36).slice(2,6);
-      const defs = mkSVG('defs');
-      const pat  = mkSVG('pattern', { id:pid, x:0, y:0, width:10, height:10, patternUnits:'userSpaceOnUse' });
-      [['#8a9e6a',0],['#5a6e3a',1],['#7a9050',2],['#4a5e2a',3]].forEach(([c,i]) => {
-        pat.appendChild(mkSVG('rect', { x:(i%2)*5, y:Math.floor(i/2)*5, width:5, height:5, fill:c, opacity:'0.7' }));
-      });
-      defs.appendChild(pat); svgEl.appendChild(defs);
-      svgEl.appendChild(mkSVG('rect', { x:x1, y:ly-BAR_H/2, width:w, height:BAR_H, fill:`url(#${pid})` }));
+    const x1=dateToX(ph.start), x2=Math.min(dateToX(ph.end), dateToX(END)), w=x2-x1, BAR_H=8;
+    if(ph.camouflage){
+      const pid='camo'+Math.random().toString(36).slice(2,7);
+      const d2=mkSVG('defs'); const pat=mkSVG('pattern',{id:pid,x:0,y:0,width:10,height:10,patternUnits:'userSpaceOnUse'});
+      [['#8a9e6a',0],['#5a6e3a',1],['#7a9050',2],['#4a5e2a',3]].forEach(([c,i])=>pat.appendChild(mkSVG('rect',{x:(i%2)*5,y:Math.floor(i/2)*5,width:5,height:5,fill:c,opacity:'0.7'})));
+      d2.appendChild(pat); svgEl.appendChild(d2);
+      svgEl.appendChild(mkSVG('rect',{x:x1,y:LINE_Y-BAR_H/2,width:w,height:BAR_H,fill:`url(#${pid})`}));
     } else {
-      svgEl.appendChild(mkSVG('rect', { x:x1, y:ly-BAR_H/2, width:w, height:BAR_H, fill:ph.color }));
+      svgEl.appendChild(mkSVG('rect',{x:x1,y:LINE_Y-BAR_H/2,width:w,height:BAR_H,fill:ph.color}));
     }
   });
 
-  // ── year ticks + labels ──
-  for (let y = 2019; y <= 2026; y++) {
-    const x = dateToX(`${y}-01-01`);
-    svgEl.appendChild(mkSVG('line', {
-      x1:x, y1:ly-14, x2:x, y2:ly+14,
-      stroke:'rgba(26,28,24,0.18)', 'stroke-width':'1'
-    }));
-    const lbl = document.createElement('div');
-    lbl.className = 'year-label';
-    lbl.textContent = y;
-    lbl.style.cssText = `left:${x}px; top:${ly+18}px;`;
-    wrap.appendChild(lbl);
+  // year ticks + labels
+  const y0 = START.getFullYear()+1, y1 = END.getFullYear();
+  for(let y=y0; y<=y1; y++){
+    const x=dateToX(`${y}-01-01`);
+    svgEl.appendChild(mkSVG('line',{x1:x,y1:LINE_Y-13,x2:x,y2:LINE_Y+13,stroke:'rgba(26,28,24,0.18)','stroke-width':'1'}));
+    const l=el('div','year-label'); l.textContent=y; l.style.cssText=`left:${x}px; top:${LINE_Y+16}px;`; wrap.appendChild(l);
   }
 
-  // ── node positions (for dashed lines) ──
-  const nodePos = {};
+  // end labels
+  const lE=el('div','end-label'); lE.textContent='◀ Undergraduate\nEnrolment'.replace('\n',' '); lE.innerHTML='◀ Undergraduate<br>Enrolment';
+  lE.style.cssText=`left:${dateToX(START)}px; top:${LINE_Y-40}px;`; wrap.appendChild(lE);
+  const rE=el('div','end-label'); rE.innerHTML='Today<br>'+fmtDay(END)+' ▶';
+  rE.style.cssText=`left:${dateToX(END)}px; top:${LINE_Y-40}px;`; wrap.appendChild(rE);
 
-  // ── ABOVE events ──
-  ABOVE_EVENTS.forEach(ev => {
-    const x   = dateToX(ev.date);
-    const col = ev.type === 'honor' ? C.honor : C.pub;
-    const cardY = ly - ROW_H_ABOVE * (ev.stagger + 1);
-
-    svgEl.appendChild(mkSVG('line', {
-      x1:x, y1:ly-6, x2:x, y2:cardY+4,
-      stroke:col, 'stroke-width':'1', opacity:'0.35'
-    }));
-    svgEl.appendChild(mkSVG('circle', {
-      cx:x, cy:ly, r:6,
-      fill:'var(--cream)', stroke:col, 'stroke-width':'2.2'
-    }));
-
-    const card = el('div', 'node-card');
-    card.style.cssText = `left:${x}px; top:${cardY}px; transform:translateX(-50%) translateY(-100%); border-color:${col}55;`;
-    const badge = el('div', 'node-type-badge');
-    badge.style.color = col;
-    badge.textContent = ev.type === 'honor' ? '★  HONOUR' : '◆  PUB';
-    const lbl = el('div', 'node-label');
-    lbl.textContent = ev.label;
-    if (ev.type === 'honor') { lbl.style.color = col; card.style.borderColor = col + '88'; }
-    card.append(badge, lbl);
-    addTip(card, ev.label, ev.full, col);
-    wrap.appendChild(card);
-    nodePos[ev.id] = { x, y: ly };
+  // ── build blocks ──
+  const skillsByProj = {};
+  SKILLS.forEach(sk => { if(sk.projectId){ (skillsByProj[sk.projectId] ||= []).push(sk); } });
+  blocks = [];
+  EVENTS.forEach(ev => {
+    const attached = (ev.type==='project') ? (skillsByProj[ev.id]||[]) : [];
+    const b = makeEventBlock(ev, attached);
+    b.style.visibility='hidden'; wrap.appendChild(b); blocks.push(b);
+  });
+  SKILLS.filter(s=>!s.projectId).forEach(sk => {
+    const b = makeStandaloneSkillBlock(sk);
+    b.style.visibility='hidden'; wrap.appendChild(b); blocks.push(b);
   });
 
-  // ── BELOW events ──
-  BELOW_EVENTS.forEach(ev => {
-    const x   = dateToX(ev.date);
-    const col = ev.type === 'service' ? C.service : C.project;
-    const cardY = ly + ROW_H_BELOW * (ev.stagger + 1);
+  // measure
+  blocks.forEach(b => { b._w=b.offsetWidth; b._h=b.offsetHeight; b._x=dateToX(b._date); });
+  // pack by date order
+  blocks.sort((a,b)=>a._x-b._x);
 
-    svgEl.appendChild(mkSVG('line', {
-      x1:x, y1:ly+6, x2:x, y2:cardY-2,
-      stroke:col, 'stroke-width':'1', opacity:'0.35'
-    }));
-    svgEl.appendChild(mkSVG('circle', {
-      cx:x, cy:ly, r:6,
-      fill:'var(--cream)', stroke:col, 'stroke-width':'2.2'
-    }));
-
-    const card = el('div', 'node-card');
-    card.style.cssText = `left:${x}px; top:${cardY}px; transform:translateX(-50%); border-color:${col}55;`;
-    const badge = el('div', 'node-type-badge');
-    badge.style.color = col;
-    badge.textContent = ev.type === 'service' ? '▪  SERVICE' : '▸  PROJECT';
-    const lbl = el('div', 'node-label');
-    lbl.textContent = ev.label;
-    card.append(badge, lbl);
-    addTip(card, ev.label, ev.full, col);
-    wrap.appendChild(card);
-    nodePos[ev.id] = { x, y: ly };
-  });
-
-  // ── SKILLS ──
-  SKILLS.forEach(sk => {
-    const x   = dateToX(sk.date);
-    const col = sk.level === 'proficient' ? C.proficient : C.familiar;
-    const filledPips = sk.level === 'proficient' ? 2 : 1;
-    const badgeY = ly + ROW_H_BELOW * (sk.stagger + 1);
-
-    // connector from line to badge
-    svgEl.appendChild(mkSVG('line', {
-      x1:x, y1:ly+6, x2:x, y2:badgeY-4,
-      stroke:col, 'stroke-width':'0.8', opacity:'0.2'
-    }));
-
-    // dashed line to project node
-    if (sk.projectId && nodePos[sk.projectId]) {
-      const proj = nodePos[sk.projectId];
-      const mx = (proj.x + x) / 2;
-      svgEl.appendChild(mkSVG('path', {
-        d: `M${proj.x},${proj.y+6} C${proj.x},${badgeY-20} ${x},${proj.y+6} ${x},${badgeY}`,
-        stroke: col, 'stroke-width':'1', 'stroke-dasharray':'4 3',
-        fill:'none', opacity:'0.45'
-      }));
+  const sides = { above:[], below:[] };   // each = array of shelves; shelf={items:[{x1,x2}], h}
+  function tryPlace(shelf, b){
+    const halfW=b._w/2, want=[b._x-halfW-GAP_X, b._x+halfW+GAP_X];
+    let overlap=false;
+    for(const it of shelf.items){ if(want[0]<it.x2 && want[1]>it.x1){ overlap=true; break; } }
+    if(!overlap) return {nudge:0};
+    // try nudging right/left; cap at NEAR (= shelf-0 vertical distance) so the
+    // connector never exceeds 45° (horizontal shift <= vertical drop)
+    const MAXN=NEAR, STEP=Math.max(4,5*scale);
+    for(let n=STEP; n<=MAXN; n+=STEP){
+      for(const dir of [1,-1]){
+        const dx=dir*n, w2=[want[0]+dx, want[1]+dx]; let ok=true;
+        for(const it of shelf.items){ if(w2[0]<it.x2 && w2[1]>it.x1){ ok=false; break; } }
+        if(ok) return {nudge:dx};
+      }
     }
-
-    // badge DOM
-    const badge = el('div','skill-badge');
-    badge.style.cssText = `left:${x}px; top:${badgeY}px; color:${col};`;
-
-    const pipRow = el('div','skill-pip-row');
-    for (let i = 0; i < 2; i++) {
-      const pip = el('div', 'skill-pip ' + (i < filledPips ? 'filled' : 'empty'));
-      pip.style.background = col;
-      pipRow.appendChild(pip);
+    return null;
+  }
+  blocks.forEach(b => {
+    let best=null; // {side, shelfIdx, nudge, cost}
+    for(const sideName of ['above','below']){
+      const shelves=sides[sideName];
+      for(let i=0;i<shelves.length;i++){
+        const pl=tryPlace(shelves[i], b);
+        if(pl){ const cost=i*1000+Math.abs(pl.nudge)+(sideName==='below'?2:0); if(!best||cost<best.cost) best={side:sideName,shelfIdx:i,nudge:pl.nudge,cost}; break; }
+      }
+      const newCost=shelves.length*1000+(sideName==='below'?2:0);
+      if(!best||newCost<best.cost) best={side:sideName,shelfIdx:shelves.length,nudge:0,cost:newCost,isNew:true};
     }
+    const shelves=sides[best.side];
+    if(best.isNew||best.shelfIdx>=shelves.length){ shelves.push({items:[],h:0}); best.shelfIdx=shelves.length-1; }
+    const shelf=shelves[best.shelfIdx];
+    const halfW=b._w/2;
+    shelf.items.push({x1:b._x+best.nudge-halfW-GAP_X, x2:b._x+best.nudge+halfW+GAP_X});
+    shelf.h=Math.max(shelf.h,b._h);
+    b._side=best.side; b._shelfIdx=best.shelfIdx; b._nudge=best.nudge;
+  });
 
-    const inner = el('div','skill-inner');
-    inner.style.borderColor = col + '66';
+  // compute shelf offsets (cumulative)
+  ['above','below'].forEach(s=>{ let off=NEAR; sides[s].forEach(sh=>{ sh.nearOff=off; off+=sh.h+GAP_Y; }); sides[s]._used=off-GAP_Y; });
+  const fits = (sides.above._used<=avail/2) && (sides.below._used<=avail/2);
 
-    const sName = el('div','skill-name');
-    sName.textContent = sk.name.replace(/\n/g,' ');
+  // position blocks + connectors
+  blocks.forEach(b => {
+    const shelf=sides[b._side][b._shelfIdx];
+    const cardX=b._x+b._nudge;
+    let topY;
+    if(b._side==='above'){ const nearEdge=LINE_Y-shelf.nearOff; topY=nearEdge-b._h; b.style.flexDirection='column-reverse'; }
+    else { topY=LINE_Y+shelf.nearOff; b.style.flexDirection='column'; }
+    b.style.left=cardX+'px'; b.style.top=topY+'px'; b.style.visibility='visible';
 
-    const sLevel = el('div','skill-level-text');
-    sLevel.style.color = col;
-    sLevel.textContent = sk.level === 'proficient' ? '▲ PROFICIENT' : '◉ FAMILIAR';
+    // dot on line
+    const meta = b._type==='skill' ? null : TYPE_META[b._type];
+    let dotStroke;
+    if(b._type==='skill') dotStroke = (b._skillLevel==='proficient'?'#d4af37':'#b87333');
+    else dotStroke = (meta.col==='rainbow') ? 'url(#rainbowGrad)' : getComputedStyle(document.documentElement).getPropertyValue(meta.col.replace('var(','').replace(')','')).trim();
+    const lineEdgeY = b._side==='above'? LINE_Y-6 : LINE_Y+6;
+    const nearEdgeY = b._side==='above'? LINE_Y-shelf.nearOff : LINE_Y+shelf.nearOff;
+    // connector (may slant ≤45°)
+    svgEl.appendChild(mkSVG('line',{x1:b._x,y1:lineEdgeY,x2:cardX,y2:nearEdgeY,stroke:dotStroke,'stroke-width':'1.4',opacity:'0.5'}));
+    svgEl.appendChild(mkSVG('circle',{cx:b._x,cy:LINE_Y,r:5.5,fill:'var(--cream)',stroke:dotStroke,'stroke-width':'2.4'}));
+  });
 
-    inner.append(sName, sLevel);
-    badge.append(pipRow, inner);
-    addTip(badge, sk.name.replace(/\n/g,' '), sk.full, col);
-    wrap.appendChild(badge);
+  return { fits, sides };
+}
+
+// auto-fit: keep text as large as possible; if it doesn't fit vertically,
+// spread the timeline wider (more px/day) before shrinking the font.
+function build(){
+  const scaleOpts = [1, 0.92, 0.84, 0.76, 0.68, 0.6];
+  const pxOpts    = [3.0, 3.8, 4.8, 6.2, 8.0];
+  let done=false;
+  for(const sc of scaleOpts){
+    for(const px of pxOpts){
+      PX_PER_DAY = px;
+      if(render(sc).fits){ done=true; break; }
+    }
+    if(done) break;
+  }
+  if(!done){ PX_PER_DAY = pxOpts[pxOpts.length-1]; render(scaleOpts[scaleOpts.length-1]); }
+  buildMinimap();
+  updateScrollUI();
+}
+
+// ═══ MINIMAP ══════════════════════════════════════════════
+const miniSvg = document.getElementById('minimap-svg');
+function buildMinimap(){
+  const W = miniSvg.clientWidth || 300, H = 46;
+  miniSvg.setAttribute('viewBox',`0 0 ${W} ${H}`);
+  miniSvg.innerHTML='';
+  const axisY = 30;
+  const mapX = d => 6 + (new Date(d)-START)/(END-START)*(W-12);
+  // base line
+  miniSvg.appendChild(mkSVG('line',{x1:6,y1:axisY,x2:W-6,y2:axisY,stroke:'rgba(26,28,24,0.25)','stroke-width':'1'}));
+  // year main ticks
+  for(let y=START.getFullYear()+1; y<=END.getFullYear(); y++){
+    const x=mapX(`${y}-01-01`);
+    miniSvg.appendChild(mkSVG('line',{x1:x,y1:axisY-5,x2:x,y2:axisY+5,stroke:'rgba(26,28,24,0.32)','stroke-width':'1'}));
+    const t=mkSVG('text',{x:x,y:axisY+15,'text-anchor':'middle','font-size':'7','font-family':'JetBrains Mono, monospace',fill:'rgba(26,28,24,0.4)'});
+    t.textContent=("'"+String(y).slice(2)); miniSvg.appendChild(t);
+  }
+  // event ticks (ultra-thin), colored
+  EVENTS.forEach(ev=>{
+    const x=mapX(ev.date), c=TYPE_META[ev.type].mini;
+    miniSvg.appendChild(mkSVG('line',{x1:x,y1:axisY-9,x2:x,y2:axisY,stroke:c,'stroke-width':'1'}));
+  });
+  // skill ticks: bound skills hug RIGHT of their project tick; unbound at own date
+  const projX = {}; EVENTS.forEach(ev=>{ if(ev.type==='project') projX[ev.id]=mapX(ev.date); });
+  SKILLS.forEach(sk=>{
+    let x = sk.projectId && projX[sk.projectId]!=null ? projX[sk.projectId]+1.4 : mapX(sk.date);
+    const c=SKILL_MINI[sk.level];
+    miniSvg.appendChild(mkSVG('line',{x1:x,y1:axisY,x2:x,y2:axisY+8,stroke:c,'stroke-width':'0.8'}));
   });
 }
 
-// ─── HELPERS ──────────────────────────────────────────────
-function mkSVG(tag, attrs = {}) {
-  const e = document.createElementNS('http://www.w3.org/2000/svg', tag);
-  for (const [k,v] of Object.entries(attrs)) e.setAttribute(k,v);
-  return e;
-}
-function el(tag, cls = '') {
-  const e = document.createElement(tag.split('.')[0]);
-  if (cls) e.className = cls;
-  return e;
+// ═══ SCROLL UI (range + window box) ═══════════════════════
+const rangeOut = document.getElementById('range-readout');
+const miniWin  = document.getElementById('mini-window');
+function updateScrollUI(){
+  const sl=scrollEl.scrollLeft, cw=scrollEl.clientWidth, sw=scrollEl.scrollWidth;
+  const dL=xToDate(sl), dR=xToDate(sl+cw);
+  rangeOut.innerHTML = `<b>${fmtMonthYear(dL)}</b> &nbsp;—&nbsp; <b>${fmtMonthYear(dR)}</b>`;
+  const track=document.getElementById('mini-window-track');
+  const tw=track.clientWidth;
+  const left = sw>0 ? sl/sw*tw : 0;
+  const wWidth = sw>0 ? Math.max(8, cw/sw*tw) : tw;
+  miniWin.style.left = Math.min(left, tw-wWidth)+'px';
+  miniWin.style.width = wWidth+'px';
 }
 
-// ─── TOOLTIP ──────────────────────────────────────────────
-const tip = document.getElementById('tooltip');
-function addTip(target, title, body, col) {
-  target.addEventListener('mouseenter', e => {
-    tip.innerHTML = `<div class="tt-title" style="color:${lighten(col)}">${title}</div>${body}`;
-    tip.classList.add('visible');
-    moveTip(e);
+// ═══ TOOLTIP ══════════════════════════════════════════════
+function addTip(target,title,body,forceCol){
+  target.addEventListener('mouseenter', e=>{
+    tip.innerHTML=`<div class="tt-title">${title}</div>${body}`;
+    tip.classList.add('visible'); moveTip(e);
   });
-  target.addEventListener('mouseleave', () => tip.classList.remove('visible'));
+  target.addEventListener('mouseleave', ()=>tip.classList.remove('visible'));
 }
-function moveTip(e) {
-  let x = e.clientX + 14, y = e.clientY - 8;
-  if (x + 270 > window.innerWidth)  x = e.clientX - 280;
-  if (y + 90  > window.innerHeight) y = e.clientY - 95;
-  tip.style.left = x + 'px'; tip.style.top = y + 'px';
+function moveTip(e){
+  let x=e.clientX+14, y=e.clientY-8;
+  if(x+270>window.innerWidth) x=e.clientX-280;
+  if(y+90>window.innerHeight) y=e.clientY-95;
+  tip.style.left=x+'px'; tip.style.top=y+'px';
 }
-function lighten(hex) { return hex; } // colors already chosen for cream bg
-document.addEventListener('mousemove', e => { if (tip.classList.contains('visible')) moveTip(e); });
+document.addEventListener('mousemove', e=>{ if(tip.classList.contains('visible')) moveTip(e); });
 
-// ─── DRAG ─────────────────────────────────────────────────
-let isDown = false, startX, startY, sLeft, sTop;
-scrollEl.addEventListener('mousedown', e => {
-  isDown = true; startX = e.pageX; startY = e.pageY;
-  sLeft = scrollEl.scrollLeft; sTop = scrollEl.scrollTop;
-  scrollEl.style.cursor = 'grabbing';
-});
-scrollEl.addEventListener('mouseleave', () => { isDown = false; scrollEl.style.cursor = 'grab'; });
-scrollEl.addEventListener('mouseup',    () => { isDown = false; scrollEl.style.cursor = 'grab'; });
-scrollEl.addEventListener('mousemove', e => {
-  if (!isDown) return; e.preventDefault();
-  scrollEl.scrollLeft = sLeft - (e.pageX - startX) * 1.2;
-  scrollEl.scrollTop  = sTop  - (e.pageY - startY) * 1.2;
-});
+// ═══ DRAG (horizontal) ════════════════════════════════════
+let isDown=false, startX, sLeft;
+scrollEl.addEventListener('mousedown', e=>{ isDown=true; startX=e.pageX; sLeft=scrollEl.scrollLeft; scrollEl.style.cursor='grabbing'; });
+scrollEl.addEventListener('mouseleave', ()=>{ isDown=false; scrollEl.style.cursor='grab'; });
+scrollEl.addEventListener('mouseup', ()=>{ isDown=false; scrollEl.style.cursor='grab'; });
+scrollEl.addEventListener('mousemove', e=>{ if(!isDown) return; e.preventDefault(); scrollEl.scrollLeft=sLeft-(e.pageX-startX)*1.2; });
+scrollEl.addEventListener('scroll', updateScrollUI);
+scrollEl.addEventListener('wheel', e=>{ if(Math.abs(e.deltaY)>Math.abs(e.deltaX)){ scrollEl.scrollLeft+=e.deltaY; } }, {passive:true});
 
-// ─── INIT ─────────────────────────────────────────────────
+// ═══ INIT ═════════════════════════════════════════════════
 build();
-requestAnimationFrame(() => {
-  scrollEl.scrollLeft = scrollEl.scrollWidth - scrollEl.clientWidth;
-  scrollEl.scrollTop = 0;
-});
-window.addEventListener('resize', build);
+requestAnimationFrame(()=>{ scrollEl.scrollLeft=scrollEl.scrollWidth-scrollEl.clientWidth; updateScrollUI(); });
+let rT; window.addEventListener('resize', ()=>{ clearTimeout(rT); rT=setTimeout(()=>{ build(); }, 150); });
+window.addEventListener('orientationchange', ()=>setTimeout(build,200));
 </script>
 </body>
 </html>
