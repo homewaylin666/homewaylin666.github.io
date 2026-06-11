@@ -131,24 +131,21 @@
       scroll-margin-top: calc(var(--nav-h) + 1.5rem);
     }
 
-    /* FLOATING TOC — collapsible framed card */
+    /* FLOATING TOC — minimal, transparent (no background block) */
     .cv-toc { position: fixed; z-index: 95; }
 
     .cv-toc-panel {
       display: flex;
       flex-direction: column;
-      background: #ffffff;
-      border: 0.5px solid rgba(26,28,24,0.14);
-      border-radius: 12px;
-      padding: 1.15rem 1.3rem;
-      box-shadow: 0 4px 18px rgba(26,28,24,0.08);
+      background: transparent;
+      padding: 0;
     }
     .cv-toc-head {
       display: flex;
       align-items: center;
       justify-content: space-between;
-      gap: 1.2rem;
-      margin-bottom: 1rem;
+      gap: 1rem;
+      margin-bottom: 0.9rem;
     }
     .cv-toc-title {
       font-size: 0.66rem;
@@ -192,35 +189,33 @@
       align-items: center;
       justify-content: center;
       cursor: pointer;
-      background: #ffffff;
+      background: transparent;
       color: var(--muted);
-      border: 0.5px solid rgba(26,28,24,0.14);
+      border: 0.5px solid rgba(26,28,24,0.22);
       padding: 0;
-      transition: color 0.2s, background 0.2s;
+      transition: color 0.2s, border-color 0.2s;
     }
-    .cv-toc-toggle:hover, .cv-toc-min:hover { color: var(--dark); background: #f4f5f1; }
-    .cv-toc-toggle {
-      width: 42px; height: 42px;
-      border-radius: 11px;
-      box-shadow: 0 2px 10px rgba(26,28,24,0.12);
-    }
+    .cv-toc-toggle:hover, .cv-toc-min:hover { color: var(--dark); border-color: var(--sage); }
+    .cv-toc-toggle { width: 40px; height: 40px; border-radius: 10px; }
     .cv-toc-min { width: 24px; height: 24px; border-radius: 50%; flex-shrink: 0; }
 
-    /* DESKTOP (>=1240px): framed card flush to the left edge, always open */
+    /* DESKTOP (>=1240px): transparent dotted list, bottom-left, always open */
     @media (min-width: 1240px) {
-      .cv-toc { top: 50%; left: 1.25rem; transform: translateY(-50%); }
-      .cv-toc-panel { width: 162px; }
+      .cv-toc { bottom: 2rem; left: 1.5rem; }
     }
-    /* TABLET + MOBILE (<=1239px): collapsed = small button top-left;
-       tap to expand into a large card pinned right, covering the text */
+    /* TABLET + MOBILE (<=1239px): small button top-right;
+       tap to expand into the list on the right (vertically centred) */
     @media (max-width: 1239px) {
-      .cv-toc { top: calc(var(--nav-h) + 0.7rem); left: 0.7rem; }
+      .cv-toc { top: calc(var(--nav-h) + 0.7rem); right: 0.7rem; }
       .cv-toc-toggle { display: flex; }
       .cv-toc-panel { display: none; }
 
-      .cv-toc.open { top: 50%; left: auto; right: 0.7rem; transform: translateY(-50%); }
+      .cv-toc.open { top: 50%; right: 0.7rem; transform: translateY(-50%); }
       .cv-toc.open .cv-toc-toggle { display: none; }
-      .cv-toc.open .cv-toc-panel { display: flex; min-width: 168px; }
+      .cv-toc.open .cv-toc-panel { display: flex; align-items: flex-end; text-align: right; }
+      .cv-toc.open .cv-toc-head { flex-direction: row-reverse; }
+      .cv-toc.open .cv-toc a { padding: 0.42rem 1.35rem 0.42rem 0; }
+      .cv-toc.open .cv-toc a::before { left: auto; right: 0; }
       .cv-toc.open .cv-toc-min { display: flex; }
     }
     .section-content {
