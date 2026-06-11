@@ -61,7 +61,7 @@
 
     /* ── LEGENDS ── */
     .legend, .edu-legend {
-      position: fixed; top: calc(var(--nav-h) + 10px); z-index: 150;
+      position: fixed; bottom: 14px; z-index: 150;
       display: flex; flex-direction: column; gap: 4px;
       background: rgba(247,248,245,0.95);
       border: 0.5px solid var(--border); border-radius: 4px;
@@ -121,51 +121,54 @@
       width: max-content; transform: translateX(-50%);
     }
     .node-card {
-      padding: 0.6em 0.95em; border-radius: 5px; border: 4px solid;
+      padding: 1.0em 1.4em; border-radius: 6px; border: 6px solid;
       background: rgba(255,255,255,0.92);
-      max-width: 23em; cursor: pointer; transition: box-shadow 0.15s, background 0.15s;
+      max-width: 30em; cursor: pointer; transition: box-shadow 0.15s, background 0.15s;
     }
     .node-card:hover { background:#fff; box-shadow: 0 3px 14px rgba(26,28,24,0.16); }
-    /* Honour stays compact with its rainbow border */
-    .node-card.rainbow { border: none; border-image: var(--rainbow) 1; border-width: 2.5px; border-style: solid; max-width: 15em; padding: 0.42em 0.62em; }
+    /* Honour: rainbow border, enlarged too, badge centred */
+    .node-card.rainbow { border: none; border-image: var(--rainbow) 1; border-width: 4px; border-style: solid; max-width: 22em; padding: 0.7em 1em; }
     .node-type-badge {
-      font-family: 'JetBrains Mono', monospace; font-size: 0.93em;
-      letter-spacing: 0.1em; text-transform: uppercase; font-weight: 500; margin-bottom: 3px; text-align: center;
+      font-family: 'JetBrains Mono', monospace; font-size: 1.86em;
+      letter-spacing: 0.1em; text-transform: uppercase; font-weight: 500; margin-bottom: 4px; text-align: center;
     }
     .node-type-badge.rainbow {
       background: var(--rainbow); -webkit-background-clip: text; background-clip: text; color: transparent;
-      font-size: 0.62em; text-align: left;
+      font-size: 1.24em; text-align: center;
     }
     .node-label {
-      font-family: 'JetBrains Mono', monospace; font-size: 1.2em;
-      letter-spacing: 0.02em; line-height: 1.4; color: var(--dark);
+      font-family: 'JetBrains Mono', monospace; font-size: 2.4em;
+      letter-spacing: 0.02em; line-height: 1.35; color: var(--dark);
     }
-    .node-card.rainbow .node-label { font-size: 0.8em; }
+    .node-card.rainbow .node-label { font-size: 1.6em; }
 
     /* ── SKILL SUB-CARDS (2 sizes smaller) ── */
-    /* Skill = game-style upgrade popup: big glowing star, no box */
+    /* Skill = game-style upgrade: glowing star + title on ONE row, no box */
     .skill-card {
-      padding: 0.2em 0.35em; background: transparent; font-size: 0.84em;
-      text-align: center; cursor: pointer;
+      padding: 0.2em 0.4em; background: transparent; font-size: 1em;
+      text-align: center; cursor: pointer; width: max-content; max-width: 17em; margin: 0 auto;
     }
+    .skill-top { display: flex; align-items: center; justify-content: center; gap: 0.4em; }
+    .skill-star { font-size: 2.6em; line-height: 1; }
     .skill-badge-label {
-      font-family: 'JetBrains Mono', monospace; font-size: 0.6em;
-      letter-spacing: 0.14em; text-transform: uppercase; font-weight: 500; margin-bottom: 1px;
+      font-family: 'JetBrains Mono', monospace; font-size: 1.2em;
+      letter-spacing: 0.1em; text-transform: uppercase; font-weight: 500;
     }
-    .skill-star { font-size: 2em; line-height: 1; margin: 1px 0; }
     .skill-name {
-      font-family: 'JetBrains Mono', monospace; font-size: 0.88em; font-weight: 500;
-      letter-spacing: 0.02em; line-height: 1.3; color: var(--dark);
+      font-family: 'JetBrains Mono', monospace; font-size: 1.3em; font-weight: 500;
+      letter-spacing: 0.02em; line-height: 1.3; color: var(--dark); margin-top: 3px;
     }
     .skill-prog {
-      font-family: 'JetBrains Mono', monospace; font-size: 0.68em;
-      letter-spacing: 0.05em; margin-top: 1px; font-weight: 500;
+      font-family: 'JetBrains Mono', monospace; font-size: 1.05em;
+      letter-spacing: 0.04em; margin-top: 2px; font-weight: 500;
     }
+    .skill-grid { display: flex; flex-direction: column; gap: 0.5em; }
+    .skill-grid-row { display: flex; flex-direction: row; justify-content: center; gap: 1.5em; }
 
     /* ── MINIMAP / RANGE (bottom-right) ── */
     #minimap-panel {
-      position: fixed; right: 1.25rem; bottom: 14px; z-index: 160;
-      width: 320px; background: rgba(247,248,245,0.96);
+      position: fixed; left: 50%; transform: translateX(-50%); bottom: 14px; z-index: 160;
+      width: 540px; background: rgba(247,248,245,0.96);
       border: 0.5px solid var(--border); border-radius: 5px;
       padding: 8px 10px 9px; box-shadow: 0 2px 14px rgba(26,28,24,0.1);
     }
@@ -205,7 +208,7 @@
       .legend, .edu-legend { padding: 6px 8px; }
       .legend-row { font-size: 0.5rem; gap: 5px; }
       .legend-title { font-size: 0.5rem; }
-      #minimap-panel { width: 220px; right: 0.6rem; }
+      #minimap-panel { width: 94vw; }
     }
   </style>
 </head>
@@ -375,11 +378,21 @@ function makeEventBlock(ev, attachedSkills){
   card.append(badge, lbl);
   addTip(card, ev.label, ev.full, isRainbow?'#f59e0b':null);
 
-  const skillCards = attachedSkills.map(sk => makeSkillCard(sk));
   block._project = card;
-  block._skills  = skillCards;
-  // default order: project first (line side), skills after  → set per side later
-  block.append(card, ...skillCards);
+  let grid = null;
+  if(attachedSkills.length){
+    grid = el('div','skill-grid');     // rows of two; odd one ends up centred on the far row
+    for(let i=0;i<attachedSkills.length;i+=2){
+      const row = el('div','skill-grid-row');
+      row.appendChild(makeSkillCard(attachedSkills[i]));
+      if(attachedSkills[i+1]) row.appendChild(makeSkillCard(attachedSkills[i+1]));
+      grid.appendChild(row);
+    }
+    block.append(card, grid);
+  } else {
+    block.append(card);
+  }
+  block._grid = grid;
   block.dataset.type = ev.type;
   block.dataset.anchorId = ev.id;
   block._date = ev.date;
@@ -389,12 +402,14 @@ function makeEventBlock(ev, attachedSkills){
 function makeSkillCard(sk){
   const col = SKILL_COL[sk.level];
   const card = el('div','skill-card');
-  const b = el('div','skill-badge-label'); b.style.color = col; b.textContent = 'SKILL UPGRADE';
-  const star = el('div','skill-star'); star.style.color = col;
-  star.style.textShadow = '0 0 9px '+col+', 0 0 3px '+col; star.textContent = '★';
+  const top = el('div','skill-top');
+  const star = el('span','skill-star'); star.style.color = col;
+  star.style.textShadow = '0 0 10px '+col+', 0 0 3px '+col; star.textContent = '★';
+  const b = el('span','skill-badge-label'); b.style.color = col; b.textContent = 'SKILL UPGRADE';
+  top.append(star, b);
   const n = el('div','skill-name'); n.textContent = sk.name;
   const p = el('div','skill-prog'); p.style.color = col; p.textContent = SKILL_PROG[sk.level];
-  card.append(b, star, n, p);
+  card.append(top, n, p);
   addTip(card, sk.name + ' — Skill Upgrade', sk.full + ' · ' + SKILL_PROG[sk.level], null);
   return card;
 }
@@ -427,7 +442,7 @@ function render(scale){
   svgEl.setAttribute('height', CANVAS_H);
 
   // overlay-safe region
-  const TOP_PAD = 150, BOT_PAD = 96, NEAR = 60*scale, GAP_Y = 14*scale, GAP_X = 12*scale;
+  const TOP_PAD = 30, BOT_PAD = 170, NEAR = 120*scale, GAP_Y = 14*scale, GAP_X = 12*scale;
   const avail   = CANVAS_H - TOP_PAD - BOT_PAD;
   const LINE_Y  = TOP_PAD + avail/2;
   const availSide = avail/2 - NEAR;
@@ -536,8 +551,8 @@ function render(scale){
     const shelf=sides[b._side][b._shelfIdx];
     const cardX=b._x+b._nudge;
     let topY;
-    if(b._side==='above'){ const nearEdge=LINE_Y-shelf.nearOff; topY=nearEdge-b._h; b.style.flexDirection='column-reverse'; }
-    else { topY=LINE_Y+shelf.nearOff; b.style.flexDirection='column'; }
+    if(b._side==='above'){ const nearEdge=LINE_Y-shelf.nearOff; topY=nearEdge-b._h; b.style.flexDirection='column-reverse'; if(b._grid) b._grid.style.flexDirection='column-reverse'; }
+    else { topY=LINE_Y+shelf.nearOff; b.style.flexDirection='column'; if(b._grid) b._grid.style.flexDirection='column'; }
     b.style.left=cardX+'px'; b.style.top=topY+'px'; b.style.visibility='visible';
 
     // dot + connector on line
