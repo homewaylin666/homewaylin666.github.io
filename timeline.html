@@ -121,42 +121,45 @@
       width: max-content; transform: translateX(-50%);
     }
     .node-card {
-      padding: 0.42em 0.62em; border-radius: 4px; border: 2.5px solid;
+      padding: 0.6em 0.95em; border-radius: 5px; border: 4px solid;
       background: rgba(255,255,255,0.92);
-      max-width: 15em; cursor: pointer; transition: box-shadow 0.15s, background 0.15s;
+      max-width: 23em; cursor: pointer; transition: box-shadow 0.15s, background 0.15s;
     }
     .node-card:hover { background:#fff; box-shadow: 0 3px 14px rgba(26,28,24,0.16); }
-    .node-card.rainbow { border: none; border-image: var(--rainbow) 1; border-width: 2.5px; border-style: solid; }
+    /* Honour stays compact with its rainbow border */
+    .node-card.rainbow { border: none; border-image: var(--rainbow) 1; border-width: 2.5px; border-style: solid; max-width: 15em; padding: 0.42em 0.62em; }
     .node-type-badge {
-      font-family: 'JetBrains Mono', monospace; font-size: 0.62em;
-      letter-spacing: 0.1em; text-transform: uppercase; font-weight: 500; margin-bottom: 2px;
+      font-family: 'JetBrains Mono', monospace; font-size: 0.93em;
+      letter-spacing: 0.1em; text-transform: uppercase; font-weight: 500; margin-bottom: 3px; text-align: center;
     }
     .node-type-badge.rainbow {
       background: var(--rainbow); -webkit-background-clip: text; background-clip: text; color: transparent;
+      font-size: 0.62em; text-align: left;
     }
     .node-label {
-      font-family: 'JetBrains Mono', monospace; font-size: 0.8em;
+      font-family: 'JetBrains Mono', monospace; font-size: 1.2em;
       letter-spacing: 0.02em; line-height: 1.4; color: var(--dark);
     }
+    .node-card.rainbow .node-label { font-size: 0.8em; }
 
     /* ── SKILL SUB-CARDS (2 sizes smaller) ── */
+    /* Skill = game-style upgrade popup: big glowing star, no box */
     .skill-card {
-      padding: 0.4em 0.55em; border-radius: 4px; border: 2.5px solid;
-      background: rgba(255,255,255,0.92); font-size: 0.7em;   /* whole skill smaller */
-      cursor: pointer; transition: box-shadow 0.15s, background 0.15s;
+      padding: 0.2em 0.35em; background: transparent; font-size: 0.84em;
+      text-align: center; cursor: pointer;
     }
-    .skill-card:hover { background:#fff; box-shadow: 0 3px 12px rgba(26,28,24,0.14); }
     .skill-badge-label {
-      font-family: 'JetBrains Mono', monospace; font-size: 0.62em;
-      letter-spacing: 0.12em; text-transform: uppercase; font-weight: 500; margin-bottom: 2px;
+      font-family: 'JetBrains Mono', monospace; font-size: 0.6em;
+      letter-spacing: 0.14em; text-transform: uppercase; font-weight: 500; margin-bottom: 1px;
     }
+    .skill-star { font-size: 2em; line-height: 1; margin: 1px 0; }
     .skill-name {
-      font-family: 'JetBrains Mono', monospace; font-size: 0.82em;
-      letter-spacing: 0.02em; line-height: 1.35; color: var(--dark);
+      font-family: 'JetBrains Mono', monospace; font-size: 0.88em; font-weight: 500;
+      letter-spacing: 0.02em; line-height: 1.3; color: var(--dark);
     }
     .skill-prog {
-      font-family: 'JetBrains Mono', monospace; font-size: 0.66em;
-      letter-spacing: 0.05em; margin-top: 2px; font-weight: 500;
+      font-family: 'JetBrains Mono', monospace; font-size: 0.68em;
+      letter-spacing: 0.05em; margin-top: 1px; font-weight: 500;
     }
 
     /* ── MINIMAP / RANGE (bottom-right) ── */
@@ -226,8 +229,7 @@
     <div class="legend-row"><div class="legend-dot" style="background:var(--col-project)"></div>Project</div>
     <div class="legend-row"><div class="legend-dot rainbow"></div>Honour</div>
     <div class="legend-row"><div class="legend-dot" style="background:var(--col-service)"></div>Service / Role</div>
-    <div class="legend-row"><div class="legend-dot" style="background:var(--col-familiar)"></div>Skill · Familiar</div>
-    <div class="legend-row"><div class="legend-dot" style="background:var(--col-proficient)"></div>Skill · Proficient</div>
+    <div class="legend-row"><div class="legend-dot" style="background:linear-gradient(90deg,var(--col-familiar) 0 50%,var(--col-proficient) 50% 100%)"></div>Skill Upgrade</div>
   </div>
 
   <!-- Education legend -->
@@ -293,6 +295,8 @@ const EVENTS = [
   { date:'2020-04-01', type:'project', id:'ev-porcellio', label:'Spatial Memory in Porcellio laevis', full:'Nanjing University' },
   { date:'2020-10-01', type:'project', id:'ev-spp1685',  label:'SPP 1685 Ecosystem Nutrition', full:'University of Fribourg initiative' },
   { date:'2021-10-01', type:'project', id:'ev-sassa-proj', label:'Genetic Diversity of Sassafras tzumu', full:'Nanjing University' },
+  { date:'2022-08-14', type:'honor', id:'hon-bsc', label:'Outstanding Graduate Award', full:'BSc Ecology · Nanjing University (one month before graduation)' },
+  { date:'2023-08-14', type:'honor', id:'hon-mres', label:'Graduated with Distinction', full:'MRes Ecology, Evolution & Conservation · Imperial College London' },
   { date:'2022-01-15', type:'pub',     id:'pub-claw',     label:'Signs of claw asymmetry in a homochelate crab', full:'Applied Animal Behaviour Science, 246, 105537 (2022)' },
   { date:'2022-03-01', type:'project', id:'ev-alan',      label:'Artificial Light at Night & Detritivores', full:'Effects on litter decomposition · Nanjing University' },
   { date:'2022-10-13', type:'pub',     id:'pub-sassa',    label:'Genetic diversity of Sassafras tzumu', full:'Plants, 11(20), 2706 (2022)' },
@@ -385,12 +389,13 @@ function makeEventBlock(ev, attachedSkills){
 function makeSkillCard(sk){
   const col = SKILL_COL[sk.level];
   const card = el('div','skill-card');
-  card.style.borderColor = col;
-  const b = el('div','skill-badge-label'); b.style.color = col; b.textContent = 'SKILL';
+  const b = el('div','skill-badge-label'); b.style.color = col; b.textContent = 'SKILL UPGRADE';
+  const star = el('div','skill-star'); star.style.color = col;
+  star.style.textShadow = '0 0 9px '+col+', 0 0 3px '+col; star.textContent = '★';
   const n = el('div','skill-name'); n.textContent = sk.name;
   const p = el('div','skill-prog'); p.style.color = col; p.textContent = SKILL_PROG[sk.level];
-  card.append(b,n,p);
-  addTip(card, sk.name, sk.full + ' · ' + SKILL_PROG[sk.level], null);
+  card.append(b, star, n, p);
+  addTip(card, sk.name + ' — Skill Upgrade', sk.full + ' · ' + SKILL_PROG[sk.level], null);
   return card;
 }
 function makeStandaloneSkillBlock(sk){
@@ -422,7 +427,7 @@ function render(scale){
   svgEl.setAttribute('height', CANVAS_H);
 
   // overlay-safe region
-  const TOP_PAD = 150, BOT_PAD = 96, NEAR = 30*scale, GAP_Y = 14*scale, GAP_X = 12*scale;
+  const TOP_PAD = 150, BOT_PAD = 96, NEAR = 60*scale, GAP_Y = 14*scale, GAP_X = 12*scale;
   const avail   = CANVAS_H - TOP_PAD - BOT_PAD;
   const LINE_Y  = TOP_PAD + avail/2;
   const availSide = avail/2 - NEAR;
@@ -535,16 +540,17 @@ function render(scale){
     else { topY=LINE_Y+shelf.nearOff; b.style.flexDirection='column'; }
     b.style.left=cardX+'px'; b.style.top=topY+'px'; b.style.visibility='visible';
 
-    // dot on line
-    const meta = b._type==='skill' ? null : TYPE_META[b._type];
-    let dotStroke;
-    if(b._type==='skill') dotStroke = (b._skillLevel==='proficient'?'#d4af37':'#b87333');
-    else dotStroke = (meta.col==='rainbow') ? 'url(#rainbowGrad)' : getComputedStyle(document.documentElement).getPropertyValue(meta.col.replace('var(','').replace(')','')).trim();
+    // dot + connector on line
+    const isHon = (b._type==='honor');
+    let lineCol, dotFill='var(--cream)', dotStroke, dotR=5.5, dotSW='2.4';
+    if(b._type==='skill'){ const c=(b._skillLevel==='proficient'?'#d4af37':'#b87333'); lineCol=c; dotStroke=c; }
+    else if(isHon){ lineCol='#7c3aed'; dotFill='url(#rainbowGrad)'; dotStroke='#7c3aed'; dotSW='1.5'; dotR=6.5; }
+    else { const c=getComputedStyle(document.documentElement).getPropertyValue(TYPE_META[b._type].col.replace('var(','').replace(')','')).trim(); lineCol=c; dotStroke=c; }
     const lineEdgeY = b._side==='above'? LINE_Y-6 : LINE_Y+6;
     const nearEdgeY = b._side==='above'? LINE_Y-shelf.nearOff : LINE_Y+shelf.nearOff;
-    // connector (may slant ≤45°)
-    svgEl.appendChild(mkSVG('line',{x1:b._x,y1:lineEdgeY,x2:cardX,y2:nearEdgeY,stroke:dotStroke,'stroke-width':'1.4',opacity:'0.5'}));
-    svgEl.appendChild(mkSVG('circle',{cx:b._x,cy:LINE_Y,r:5.5,fill:'var(--cream)',stroke:dotStroke,'stroke-width':'2.4'}));
+    // connector (may slant ≤45°) — drawn for EVERY block, incl. honour
+    svgEl.appendChild(mkSVG('line',{x1:b._x,y1:lineEdgeY,x2:cardX,y2:nearEdgeY,stroke:lineCol,'stroke-width':'1.7',opacity:'0.55'}));
+    svgEl.appendChild(mkSVG('circle',{cx:b._x,cy:LINE_Y,r:dotR,fill:dotFill,stroke:dotStroke,'stroke-width':dotSW}));
   });
 
   return { fits, sides };
@@ -638,6 +644,25 @@ scrollEl.addEventListener('mouseup', ()=>{ isDown=false; scrollEl.style.cursor='
 scrollEl.addEventListener('mousemove', e=>{ if(!isDown) return; e.preventDefault(); scrollEl.scrollLeft=sLeft-(e.pageX-startX)*1.2; });
 scrollEl.addEventListener('scroll', updateScrollUI);
 scrollEl.addEventListener('wheel', e=>{ if(Math.abs(e.deltaY)>Math.abs(e.deltaX)){ scrollEl.scrollLeft+=e.deltaY; } }, {passive:true});
+
+// ═══ MINIMAP NAVIGATION (click / drag to jump) ═══════════
+const miniPanel = document.getElementById('minimap-panel');
+miniPanel.style.cursor = 'pointer';
+function miniScrub(clientX){
+  const track = document.getElementById('mini-window-track');
+  const r = track.getBoundingClientRect();
+  let frac = (clientX - r.left) / r.width;
+  frac = Math.max(0, Math.min(1, frac));
+  const sw = scrollEl.scrollWidth, cw = scrollEl.clientWidth;
+  scrollEl.scrollLeft = Math.max(0, Math.min(sw - cw, frac * sw - cw/2));
+  updateScrollUI();
+}
+let miniDown = false;
+miniPanel.addEventListener('mousedown', e => { miniDown = true; miniScrub(e.clientX); e.preventDefault(); e.stopPropagation(); });
+window.addEventListener('mousemove', e => { if(miniDown) miniScrub(e.clientX); });
+window.addEventListener('mouseup', () => { miniDown = false; });
+miniPanel.addEventListener('touchstart', e => { if(e.touches[0]){ miniScrub(e.touches[0].clientX); } }, {passive:true});
+miniPanel.addEventListener('touchmove',  e => { if(e.touches[0]){ miniScrub(e.touches[0].clientX); } }, {passive:true});
 
 // ═══ INIT ═════════════════════════════════════════════════
 build();
