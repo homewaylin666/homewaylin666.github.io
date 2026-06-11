@@ -117,14 +117,14 @@
 
     /* ── EVENT BLOCKS ── */
     .tl-block {
-      position: absolute; display: flex; flex-direction: column; gap: 0.34em;
+      position: absolute; display: flex; flex-direction: column; align-items: center; gap: 0.34em;
       width: max-content; transform: translateX(-50%);
     }
     /* all event cards share Honour's size now; only the border treatment differs */
     .node-card {
       padding: 0.7em 1em; border-radius: 6px; border: 4px solid;
       background: rgba(255,255,255,0.92);
-      max-width: 22em; cursor: pointer; transition: box-shadow 0.15s, background 0.15s;
+      max-width: 32em; cursor: pointer; transition: box-shadow 0.15s, background 0.15s;
     }
     .node-card:hover { background:#fff; box-shadow: 0 3px 14px rgba(26,28,24,0.16); }
     .node-card.rainbow { border: none; border-image: var(--rainbow) 1; border-width: 4px; border-style: solid; }
@@ -145,7 +145,7 @@
     /* Skill = game-style upgrade: glowing star + title on ONE row, no box */
     .skill-card {
       padding: 0.2em 0.4em; background: transparent; font-size: 1em;
-      text-align: center; cursor: pointer; width: max-content; max-width: 17em; margin: 0 auto;
+      text-align: center; cursor: pointer; width: max-content; margin: 0 auto;
     }
     .skill-top { display: flex; align-items: center; justify-content: center; gap: 0.4em; }
     .skill-star { font-size: 2.6em; line-height: 1; }
@@ -155,7 +155,7 @@
     }
     .skill-name {
       font-family: 'JetBrains Mono', monospace; font-size: 1.6em; font-weight: 500;
-      letter-spacing: 0.02em; line-height: 1.3; color: var(--dark); margin-top: 3px;
+      letter-spacing: 0.02em; line-height: 1.3; color: var(--dark); margin-top: 3px; white-space: nowrap;
     }
     .skill-prog {
       font-family: 'JetBrains Mono', monospace; font-size: 1.05em;
@@ -170,6 +170,11 @@
       width: 540px; background: rgba(247,248,245,0.96);
       border: 0.5px solid var(--border); border-radius: 5px;
       padding: 8px 10px 9px; box-shadow: 0 2px 14px rgba(26,28,24,0.1);
+    }
+    #mini-hint {
+      font-family: 'JetBrains Mono', monospace; font-size: 0.56rem;
+      letter-spacing: 0.1em; text-transform: uppercase; color: var(--sage);
+      text-align: center; margin-bottom: 5px;
     }
     #range-readout {
       font-family: 'JetBrains Mono', monospace; font-size: 0.64rem;
@@ -237,11 +242,11 @@
   <!-- Education legend -->
   <div class="edu-legend">
     <div class="legend-title">Education (Line)</div>
-    <div class="legend-row"><div class="edu-bar-legend" style="background:rgba(130,210,150,0.6)"></div>BSc · Nanjing</div>
-    <div class="legend-row"><div class="edu-bar-legend" style="background:rgba(80,170,105,0.7)"></div>MRes · Imperial</div>
-    <div class="legend-row"><div class="edu-bar-legend" style="background:rgba(160,155,140,0.55)"></div>Gap Year</div>
+    <div class="legend-row"><div class="edu-bar-legend" style="background:rgba(112,30,94,0.88)"></div>BSc · Nanjing</div>
+    <div class="legend-row"><div class="edu-bar-legend" style="background:rgba(0,62,116,0.88)"></div>MRes · Imperial</div>
+    <div class="legend-row"><div class="edu-bar-legend" style="background:rgba(179,74,114,0.85)"></div>Gap Year</div>
     <div class="legend-row"><div class="edu-bar-legend" style="background-color:rgba(90,105,72,0.7);background-image:repeating-linear-gradient(45deg,rgba(0,0,0,0.25) 0,rgba(0,0,0,0.25) 2px,transparent 0,transparent 50%);background-size:6px 6px;"></div>Military</div>
-    <div class="legend-row"><div class="edu-bar-legend" style="background:rgba(30,86,49,0.85)"></div>DPhil · Oxford</div>
+    <div class="legend-row"><div class="edu-bar-legend" style="background:rgba(0,33,71,0.92)"></div>DPhil · Oxford</div>
   </div>
 
   <div class="scroll-outer" id="scrollOuter">
@@ -252,6 +257,7 @@
 
   <!-- Minimap + range -->
   <div id="minimap-panel">
+    <div id="mini-hint">↔&nbsp; drag or click this bar to jump &nbsp;↔</div>
     <div id="range-readout"></div>
     <div id="mini-window-track"><div id="mini-window"></div></div>
     <svg id="minimap-svg" height="46"></svg>
@@ -280,12 +286,12 @@ function fmtDay(d){ return d.getDate() + ' ' + MONTHS[d.getMonth()] + ' ' + d.ge
 
 // ═══ DATA ═════════════════════════════════════════════════
 const EDU_PHASES = [
-  { start:'2018-09-15', end:'2022-09-14', color:'rgba(130,210,150,0.45)', camouflage:false },
-  { start:'2022-09-15', end:'2023-09-14', color:'rgba(80,170,105,0.55)',  camouflage:false },
-  { start:'2023-09-15', end:'2023-12-31', color:'rgba(160,155,140,0.4)',  camouflage:false },
-  { start:'2024-01-01', end:'2024-05-31', color:'rgba(90,105,72,0.6)',    camouflage:true  },
-  { start:'2024-06-01', end:'2024-09-14', color:'rgba(160,155,140,0.4)',  camouflage:false },
-  { start:'2024-09-15', end:'2026-12-31', color:'rgba(30,86,49,0.75)',    camouflage:false },
+  { start:'2018-09-15', end:'2022-09-14', color:'rgba(112,30,94,0.62)',  camouflage:false },  /* BSc — Nanjing purple */
+  { start:'2022-09-15', end:'2023-09-14', color:'rgba(0,62,116,0.64)',   camouflage:false },  /* MRes — Imperial Blue */
+  { start:'2023-09-15', end:'2023-12-31', color:'rgba(179,74,114,0.55)', camouflage:false },  /* Gap — deep pink */
+  { start:'2024-01-01', end:'2024-05-31', color:'rgba(90,105,72,0.6)',   camouflage:true  },  /* Military */
+  { start:'2024-06-01', end:'2024-09-14', color:'rgba(179,74,114,0.55)', camouflage:false },  /* Gap — deep pink */
+  { start:'2024-09-15', end:'2026-12-31', color:'rgba(0,33,71,0.82)',    camouflage:false },  /* DPhil — Oxford Blue */
 ];
 
 // type: pub | honor | project | service
@@ -441,7 +447,7 @@ function render(scale){
   svgEl.setAttribute('height', CANVAS_H);
 
   // overlay-safe region
-  const TOP_PAD = 30, BOT_PAD = 170, NEAR = 120*scale, GAP_Y = 14*scale, GAP_X = 12*scale;
+  const TOP_PAD = 75, BOT_PAD = 175, NEAR = 120*scale, GAP_Y = 14*scale, GAP_X = 12*scale;
   const avail   = CANVAS_H - TOP_PAD - BOT_PAD;
   const LINE_Y  = TOP_PAD + avail/2;
   const availSide = avail/2 - NEAR;
