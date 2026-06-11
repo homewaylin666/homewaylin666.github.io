@@ -139,10 +139,11 @@
     .cv-toc {
       position: fixed;
       z-index: 95;
-      top: auto;
+      top: 67%;
       right: auto;
-      bottom: 2rem;
-      left: 1.5rem;
+      bottom: auto;
+      left: calc(50% + 410px + 24px);
+      transform: translateY(-50%);
       height: auto;
       padding: 0;
       margin: 0;
@@ -229,6 +230,7 @@
         left: auto;
         top: calc(var(--nav-h) + 0.7rem);
         right: 0.7rem;
+        transform: none;
       }
       .cv-toc-toggle { display: flex; }
       .cv-toc-panel { display: none; width: auto; }
@@ -595,7 +597,6 @@
 
   <footer>
     &copy; 2026 Hung-wei Lin 林宏為 &nbsp;&middot;&nbsp; University of Oxford
-    <span style="opacity:0.5;">&nbsp;&middot;&nbsp; build TOC-R10</span>
   </footer>
 
   <script>
