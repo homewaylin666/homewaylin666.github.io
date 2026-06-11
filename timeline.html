@@ -194,6 +194,22 @@
     }
     #minimap-svg { display: block; width: 100%; }
 
+    /* ── ZOOM CONTROL (floating, top-right; not affected by zoom) ── */
+    #zoom-ctrl {
+      position: fixed; top: calc(var(--nav-h) + 14px); right: 1.5rem; z-index: 170;
+      display: flex; flex-direction: column; align-items: center; gap: 7px;
+      background: rgba(247,248,245,0.96); border: 0.5px solid var(--border);
+      border-radius: 9px; padding: 11px 9px; box-shadow: 0 2px 14px rgba(26,28,24,0.1);
+      user-select: none;
+    }
+    #zoom-val { font-family:'JetBrains Mono',monospace; font-size:0.66rem; color:var(--dark); font-weight:500; }
+    #zoom-range {
+      writing-mode: vertical-lr; direction: rtl;
+      -webkit-appearance: slider-vertical; appearance: slider-vertical;
+      width: 22px; height: 120px; cursor: pointer; accent-color: var(--sage);
+    }
+    #zoom-icon { font-family:'JetBrains Mono',monospace; font-size:0.5rem; letter-spacing:0.14em; text-transform:uppercase; color:var(--sage); }
+
     /* ── TOOLTIP ── */
     #tooltip {
       position: fixed; z-index: 300; background: rgba(26,28,24,0.93);
@@ -209,10 +225,15 @@
       nav { padding: 0 1rem; }
       .nav-links { gap: 0.7rem; }
       .nav-links a { font-size: 0.5rem; }
-      .legend, .edu-legend { padding: 6px 8px; }
-      .legend-row { font-size: 0.5rem; gap: 5px; }
-      .legend-title { font-size: 0.5rem; }
+      /* legends: half size and lifted ABOVE the bottom minimap so it isn't hidden */
+      .legend, .edu-legend { padding: 6px 8px; gap: 3px; bottom: 134px; }
+      .legend-title { font-size: 0.42rem; margin-bottom: 2px; }
+      .legend-row { font-size: 0.43rem; gap: 5px; }
+      .legend-dot { width: 8px; height: 8px; }
+      .edu-bar-legend { width: 16px; height: 7px; }
       #minimap-panel { width: 94vw; }
+      #zoom-ctrl { right: 0.6rem; padding: 7px 5px; }
+      #zoom-range { height: 80px; }
     }
   </style>
 </head>
@@ -244,9 +265,16 @@
     <div class="legend-title">Education (Line)</div>
     <div class="legend-row"><div class="edu-bar-legend" style="background:rgba(112,30,94,0.88)"></div>BSc · Nanjing</div>
     <div class="legend-row"><div class="edu-bar-legend" style="background:rgba(0,62,116,0.88)"></div>MRes · Imperial</div>
-    <div class="legend-row"><div class="edu-bar-legend" style="background:rgba(179,74,114,0.85)"></div>Gap Year</div>
+    <div class="legend-row"><div class="edu-bar-legend" style="background-color:rgba(179,74,114,0.85);background-image:repeating-linear-gradient(45deg,rgba(200,30,40,0.9) 0,rgba(200,30,40,0.9) 2px,transparent 0,transparent 50%);background-size:6px 6px;"></div>Gap Year</div>
     <div class="legend-row"><div class="edu-bar-legend" style="background-color:rgba(90,105,72,0.7);background-image:repeating-linear-gradient(45deg,rgba(0,0,0,0.25) 0,rgba(0,0,0,0.25) 2px,transparent 0,transparent 50%);background-size:6px 6px;"></div>Military</div>
     <div class="legend-row"><div class="edu-bar-legend" style="background:rgba(0,33,71,0.92)"></div>DPhil · Oxford</div>
+  </div>
+
+  <!-- Zoom wheel (floating, top-right) -->
+  <div id="zoom-ctrl">
+    <div id="zoom-val">100%</div>
+    <input id="zoom-range" type="range" min="25" max="100" value="100" step="1" />
+    <div id="zoom-icon">zoom</div>
   </div>
 
   <div class="scroll-outer" id="scrollOuter">
@@ -286,12 +314,12 @@ function fmtDay(d){ return d.getDate() + ' ' + MONTHS[d.getMonth()] + ' ' + d.ge
 
 // ═══ DATA ═════════════════════════════════════════════════
 const EDU_PHASES = [
-  { start:'2018-09-15', end:'2022-09-14', color:'rgba(112,30,94,0.62)',  camouflage:false },  /* BSc — Nanjing purple */
-  { start:'2022-09-15', end:'2023-09-14', color:'rgba(0,62,116,0.64)',   camouflage:false },  /* MRes — Imperial Blue */
-  { start:'2023-09-15', end:'2023-12-31', color:'rgba(179,74,114,0.55)', camouflage:false },  /* Gap — deep pink */
-  { start:'2024-01-01', end:'2024-05-31', color:'rgba(90,105,72,0.6)',   camouflage:true  },  /* Military */
-  { start:'2024-06-01', end:'2024-09-14', color:'rgba(179,74,114,0.55)', camouflage:false },  /* Gap — deep pink */
-  { start:'2024-09-15', end:'2026-12-31', color:'rgba(0,33,71,0.82)',    camouflage:false },  /* DPhil — Oxford Blue */
+  { start:'2018-09-15', end:'2022-09-14', color:'rgba(112,30,94,0.95)',  camouflage:false },               /* BSc — Nanjing purple (solid) */
+  { start:'2022-09-15', end:'2023-09-14', color:'rgba(0,62,116,0.9)',    camouflage:false },               /* MRes — Imperial Blue */
+  { start:'2023-09-15', end:'2023-12-31', color:'rgba(179,74,114,0.8)',  camouflage:false, stripe:true },  /* Gap — deep pink + red stripes */
+  { start:'2024-01-01', end:'2024-05-31', color:'rgba(90,105,72,0.6)',   camouflage:true  },               /* Military */
+  { start:'2024-06-01', end:'2024-09-14', color:'rgba(179,74,114,0.8)',  camouflage:false, stripe:true },  /* Gap — deep pink + red stripes */
+  { start:'2024-09-15', end:'2026-12-31', color:'rgba(0,33,71,0.9)',     camouflage:false },               /* DPhil — Oxford Blue */
 ];
 
 // type: pub | honor | project | service
@@ -471,6 +499,14 @@ function render(scale){
       [['#8a9e6a',0],['#5a6e3a',1],['#7a9050',2],['#4a5e2a',3]].forEach(([c,i])=>pat.appendChild(mkSVG('rect',{x:(i%2)*5,y:Math.floor(i/2)*5,width:5,height:5,fill:c,opacity:'0.7'})));
       d2.appendChild(pat); svgEl.appendChild(d2);
       svgEl.appendChild(mkSVG('rect',{x:x1,y:LINE_Y-BAR_H/2,width:w,height:BAR_H,fill:`url(#${pid})`}));
+    } else if(ph.stripe){
+      const pid='stripe'+Math.random().toString(36).slice(2,7);
+      const d2=mkSVG('defs');
+      const pat=mkSVG('pattern',{id:pid,width:8,height:8,patternUnits:'userSpaceOnUse',patternTransform:'rotate(45)'});
+      pat.appendChild(mkSVG('rect',{x:0,y:0,width:8,height:8,fill:ph.color}));
+      pat.appendChild(mkSVG('rect',{x:0,y:0,width:4,height:8,fill:'rgba(200,30,40,0.9)'}));
+      d2.appendChild(pat); svgEl.appendChild(d2);
+      svgEl.appendChild(mkSVG('rect',{x:x1,y:LINE_Y-BAR_H/2,width:w,height:BAR_H,fill:`url(#${pid})`}));
     } else {
       svgEl.appendChild(mkSVG('rect',{x:x1,y:LINE_Y-BAR_H/2,width:w,height:BAR_H,fill:ph.color}));
     }
@@ -578,6 +614,8 @@ function render(scale){
 
 // auto-fit: keep text as large as possible; if it doesn't fit vertically,
 // spread the timeline wider (more px/day) before shrinking the font.
+// The fitted (scale,px) become the 100% baseline; the zoom wheel scales on top.
+let AUTO_SCALE = 0.6, AUTO_PX = 3.0, ZOOM = 1;
 function build(){
   const scaleOpts = [1, 0.92, 0.84, 0.76, 0.68, 0.6];
   const pxOpts    = [3.0, 3.8, 4.8, 6.2, 8.0];
@@ -585,12 +623,22 @@ function build(){
   for(const sc of scaleOpts){
     for(const px of pxOpts){
       PX_PER_DAY = px;
-      if(render(sc).fits){ done=true; break; }
+      if(render(sc).fits){ AUTO_SCALE=sc; AUTO_PX=px; done=true; break; }
     }
     if(done) break;
   }
-  if(!done){ PX_PER_DAY = pxOpts[pxOpts.length-1]; render(scaleOpts[scaleOpts.length-1]); }
+  if(!done){ AUTO_SCALE = scaleOpts[scaleOpts.length-1]; AUTO_PX = pxOpts[pxOpts.length-1]; }
+  applyZoom(ZOOM);
+}
+// zoom = fraction of the fitted baseline (0.25 – 1.0); keeps the centred date stable
+function applyZoom(z){
+  ZOOM = z;
+  const centerDate = xToDate(scrollEl.scrollLeft + scrollEl.clientWidth/2);
+  PX_PER_DAY = AUTO_PX * z;
+  render(AUTO_SCALE * z);
   buildMinimap();
+  const nx = dateToX(centerDate);
+  scrollEl.scrollLeft = Math.max(0, Math.min(scrollEl.scrollWidth - scrollEl.clientWidth, nx - scrollEl.clientWidth/2));
   updateScrollUI();
 }
 
@@ -683,6 +731,19 @@ window.addEventListener('mousemove', e => { if(miniDown) miniScrub(e.clientX); }
 window.addEventListener('mouseup', () => { miniDown = false; });
 miniPanel.addEventListener('touchstart', e => { if(e.touches[0]){ miniScrub(e.touches[0].clientX); } }, {passive:true});
 miniPanel.addEventListener('touchmove',  e => { if(e.touches[0]){ miniScrub(e.touches[0].clientX); } }, {passive:true});
+
+// ═══ ZOOM WHEEL ═══════════════════════════════════════════
+const zoomRange = document.getElementById('zoom-range');
+const zoomVal   = document.getElementById('zoom-val');
+const zoomCtrl  = document.getElementById('zoom-ctrl');
+function setZoom(v){
+  v = Math.max(25, Math.min(100, v));
+  zoomRange.value = v;
+  zoomVal.textContent = Math.round(v) + '%';
+  applyZoom(v/100);
+}
+zoomRange.addEventListener('input', () => setZoom(+zoomRange.value));
+zoomCtrl.addEventListener('wheel', e => { e.preventDefault(); setZoom(+zoomRange.value - Math.sign(e.deltaY)*5); }, {passive:false});
 
 // ═══ INIT ═════════════════════════════════════════════════
 build();
