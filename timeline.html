@@ -252,7 +252,7 @@
   <div class="legend">
     <div class="legend-title">Event Type (Dot)</div>
     <div class="legend-row"><div class="legend-dot" style="background:var(--col-pub)"></div>Publication</div>
-    <div class="legend-row"><div class="legend-dot" style="background:var(--col-project)"></div>Project</div>
+    <div class="legend-row"><div class="legend-dot" style="background:var(--col-project)"></div>Project / Training</div>
     <div class="legend-row"><div class="legend-dot rainbow"></div>Honour</div>
     <div class="legend-row"><div class="legend-dot" style="background:var(--col-service)"></div>Service / Role</div>
     <div class="legend-row"><div class="legend-dot" style="background:linear-gradient(90deg,var(--col-familiar) 0 50%,var(--col-proficient) 50% 100%)"></div>Skill Upgrade</div>
@@ -348,6 +348,8 @@ const EVENTS = [
   { date:'2026-06-07', type:'pub',     id:'pub-resilience', label:"Still Lost in Definitions: How 'Resilience' Is Used in Ecology", full:'Lin et al. — bioRxiv, 2026.06.03.729936 (Preprint)' },
   { date:'2026-04-05', type:'service', id:'ev-rednote',     label:'Began Species Sci-Comm on RedNote', full:'RedNote 小红书 · public science communication' },
   { date:'2026-05-20', type:'service', id:'ev-mountaintide', label:'Volunteer Advisor — Mountain & Tide', full:'山與潮 · Chinese public science outreach platform' },
+  { date:'2026-08-10', type:'project', id:'ev-workshop', label:"Five days' workshop: Bayesian occupancy, N-mixture and population modelling using NIMBLE and JAGS", full:'10–15 Aug 2026 · hands-on training in NIMBLE & JAGS' },
+  { date:'2026-08-28', type:'pub', id:'pub-transient', label:'Life history traits predict the contribution of transient dynamics to variation in population growth', full:'Lin, H. W., Hernandez, C. M., Jaggi, H., Zuo, W., Tuljapurkar, D., & Salguero-Gómez, R. — bioRxiv, 2026.08.28.747639 (Preprint)' },
 ];
 
 // level: familiar | proficient ; projectId: bound project or null
@@ -373,12 +375,13 @@ const SKILLS = [
   { date:'2022-03-15', name:'GIS',                   level:'familiar',   projectId:'ev-alan',      full:'Acquired during ALAN & detritivores project' },
   { date:'2022-11-01', name:'Camera Trap',           level:'familiar',   projectId:null,           full:'Camera trap surveys · November 2022' },
   { date:'2020-11-15', name:'Metagenomics Analysis', level:'familiar',   projectId:null,           full:'Bioinformatics · November 2020' },
+  { date:'2026-08-15', name:'BUGS Language',         level:'familiar',   projectId:'ev-workshop',  full:'Acquired during the five-day NIMBLE & JAGS workshop' },
 ];
 
 const TYPE_META = {
   pub:     { col:'var(--col-pub)',     badge:'◆  PUBLICATION', mini:'#1e5631' },
   honor:   { col:'rainbow',            badge:'★  HONOUR',  mini:'#f59e0b' },
-  project: { col:'var(--col-project)', badge:'▸  PROJECT', mini:'#8cbf5c' },
+  project: { col:'var(--col-project)', badge:'▸  PROJECT / TRAINING', mini:'#8cbf5c' },
   service: { col:'var(--col-service)', badge:'▪  SERVICE', mini:'#173a8a' },
 };
 const SKILL_COL = { familiar:'var(--col-familiar)', proficient:'var(--col-proficient)' };
