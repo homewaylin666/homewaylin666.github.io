@@ -6,45 +6,63 @@
   <title>Chronicle — Hung-wei Lin 林宏為</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;1,400&family=Inter:wght@300;400;500&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;1,400&family=Inter:wght@300;400;500&family=Caveat:wght@500;700&family=Patrick+Hand&display=swap" rel="stylesheet" />
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
     :root {
-      --sage:    #8a9e7e;
-      --cream:   #f7f8f5;
-      --dark:    #1a1c18;
-      --muted:   #4a4c45;
-      --border:  rgba(26,28,24,0.12);
-      --nav-h:   56px;
+      --sage:  #8a9e7e;
+      --dark:  #1a1c18;
+      --muted: #4a4c45;
+      --nav-h: 56px;
 
-      /* Event type colours */
-      --col-pub:        #1e5631;   /* deep green   */
-      --col-project:    #8cbf5c;   /* light green  */
-      --col-service:    #173a8a;   /* deep blue    */
-      --col-familiar:   #b87333;   /* copper       */
-      --col-proficient: #d4af37;   /* gold         */
-      /* honour = rainbow (handled via gradients) */
+      /* lab-notebook paper + pen ink */
+      --paper:    #f8f6ec;
+      --paper-hi: #fffdf4;
+      --ink:      #252a40;
+      --ink-soft: rgba(37,42,64,0.62);
+      --red-ink:  #c0392b;
+      --grid-major: rgba(70,125,175,0.17);
+      --grid-minor: rgba(70,125,175,0.085);
+
+      /* event type colours (ink) */
+      --col-pub:        #1e5631;   /* deep green  */
+      --col-project:    #8cbf5c;   /* light green */
+      --col-service:    #173a8a;   /* deep blue   */
+      --col-familiar:   #b87333;   /* copper      */
+      --col-proficient: #d4af37;   /* gold        */
       --rainbow: linear-gradient(90deg,#e11d48,#f59e0b,#eab308,#22c55e,#3b82f6,#8b5cf6);
+
+      --hand:   'Patrick Hand', 'Comic Sans MS', cursive;
+      --script: 'Caveat', 'Patrick Hand', cursive;
+
+      /* hand-drawn box outlines */
+      --sketch-a: 255px 15px 225px 15px / 15px 225px 15px 255px;
+      --sketch-b: 15px 255px 15px 225px / 225px 15px 255px 15px;
+      --sketch-c: 225px 20px 255px 12px / 20px 255px 12px 225px;
+      --sketch-d: 12px 225px 20px 255px / 255px 12px 225px 20px;
+
+      --noise: url("data:image/svg+xml;utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='240' height='240'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0.36 0 0 0 0 0.32 0 0 0 0 0.22 0 0 0 0.07 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
     }
 
     html, body { height: 100%; }
     body {
-      font-family: 'Inter', sans-serif;
-      background: var(--cream);
-      color: var(--dark);
-      overflow: hidden;            /* page itself never scrolls */
+      font-family: var(--hand);
+      background: var(--paper);
+      color: var(--ink);
+      overflow: hidden;            /* the page itself never scrolls */
     }
 
-    /* ── NAV ── */
+    /* ── NAV (kept consistent with the rest of the site) ── */
     nav {
       position: fixed; top: 0; left: 0; right: 0; z-index: 200;
       height: var(--nav-h);
       display: flex; align-items: center; justify-content: space-between;
       padding: 0 2.5rem;
-      background: rgba(247,248,245,0.92);
-      backdrop-filter: blur(12px);
-      border-bottom: 0.5px solid var(--border);
+      background: rgba(248,246,236,0.94);
+      backdrop-filter: blur(10px);
+      border-bottom: 1.5px solid rgba(37,42,64,0.18);
+      font-family: 'Inter', sans-serif;
     }
     .nav-name {
       font-family: 'Playfair Display', serif; font-weight: 400;
@@ -59,179 +77,206 @@
     .nav-links a:hover { color: var(--dark); }
     .nav-links a.active { color: var(--sage); }
 
-    /* ── LEGENDS ── */
+    /* ── PAPER NOTES (legends / minimap / zoom) ── */
     .legend, .edu-legend {
-      position: fixed; bottom: 14px; z-index: 150;
-      display: flex; flex-direction: column; gap: 7px;
-      background: rgba(247,248,245,0.95);
-      border: 0.5px solid var(--border); border-radius: 6px;
-      padding: 14px 18px; box-shadow: 0 2px 14px rgba(26,28,24,0.09);
+      position: fixed; bottom: 16px; z-index: 150;
+      display: flex; flex-direction: column; gap: 4px;
+      background: var(--paper-hi) var(--noise);
+      border: 1.7px solid rgba(37,42,64,0.6);
+      border-radius: var(--sketch-a);
+      padding: 16px 18px 12px;
+      box-shadow: 2px 3px 0 rgba(37,42,64,0.10);
     }
-    .legend { right: 1.25rem; }
-    .edu-legend { left: 1.25rem; }
+    .legend     { right: 1.4rem; transform: rotate(0.6deg); }
+    .edu-legend { left: 1.4rem;  transform: rotate(-0.7deg); border-radius: var(--sketch-b); }
+    .legend::before, .edu-legend::before, #minimap-panel::before, #zoom-ctrl::before {
+      content: ''; position: absolute; top: -10px; left: 50%;
+      width: 74px; height: 20px; transform: translateX(-50%) rotate(-3deg);
+      background: rgba(236,216,140,0.62);
+      clip-path: polygon(3% 0, 97% 7%, 100% 50%, 96% 100%, 2% 93%, 0 46%);
+      pointer-events: none;
+    }
     .legend-title {
-      font-family: 'JetBrains Mono', monospace; font-size: 0.82rem;
-      letter-spacing: 0.16em; text-transform: uppercase; color: var(--muted);
-      margin-bottom: 5px;
+      font-family: var(--script); font-weight: 700; font-size: 1.3rem; color: var(--ink);
+      letter-spacing: 0.03em; line-height: 1.1;
+      display: flex; align-items: baseline; justify-content: space-between; gap: 12px;
     }
+    .legend-reset {
+      font-family: var(--hand); font-weight: 400; font-size: 0.85rem; color: var(--red-ink);
+      cursor: pointer; text-decoration: underline wavy rgba(192,57,43,0.5); visibility: hidden;
+    }
+    .legend-reset.show { visibility: visible; }
+    .legend-hint { font-family: var(--hand); font-size: 0.8rem; color: var(--ink-soft); margin: -2px 0 2px; }
     .legend-row {
-      display: flex; align-items: center; gap: 10px;
-      font-family: 'JetBrains Mono', monospace; font-size: 0.86rem; color: var(--muted);
+      display: flex; align-items: center; gap: 9px;
+      font-family: var(--hand); font-size: 1.02rem; color: var(--ink);
+      cursor: pointer; user-select: none;
+      padding: 1px 5px; margin: 0 -5px; border-radius: 6px;
+      transition: opacity 0.15s, background 0.15s;
     }
-    .legend-dot { width: 15px; height: 15px; border-radius: 50%; flex-shrink: 0; }
+    .legend-row:hover { background: rgba(236,216,140,0.3); }
+    .legend-row:focus-visible { outline: 1.5px dashed var(--red-ink); outline-offset: 1px; }
+    .legend-row.off { opacity: 0.4; }
+    .legend-row.off .lbl { text-decoration: line-through; text-decoration-thickness: 1.6px; text-decoration-color: var(--red-ink); }
+    .chk {
+      width: 15px; height: 15px; flex-shrink: 0; position: relative;
+      border: 1.7px solid var(--ink); border-radius: 3px 6px 2px 5px;
+    }
+    .legend-row:not(.off) .chk::after {
+      content: '✓'; position: absolute; left: 0; top: -10px;
+      font-family: var(--script); font-weight: 700; font-size: 21px; line-height: 1; color: var(--red-ink);
+    }
+    .legend-dot { width: 15px; height: 15px; border-radius: 50% 45% 52% 48%; flex-shrink: 0; border: 1.3px solid rgba(37,42,64,0.5); }
     .legend-dot.rainbow { background: var(--rainbow); }
-    .edu-bar-legend { width: 32px; height: 13px; border-radius: 2px; flex-shrink: 0; }
+    .edu-bar-legend { width: 32px; height: 12px; flex-shrink: 0; border-radius: 2px 4px 3px 2px; border: 1.2px solid rgba(37,42,64,0.45); }
+    .legend-row.shake { animation: shake 0.35s; }
+    @keyframes shake { 0%,100% { transform: translateX(0); } 25% { transform: translateX(-4px); } 75% { transform: translateX(4px); } }
 
     /* ── SCROLL CONTAINER (horizontal only) ── */
     .scroll-outer {
       position: fixed; top: var(--nav-h); left: 0; right: 0; bottom: 0;
       overflow-x: auto; overflow-y: hidden; cursor: grab;
+      background: var(--paper) var(--noise);
     }
     .scroll-outer:active { cursor: grabbing; }
-    .scroll-outer::-webkit-scrollbar { height: 5px; }
-    .scroll-outer::-webkit-scrollbar-track { background: rgba(26,28,24,0.04); }
-    .scroll-outer::-webkit-scrollbar-thumb { background: rgba(138,158,126,0.4); border-radius: 2px; }
+    .scroll-outer::-webkit-scrollbar { height: 6px; }
+    .scroll-outer::-webkit-scrollbar-track { background: rgba(37,42,64,0.05); }
+    .scroll-outer::-webkit-scrollbar-thumb { background: rgba(192,57,43,0.35); border-radius: 3px; }
 
-    #canvas-wrap { position: relative; font-size: 13px; }   /* font-size scaled by JS for auto-fit */
-    #canvas-wrap::before {
-      content: ''; position: absolute; inset: 0;
+    #canvas-wrap { position: relative; font-size: 18px; }   /* scaled by JS (auto-fit × zoom) */
+    #canvas-wrap::before {                                   /* graph paper */
+      content: ''; position: absolute; inset: 0; pointer-events: none;
       background-image:
-        linear-gradient(rgba(26,28,24,0.025) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(26,28,24,0.025) 1px, transparent 1px);
-      background-size: 60px 60px; pointer-events: none;
+        linear-gradient(var(--grid-major) 1px, transparent 1px),
+        linear-gradient(90deg, var(--grid-major) 1px, transparent 1px),
+        linear-gradient(var(--grid-minor) 1px, transparent 1px),
+        linear-gradient(90deg, var(--grid-minor) 1px, transparent 1px);
+      background-size: 75px 75px, 75px 75px, 15px 15px, 15px 15px;
     }
-    #svg-layer { position: absolute; inset: 0; pointer-events: none; }
+    #svg-layer { position: absolute; inset: 0; pointer-events: none; overflow: visible; }
 
-    /* ── YEAR LABELS ── */
+    /* ── HANDWRITTEN LABELS ── */
     .year-label {
-      position: absolute; font-family: 'JetBrains Mono', monospace;
-      font-size: 0.85rem; letter-spacing: 0.1em; color: rgba(26,28,24,0.22);
-      transform: translateX(-50%); white-space: nowrap; pointer-events: none; font-weight: 500;
+      position: absolute; transform: translateX(-50%); white-space: nowrap; pointer-events: none;
+      font-family: var(--script); font-weight: 700; font-size: 1.45em; line-height: 1; color: rgba(37,42,64,0.45);
     }
     .end-label {
-      position: absolute; font-family: 'JetBrains Mono', monospace;
-      font-size: 1.24rem; letter-spacing: 0.08em; color: var(--muted); font-weight: 500;
-      transform: translateX(-50%); white-space: nowrap; pointer-events: none;
-      text-align: center; text-transform: uppercase; line-height: 1.3;
+      position: absolute; transform: translateX(-50%); white-space: nowrap; pointer-events: none;
+      font-family: var(--script); font-weight: 700; font-size: 1.5em; line-height: 1.05; color: var(--ink); text-align: center;
+    }
+    .jump-tag {
+      position: absolute; transform: translate(-50%, -50%); white-space: nowrap; cursor: help;
+      font-family: var(--script); font-weight: 700; font-size: 1.5em; line-height: 1; color: var(--red-ink); padding: 2px 6px;
+    }
+    .jump-note {
+      position: absolute; transform: translateX(-50%); white-space: nowrap; cursor: help; text-align: center;
+      font-family: var(--hand); font-size: 0.85em; line-height: 1.15; color: var(--red-ink);
     }
 
-    /* ── EVENT BLOCKS ── */
+    /* ── EVENT CARDS (pen on paper) ── */
     .tl-block {
       position: absolute; display: flex; flex-direction: column; align-items: center; gap: 0.34em;
       width: max-content; transform: translateX(-50%);
     }
-    /* all event cards share Honour's size now; only the border treatment differs */
     .node-card {
-      padding: 0.7em 1em; border-radius: 6px; border: 4px solid;
-      background: rgba(255,255,255,0.92);
-      max-width: 32em; cursor: pointer; transition: box-shadow 0.15s, background 0.15s;
+      padding: 0.55em 0.95em 0.6em; border: 3px solid; border-radius: var(--sketch-a);
+      background: rgba(255,253,244,0.95);
+      max-width: 30em; cursor: pointer;
+      transform: rotate(var(--rot, 0deg));
+      box-shadow: 1.5px 2px 0 rgba(37,42,64,0.10);
+      transition: box-shadow 0.15s, transform 0.15s;
     }
-    .node-card:hover { background:#fff; box-shadow: 0 3px 14px rgba(26,28,24,0.16); }
-    .node-card.rainbow { border: none; border-image: var(--rainbow) 1; border-width: 4px; border-style: solid; }
+    .node-card:hover { transform: rotate(0deg) scale(1.02); box-shadow: 3px 4px 0 rgba(37,42,64,0.16); }
+    .node-card.rainbow {
+      border-color: transparent;
+      background: linear-gradient(rgba(255,253,244,0.97), rgba(255,253,244,0.97)) padding-box, var(--rainbow) border-box;
+    }
     .node-type-badge {
-      font-family: 'JetBrains Mono', monospace; font-size: 1.24em;
-      letter-spacing: 0.1em; text-transform: uppercase; font-weight: 500; margin-bottom: 4px; text-align: center;
+      font-family: var(--script); font-weight: 700; font-size: 1.35em; line-height: 1.05;
+      letter-spacing: 0.05em; text-transform: uppercase; text-align: center; margin-bottom: 2px;
     }
-    .node-type-badge.rainbow {
-      background: var(--rainbow); -webkit-background-clip: text; background-clip: text; color: transparent;
-      text-align: center;
-    }
-    .node-label {
-      font-family: 'JetBrains Mono', monospace; font-size: 1.6em;
-      letter-spacing: 0.02em; line-height: 1.35; color: var(--dark); text-align: center;
-    }
+    .node-type-badge.rainbow { background: var(--rainbow); -webkit-background-clip: text; background-clip: text; color: transparent; }
+    .node-label { font-family: var(--hand); font-size: 1.5em; line-height: 1.22; color: var(--ink); text-align: center; }
 
-    /* ── SKILL SUB-CARDS (2 sizes smaller) ── */
-    /* Skill = game-style upgrade: glowing star + title on ONE row, no box */
+    /* Skill upgrade: star + title on one row, no box */
     .skill-card {
-      padding: 0.2em 0.4em; background: transparent; font-size: 1em;
-      text-align: center; cursor: pointer; width: max-content; margin: 0 auto;
+      padding: 0.15em 0.35em; background: transparent; text-align: center; cursor: pointer;
+      width: max-content; margin: 0 auto; transform: rotate(var(--rot, 0deg));
     }
-    .skill-top { display: flex; align-items: center; justify-content: center; gap: 0.4em; }
-    .skill-star { font-size: 2.6em; line-height: 1; }
-    .skill-badge-label {
-      font-family: 'JetBrains Mono', monospace; font-size: 1.2em;
-      letter-spacing: 0.1em; text-transform: uppercase; font-weight: 500;
-    }
-    .skill-name {
-      font-family: 'JetBrains Mono', monospace; font-size: 1.6em; font-weight: 500;
-      letter-spacing: 0.02em; line-height: 1.3; color: var(--dark); margin-top: 3px; white-space: nowrap;
-    }
-    .skill-prog {
-      font-family: 'JetBrains Mono', monospace; font-size: 1.05em;
-      letter-spacing: 0.04em; margin-top: 2px; font-weight: 500;
-    }
-    .skill-grid { display: flex; flex-direction: column; gap: 0.5em; }
-    .skill-grid-row { display: flex; flex-direction: row; justify-content: center; gap: 1.5em; }
+    .skill-top { display: flex; align-items: center; justify-content: center; gap: 0.3em; }
+    .skill-star { font-size: 2.1em; line-height: 1; }
+    .skill-badge-label { font-family: var(--script); font-weight: 700; font-size: 1.3em; letter-spacing: 0.05em; text-transform: uppercase; }
+    .skill-name { font-family: var(--hand); font-size: 1.5em; line-height: 1.2; color: var(--ink); white-space: nowrap; }
+    .skill-prog { font-family: var(--hand); font-size: 1.02em; margin-top: 1px; }
+    .skill-grid { display: flex; flex-direction: column; gap: 0.4em; }
+    .skill-grid-row { display: flex; flex-direction: row; justify-content: center; gap: 1.4em; }
 
-    /* ── MINIMAP / RANGE (bottom-right) ── */
+    /* ── MINIMAP (bottom-centre) ── */
     #minimap-panel {
-      position: fixed; left: 50%; transform: translateX(-50%); bottom: 14px; z-index: 160;
-      width: 540px; background: rgba(247,248,245,0.96);
-      border: 0.5px solid var(--border); border-radius: 5px;
-      padding: 8px 10px 9px; box-shadow: 0 2px 14px rgba(26,28,24,0.1);
+      position: fixed; left: 50%; bottom: 16px; z-index: 160; width: 540px;
+      background: var(--paper-hi) var(--noise);
+      border: 1.7px solid rgba(37,42,64,0.6); border-radius: var(--sketch-c);
+      padding: 12px 14px 8px; box-shadow: 2px 3px 0 rgba(37,42,64,0.10);
+      transform: translateX(-50%) rotate(-0.3deg);
     }
-    #mini-hint {
-      font-family: 'JetBrains Mono', monospace; font-size: 0.56rem;
-      letter-spacing: 0.1em; text-transform: uppercase; color: var(--sage);
-      text-align: center; margin-bottom: 5px;
-    }
-    #range-readout {
-      font-family: 'JetBrains Mono', monospace; font-size: 0.64rem;
-      letter-spacing: 0.06em; color: var(--muted); margin-bottom: 6px; text-align: center;
-    }
-    #range-readout b { color: var(--dark); font-weight: 500; }
+    #mini-hint { font-family: var(--hand); font-size: 0.82rem; color: var(--ink-soft); text-align: center; margin-bottom: 1px; }
+    #mini-hint b { color: var(--red-ink); font-weight: 400; }
+    #range-readout { font-family: var(--script); font-weight: 700; font-size: 1.15rem; color: var(--ink); text-align: center; margin-bottom: 4px; line-height: 1.1; }
+    #range-readout .jmp { font-family: var(--hand); font-weight: 400; font-size: 0.85rem; color: var(--red-ink); }
     #mini-window-track { position: relative; height: 13px; }
     #mini-window {
       position: absolute; top: 0; height: 13px;
-      border: 1px solid var(--sage); border-bottom: none;
-      background: rgba(138,158,126,0.16); box-sizing: border-box;
+      border: 1.6px solid var(--red-ink); border-bottom: none; border-radius: 4px 6px 0 0;
+      background: rgba(192,57,43,0.08);
     }
     #mini-window::after {
-      content: ''; position: absolute; left: 50%; bottom: -5px; transform: translateX(-50%);
-      border-left: 4px solid transparent; border-right: 4px solid transparent;
-      border-top: 5px solid var(--sage);
+      content: ''; position: absolute; left: 50%; bottom: -6px; transform: translateX(-50%);
+      border-left: 5px solid transparent; border-right: 5px solid transparent; border-top: 6px solid var(--red-ink);
     }
     #minimap-svg { display: block; width: 100%; }
 
-    /* ── ZOOM CONTROL (floating, top-right; not affected by zoom) ── */
-    #zoom-ctrl {
-      position: fixed; top: calc(var(--nav-h) + 14px); right: 1.5rem; z-index: 170;
-      display: flex; flex-direction: column; align-items: center; gap: 7px;
-      background: rgba(247,248,245,0.96); border: 0.5px solid var(--border);
-      border-radius: 9px; padding: 11px 9px; box-shadow: 0 2px 14px rgba(26,28,24,0.1);
-      user-select: none;
+    /* ── ZOOM (top-right; never affected by zoom) ── */
+    #zoom-ctrl {                       /* one slim row so it never covers the top cards */
+      position: fixed; top: calc(var(--nav-h) + 12px); right: 1.6rem; z-index: 170;
+      display: flex; flex-direction: row; align-items: center; gap: 9px;
+      background: var(--paper-hi) var(--noise);
+      border: 1.7px solid rgba(37,42,64,0.6); border-radius: var(--sketch-d);
+      padding: 8px 13px 6px; box-shadow: 2px 3px 0 rgba(37,42,64,0.10);
+      user-select: none; transform: rotate(0.8deg);
     }
-    #zoom-val { font-family:'JetBrains Mono',monospace; font-size:0.66rem; color:var(--dark); font-weight:500; }
-    #zoom-range {
-      appearance: auto; width: 150px; height: 20px; cursor: pointer; accent-color: var(--sage);
-    }
-    #zoom-icon { font-family:'JetBrains Mono',monospace; font-size:0.5rem; letter-spacing:0.14em; text-transform:uppercase; color:var(--sage); }
+    #zoom-val  { font-family: var(--script); font-weight: 700; font-size: 1.2rem; line-height: 1; color: var(--ink); min-width: 2.6em; text-align: right; }
+    #zoom-range { width: 140px; height: 20px; cursor: pointer; accent-color: var(--red-ink); }
+    #zoom-icon { font-family: var(--hand); font-size: 0.9rem; color: var(--ink-soft); }
 
-    /* ── TOOLTIP ── */
+    /* ── TOOLTIP (a scrap of paper) ── */
     #tooltip {
-      position: fixed; z-index: 300; background: rgba(26,28,24,0.93);
-      border-radius: 4px; padding: 8px 12px; max-width: 260px;
-      pointer-events: none; opacity: 0; transition: opacity 0.15s;
-      font-family: 'JetBrains Mono', monospace; font-size: 0.65rem; line-height: 1.6;
-      color: rgba(255,255,255,0.82);
+      position: fixed; z-index: 300; max-width: 290px; pointer-events: none; opacity: 0; transition: opacity 0.15s;
+      background: var(--paper-hi); border: 1.6px solid var(--ink); border-radius: var(--sketch-b);
+      padding: 9px 13px; box-shadow: 2px 3px 0 rgba(37,42,64,0.14);
+      font-family: var(--hand); font-size: 0.95rem; line-height: 1.35; color: var(--ink);
     }
     #tooltip.visible { opacity: 1; }
-    #tooltip .tt-title { font-size: 0.72rem; color: #fff; margin-bottom: 3px; font-family:'Inter',sans-serif; }
+    #tooltip .tt-title { font-family: var(--script); font-weight: 700; font-size: 1.25rem; line-height: 1.1; color: var(--red-ink); margin-bottom: 3px; }
 
     @media (max-width: 760px) {
       nav { padding: 0 1rem; }
       .nav-links { gap: 0.7rem; }
       .nav-links a { font-size: 0.5rem; }
-      /* legends: half size and lifted ABOVE the bottom minimap so it isn't hidden */
-      .legend, .edu-legend { padding: 6px 8px; gap: 3px; bottom: 134px; }
-      .legend-title { font-size: 0.42rem; margin-bottom: 2px; }
-      .legend-row { font-size: 0.43rem; gap: 5px; }
-      .legend-dot { width: 8px; height: 8px; }
+      .legend, .edu-legend { padding: 9px 9px 6px; gap: 2px; bottom: 152px; }
+      .legend-title { font-size: 0.72rem; gap: 6px; }
+      .legend-reset { font-size: 0.55rem; }
+      .legend-hint { font-size: 0.5rem; }
+      .legend-row { font-size: 0.6rem; gap: 5px; }
+      .chk { width: 9px; height: 9px; border-width: 1.2px; }
+      .legend-row:not(.off) .chk::after { font-size: 13px; top: -6px; }
+      .legend-dot { width: 9px; height: 9px; }
       .edu-bar-legend { width: 16px; height: 7px; }
+      .legend::before, .edu-legend::before { width: 44px; height: 12px; top: -6px; }
       #minimap-panel { width: 94vw; }
-      #zoom-ctrl { right: 0.6rem; padding: 7px 8px; }
-      #zoom-range { width: 110px; }
+      #zoom-ctrl { right: 0.6rem; padding: 6px 9px 4px; gap: 6px; }
+      #zoom-range { width: 90px; }
+      #zoom-val { font-size: 0.95rem; }
+      #zoom-icon { font-size: 0.7rem; }
     }
   </style>
 </head>
@@ -248,31 +293,33 @@
     </ul>
   </nav>
 
-  <!-- Event type legend -->
-  <div class="legend">
-    <div class="legend-title">Event Type (Dot)</div>
-    <div class="legend-row"><div class="legend-dot" style="background:var(--col-pub)"></div>Publication</div>
-    <div class="legend-row"><div class="legend-dot" style="background:var(--col-project)"></div>Project / Training</div>
-    <div class="legend-row"><div class="legend-dot rainbow"></div>Honour</div>
-    <div class="legend-row"><div class="legend-dot" style="background:var(--col-service)"></div>Service / Role</div>
-    <div class="legend-row"><div class="legend-dot" style="background:linear-gradient(90deg,var(--col-familiar) 0 50%,var(--col-proficient) 50% 100%)"></div>Skill Upgrade</div>
+  <!-- Event type legend (click a row to show / hide) -->
+  <div class="legend" id="type-legend">
+    <div class="legend-title">Event Type (Dot) <span class="legend-reset" data-reset="type">reset</span></div>
+    <div class="legend-hint">tap to show / hide</div>
+    <div class="legend-row" data-type="pub" role="button" tabindex="0"><span class="chk"></span><span class="legend-dot" style="background:var(--col-pub)"></span><span class="lbl">Publication</span></div>
+    <div class="legend-row" data-type="project" role="button" tabindex="0"><span class="chk"></span><span class="legend-dot" style="background:var(--col-project)"></span><span class="lbl">Project / Training</span></div>
+    <div class="legend-row" data-type="honor" role="button" tabindex="0"><span class="chk"></span><span class="legend-dot rainbow"></span><span class="lbl">Honour</span></div>
+    <div class="legend-row" data-type="service" role="button" tabindex="0"><span class="chk"></span><span class="legend-dot" style="background:var(--col-service)"></span><span class="lbl">Service / Role</span></div>
+    <div class="legend-row" data-type="skill" role="button" tabindex="0"><span class="chk"></span><span class="legend-dot" style="background:linear-gradient(90deg,var(--col-familiar) 0 50%,var(--col-proficient) 50% 100%)"></span><span class="lbl">Skill Upgrade</span></div>
   </div>
 
-  <!-- Education legend -->
-  <div class="edu-legend">
-    <div class="legend-title">Education (Line)</div>
-    <div class="legend-row"><div class="edu-bar-legend" style="background:rgba(112,30,94,0.88)"></div>BSc · Nanjing</div>
-    <div class="legend-row"><div class="edu-bar-legend" style="background:rgba(0,62,116,0.88)"></div>MRes · Imperial</div>
-    <div class="legend-row"><div class="edu-bar-legend" style="background-color:rgba(179,74,114,0.85);background-image:repeating-linear-gradient(45deg,rgba(255,80,175,0.95) 0,rgba(255,80,175,0.95) 2px,transparent 0,transparent 50%);background-size:6px 6px;"></div>Gap Year</div>
-    <div class="legend-row"><div class="edu-bar-legend" style="background-color:rgba(90,105,72,0.7);background-image:repeating-linear-gradient(45deg,rgba(0,0,0,0.25) 0,rgba(0,0,0,0.25) 2px,transparent 0,transparent 50%);background-size:6px 6px;"></div>Military</div>
-    <div class="legend-row"><div class="edu-bar-legend" style="background:rgba(0,33,71,0.92)"></div>DPhil · Oxford</div>
+  <!-- Education legend (click a row to keep / skip that period) -->
+  <div class="edu-legend" id="edu-legend">
+    <div class="legend-title">Education (Line) <span class="legend-reset" data-reset="phase">reset</span></div>
+    <div class="legend-hint">tap to keep / skip periods</div>
+    <div class="legend-row" data-phase="bsc" role="button" tabindex="0"><span class="chk"></span><span class="edu-bar-legend" style="background:rgba(112,30,94,0.9)"></span><span class="lbl">BSc · Nanjing</span></div>
+    <div class="legend-row" data-phase="mres" role="button" tabindex="0"><span class="chk"></span><span class="edu-bar-legend" style="background:rgba(0,62,116,0.9)"></span><span class="lbl">MRes · Imperial</span></div>
+    <div class="legend-row" data-phase="gap" role="button" tabindex="0"><span class="chk"></span><span class="edu-bar-legend" style="background-color:rgba(179,74,114,0.85);background-image:repeating-linear-gradient(45deg,rgba(255,80,175,0.95) 0,rgba(255,80,175,0.95) 2px,transparent 0,transparent 50%);background-size:6px 6px;"></span><span class="lbl">Gap Year</span></div>
+    <div class="legend-row" data-phase="military" role="button" tabindex="0"><span class="chk"></span><span class="edu-bar-legend" style="background-color:rgba(90,105,72,0.7);background-image:repeating-linear-gradient(45deg,rgba(0,0,0,0.25) 0,rgba(0,0,0,0.25) 2px,transparent 0,transparent 50%);background-size:6px 6px;"></span><span class="lbl">Military</span></div>
+    <div class="legend-row" data-phase="dphil" role="button" tabindex="0"><span class="chk"></span><span class="edu-bar-legend" style="background:rgba(0,33,71,0.92)"></span><span class="lbl">DPhil · Oxford</span></div>
   </div>
 
-  <!-- Zoom wheel (floating, top-right) -->
+  <!-- Zoom (floating, top-right) -->
   <div id="zoom-ctrl">
-    <div id="zoom-val">100%</div>
-    <input id="zoom-range" type="range" min="25" max="100" value="100" step="1" />
     <div id="zoom-icon">zoom</div>
+    <input id="zoom-range" type="range" min="25" max="100" value="100" step="1" aria-label="Zoom timeline" />
+    <div id="zoom-val">100%</div>
   </div>
 
   <div class="scroll-outer" id="scrollOuter">
@@ -281,9 +328,9 @@
     </div>
   </div>
 
-  <!-- Minimap + range -->
+  <!-- Minimap + visible range -->
   <div id="minimap-panel">
-    <div id="mini-hint">↔&nbsp; drag or click this bar to jump &nbsp;↔</div>
+    <div id="mini-hint">↔ drag or click this bar to jump</div>
     <div id="range-readout"></div>
     <div id="mini-window-track"><div id="mini-window"></div></div>
     <svg id="minimap-svg" height="46"></svg>
@@ -293,131 +340,233 @@
 
 <script>
 // ═══ CONFIG ═══════════════════════════════════════════════
-const NAV_H      = 56;
-const START      = new Date('2018-09-15');   // BSc enrolment
-const END        = new Date();               // visit day (today)
-let   PX_PER_DAY = 3.0;          // adjusted by auto-fit (spread horizontally to fit height)
-const MARGIN_L   = 140;
-const MARGIN_R   = 150;
-
-const totalDays  = (END - START) / 86400000;
-function totalW(){ return MARGIN_L + totalDays * PX_PER_DAY + MARGIN_R; }
+const NAV_H     = 56;
+const DAY       = 86400000;
+const START     = new Date('2018-09-15');   // BSc enrolment
+const END       = new Date();               // the visit day
+let   PX_PER_DAY = 3.0;                     // set by auto-fit × zoom
+const MARGIN_L  = 150;
+const MARGIN_R  = 170;
+const JUMP_W    = 150;                      // width of a collapsed (skipped) stretch
+const BASE_FONT = 18;                       // ≈1.38× the previous base
 
 const MONTHS = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
-
-function dateToX(d){ return MARGIN_L + (new Date(d) - START)/86400000*PX_PER_DAY; }
-function xToDate(x){ return new Date(START.getTime() + (x - MARGIN_L)/PX_PER_DAY*86400000); }
-function fmtMonthYear(d){ return d.getFullYear() + ' ' + MONTHS[d.getMonth()]; }
-function fmtDay(d){ return d.getDate() + ' ' + MONTHS[d.getMonth()] + ' ' + d.getFullYear(); }
+const fmtMonthYear = d => d.getFullYear() + ' ' + MONTHS[d.getMonth()];
+const fmtMY        = d => MONTHS[d.getMonth()] + ' ' + d.getFullYear();
+const fmtDay       = d => d.getDate() + ' ' + MONTHS[d.getMonth()] + ' ' + d.getFullYear();
 
 // ═══ DATA ═════════════════════════════════════════════════
-const EDU_PHASES = [
-  { start:'2018-09-15', end:'2022-09-14', color:'rgba(112,30,94,0.95)',  camouflage:false },               /* BSc — Nanjing purple (solid) */
-  { start:'2022-09-15', end:'2023-09-14', color:'rgba(0,62,116,0.9)',    camouflage:false },               /* MRes — Imperial Blue */
-  { start:'2023-09-15', end:'2023-12-31', color:'rgba(179,74,114,0.8)',  camouflage:false, stripe:true },  /* Gap — deep pink + red stripes */
-  { start:'2024-01-01', end:'2024-05-31', color:'rgba(90,105,72,0.6)',   camouflage:true  },               /* Military */
-  { start:'2024-06-01', end:'2024-09-14', color:'rgba(179,74,114,0.8)',  camouflage:false, stripe:true },  /* Gap — deep pink + red stripes */
-  { start:'2024-09-15', end:'2026-12-31', color:'rgba(0,33,71,0.9)',     camouflage:false },               /* DPhil — Oxford Blue */
+// Education periods (each runs until the next one starts; the last runs to today)
+const PHASES = [
+  { key:'bsc',      long:'BSc · Nanjing University',          start:'2018-09-15', color:'rgba(112,30,94,0.95)', style:'solid'  },
+  { key:'mres',     long:'MRes · Imperial College London',    start:'2022-09-15', color:'rgba(0,62,116,0.9)',   style:'solid'  },
+  { key:'gap',      long:'Gap Year',                          start:'2023-09-15', color:'rgba(179,74,114,0.8)', style:'stripe' },
+  { key:'military', long:'Military Service',                  start:'2024-01-01', color:'rgba(90,105,72,0.6)',  style:'camo'   },
+  { key:'gap',      long:'Gap Year',                          start:'2024-06-01', color:'rgba(179,74,114,0.8)', style:'stripe' },
+  { key:'dphil',    long:'DPhil · University of Oxford',      start:'2024-09-15', color:'rgba(0,33,71,0.9)',    style:'solid'  },
 ];
+PHASES.forEach((p,i) => { p.s = new Date(p.start); p.e = i < PHASES.length-1 ? new Date(PHASES[i+1].start) : END; });
+const PHASE_KEYS = ['bsc','mres','gap','military','dphil'];
 
 // type: pub | honor | project | service
 const EVENTS = [
-  { date:'2018-12-07', type:'service', id:'ev-envteach', label:'Environmental Education Instructor', full:'Nanjing Jingling Primary School' },
-  { date:'2019-08-01', type:'project', id:'ev-deer',     label:"Père David's Deer Social Networks", full:'Social network analysis · Nanjing University' },
-  { date:'2019-10-01', type:'project', id:'ev-handedness', label:'Handedness & Cognition in Primates', full:'Nanjing University' },
-  { date:'2020-01-01', type:'project', id:'ev-eriocheir', label:'Asymmetry in Eriocheir sinensis', full:'Nanjing University' },
-  { date:'2020-04-01', type:'project', id:'ev-porcellio', label:'Spatial Memory in Porcellio laevis', full:'Nanjing University' },
-  { date:'2020-10-01', type:'project', id:'ev-spp1685',  label:'SPP 1685 Ecosystem Nutrition', full:'University of Fribourg initiative' },
-  { date:'2021-10-01', type:'project', id:'ev-sassa-proj', label:'Genetic Diversity of Sassafras tzumu', full:'Nanjing University' },
-  { date:'2022-08-14', type:'honor', id:'hon-bsc', label:'Outstanding Graduate Award', full:'BSc Ecology · Nanjing University (one month before graduation)' },
-  { date:'2023-08-14', type:'honor', id:'hon-mres', label:'Graduated with Distinction', full:'MRes Ecology, Evolution & Conservation · Imperial College London' },
-  { date:'2022-01-15', type:'pub',     id:'pub-claw',     label:'Signs of claw asymmetry in a homochelate crab', full:'Applied Animal Behaviour Science, 246, 105537 (2022)' },
-  { date:'2022-03-01', type:'project', id:'ev-alan',      label:'Artificial Light at Night & Detritivores', full:'Effects on litter decomposition · Nanjing University' },
-  { date:'2022-10-13', type:'pub',     id:'pub-sassa',    label:'Genetic diversity of Sassafras tzumu', full:'Plants, 11(20), 2706 (2022)' },
-  { date:'2023-01-01', type:'project', id:'ev-elev-proj', label:'Elevational Constraints on Wing Morphology', full:'Avian macroecology · Imperial College London' },
+  { date:'2018-12-07', type:'service', id:'ev-envteach',    label:'Environmental Education Instructor', full:'Nanjing Jingling Primary School' },
+  { date:'2019-08-01', type:'project', id:'ev-deer',        label:"Père David's Deer Social Networks", full:'Social network analysis · Nanjing University' },
+  { date:'2019-10-01', type:'project', id:'ev-handedness',  label:'Handedness & Cognition in Primates', full:'Nanjing University' },
+  { date:'2020-01-01', type:'project', id:'ev-eriocheir',   label:'Asymmetry in Eriocheir sinensis', full:'Nanjing University' },
+  { date:'2020-04-01', type:'project', id:'ev-porcellio',   label:'Spatial Memory in Porcellio laevis', full:'Nanjing University' },
+  { date:'2020-10-01', type:'project', id:'ev-spp1685',     label:'SPP 1685 Ecosystem Nutrition', full:'University of Fribourg initiative' },
+  { date:'2021-10-01', type:'project', id:'ev-sassa-proj',  label:'Genetic Diversity of Sassafras tzumu', full:'Nanjing University' },
+  { date:'2022-01-15', type:'pub',     id:'pub-claw',       label:'Signs of claw asymmetry in a homochelate crab', full:'Applied Animal Behaviour Science, 246, 105537 (2022)' },
+  { date:'2022-03-01', type:'project', id:'ev-alan',        label:'Artificial Light at Night & Detritivores', full:'Effects on litter decomposition · Nanjing University' },
+  { date:'2022-08-14', type:'honor',   id:'hon-bsc',        label:'Outstanding Graduate Award', full:'BSc Ecology · Nanjing University (one month before graduation)' },
+  { date:'2022-10-13', type:'pub',     id:'pub-sassa',      label:'Genetic diversity of Sassafras tzumu', full:'Plants, 11(20), 2706 (2022)' },
+  { date:'2023-01-01', type:'project', id:'ev-elev-proj',   label:'Elevational Constraints on Wing Morphology', full:'Avian macroecology · Imperial College London' },
   { date:'2023-03-01', type:'pub',     id:'pub-callitrich', label:'Inhibitory tasks & handedness in Callitrichids', full:'Animal Cognition, 26(2), 415–423 (2023)' },
-  { date:'2023-03-20', type:'honor',   id:'hon-wildlife', label:'Champions — National Wildlife Competition (UK)', full:'Imperial College London · UK Mammal Challenge Team' },
-  { date:'2023-04-01', type:'project', id:'ev-evohist',   label:'Evolutionary History & Population Trends', full:'Imperial College London' },
-  { date:'2023-05-01', type:'service', id:'ev-lpd',       label:'Contributor — Living Planet Database', full:'ZSL / WWF Living Planet Index' },
-  { date:'2024-10-01', type:'project', id:'ev-resilience', label:'Systematic Review: Resilience in Ecology', full:'University of Oxford · SalGo Team' },
-  { date:'2025-01-01', type:'service', id:'ev-compadre',  label:'Contributor — COMPADRE & COMADRE', full:'Matrix population model database' },
+  { date:'2023-03-20', type:'honor',   id:'hon-wildlife',   label:'Champions — National Wildlife Competition (UK)', full:'Imperial College London · UK Mammal Challenge Team' },
+  { date:'2023-04-01', type:'project', id:'ev-evohist',     label:'Evolutionary History & Population Trends', full:'Imperial College London' },
+  { date:'2023-05-01', type:'service', id:'ev-lpd',         label:'Contributor — Living Planet Database', full:'ZSL / WWF Living Planet Index' },
+  { date:'2023-08-14', type:'honor',   id:'hon-mres',       label:'Graduated with Distinction', full:'MRes Ecology, Evolution & Conservation · Imperial College London' },
+  { date:'2024-10-01', type:'project', id:'ev-resilience',  label:'Systematic Review: Resilience in Ecology', full:'University of Oxford · SalGo Team' },
+  { date:'2025-01-01', type:'service', id:'ev-compadre',    label:'Administrator — COMPADRE & COMADRE', full:'Matrix population model databases' },
   { date:'2025-04-21', type:'pub',     id:'pub-elevational', label:'Elevational constraints on avian wing morphology', full:'Current Biology, 35(8), 1890–1900 (2025)' },
-  { date:'2025-10-01', type:'project', id:'ev-transient', label:'Transient Dynamics & Population Growth', full:'Life-history traits · University of Oxford' },
-  { date:'2025-11-01', type:'service', id:'ev-ta',        label:'Teaching Assistant · Oxford', full:'Large Datasets: Online Access & Management in R' },
-  { date:'2025-11-19', type:'project', id:'ev-wytham',    label:'Wytham Digital Twin Project', full:'Tree scanning with Luma AI · University of Oxford' },
-  { date:'2026-06-07', type:'pub',     id:'pub-resilience', label:"Still Lost in Definitions: How 'Resilience' Is Used in Ecology", full:'Lin et al. — bioRxiv, 2026.06.03.729936 (Preprint)' },
+  { date:'2025-10-01', type:'project', id:'ev-transient',   label:'Transient Dynamics & Population Growth', full:'Life-history traits · University of Oxford' },
+  { date:'2025-11-01', type:'service', id:'ev-ta',          label:'Teaching Assistant · Oxford', full:'Large Datasets: Online Access & Management in R' },
+  { date:'2025-11-19', type:'project', id:'ev-wytham',      label:'Wytham Digital Twin Project', full:'Tree scanning with Luma AI · University of Oxford' },
   { date:'2026-04-05', type:'service', id:'ev-rednote',     label:'Began Species Sci-Comm on RedNote', full:'RedNote 小红书 · public science communication' },
   { date:'2026-05-20', type:'service', id:'ev-mountaintide', label:'Volunteer Advisor — Mountain & Tide', full:'山與潮 · Chinese public science outreach platform' },
-  { date:'2026-08-10', type:'project', id:'ev-workshop', label:"Five days' workshop: Bayesian occupancy, N-mixture and population modelling using NIMBLE and JAGS", full:'10–15 Aug 2026 · hands-on training in NIMBLE & JAGS' },
-  { date:'2026-08-28', type:'pub', id:'pub-transient', label:'Life history traits predict the contribution of transient dynamics to variation in population growth', full:'Lin, H. W., Hernandez, C. M., Jaggi, H., Zuo, W., Tuljapurkar, D., & Salguero-Gómez, R. — bioRxiv, 2026.08.28.747639 (Preprint)' },
+  { date:'2026-06-07', type:'pub',     id:'pub-resilience', label:"Still Lost in Definitions: How 'Resilience' Is Used in Ecology", full:'Lin, H. W., Moorthy, S. M. K., Hector, A., & Salguero-Gómez, R. — bioRxiv, 2026.06.03.729936 (Preprint)' },
+  { date:'2026-08-10', type:'project', id:'ev-workshop',    label:"Five days' workshop: Bayesian occupancy, N-mixture and population modelling using NIMBLE and JAGS", full:'10–15 Aug 2026 · hands-on training in NIMBLE & JAGS' },
+  { date:'2026-08-28', type:'pub',     id:'pub-transient',  label:'Life history traits predict the contribution of transient dynamics to variation in population growth', full:'Lin, H. W., Hernández, C. M., Jaggi, H., Zuo, W., Tuljapurkar, S., & Salguero-Gómez, R. — bioRxiv, 2026.08.28.747639 (Preprint)' },
+  { date:'2026-10-21', type:'honor',   id:'hon-senior',     label:'Senior Scholarship', full:'Awarded by Wadham College, University of Oxford.' },
 ];
 
 // level: familiar | proficient ; projectId: bound project or null
 const SKILLS = [
-  { date:'2020-11-01', name:'R language',            level:'familiar',   projectId:'ev-spp1685',   full:'Acquired during SPP 1685 Ecosystem Nutrition' },
-  { date:'2023-02-01', name:'R language',            level:'proficient', projectId:'ev-elev-proj', full:'Upgraded via Elevational Constraints project' },
-  { date:'2022-04-01', name:'Statistical Modelling', level:'familiar',   projectId:'ev-alan',      full:'Acquired during ALAN & detritivores project' },
-  { date:'2023-03-01', name:'Statistical Modelling', level:'proficient', projectId:'ev-elev-proj', full:'Upgraded via Elevational Constraints project' },
-  { date:'2023-02-01', name:'PGLS Methods',          level:'familiar',   projectId:'ev-elev-proj', full:'Acquired during Elevational Constraints project' },
-  { date:'2023-05-01', name:'PGLS Methods',          level:'proficient', projectId:'ev-evohist',   full:'Upgraded via Evolutionary History & Population Trends' },
-  { date:'2024-07-01', name:'Matrix Population Models', level:'familiar', projectId:null,          full:'Self-study · July 2024' },
-  { date:'2025-10-15', name:'Matrix Population Models', level:'proficient', projectId:'ev-transient', full:'Upgraded via Transient Dynamics project' },
-  { date:'2024-08-01', name:'Bayesian Methods',      level:'familiar',   projectId:null,           full:'Self-study · August 2024' },
-  { date:'2025-10-20', name:'Bayesian Methods',      level:'proficient', projectId:'ev-transient', full:'Upgraded via Transient Dynamics project' },
-  { date:'2024-10-15', name:'LLM Data Extraction',   level:'familiar',   projectId:'ev-resilience', full:'Acquired during Resilience systematic review' },
-  { date:'2026-01-01', name:'LLM Data Extraction',   level:'proficient', projectId:null,           full:'Proficient · January 2026' },
-  { date:'2024-10-20', name:'Tree-based Ensemble',   level:'familiar',   projectId:'ev-resilience', full:'Acquired during Resilience systematic review' },
-  { date:'2026-02-01', name:'Tree-based Ensemble',   level:'proficient', projectId:null,           full:'Proficient · February 2026' },
-  { date:'2024-11-01', name:'Python',                level:'familiar',   projectId:'ev-resilience', full:'Acquired during Resilience systematic review' },
-  { date:'2024-11-10', name:'Meta-analysis',         level:'familiar',   projectId:'ev-resilience', full:'Acquired during Resilience systematic review' },
-  { date:'2019-08-15', name:'Large Animal Handling', level:'familiar',   projectId:'ev-deer',      full:"Acquired during Père David's Deer project" },
-  { date:'2021-10-15', name:'Field Work',            level:'familiar',   projectId:'ev-sassa-proj', full:'Acquired during Sassafras tzumu fieldwork' },
-  { date:'2022-03-15', name:'GIS',                   level:'familiar',   projectId:'ev-alan',      full:'Acquired during ALAN & detritivores project' },
-  { date:'2022-11-01', name:'Camera Trap',           level:'familiar',   projectId:null,           full:'Camera trap surveys · November 2022' },
-  { date:'2020-11-15', name:'Metagenomics Analysis', level:'familiar',   projectId:null,           full:'Bioinformatics · November 2020' },
-  { date:'2026-08-15', name:'BUGS Language',         level:'familiar',   projectId:'ev-workshop',  full:'Acquired during the five-day NIMBLE & JAGS workshop' },
+  { date:'2020-11-01', name:'R language',                         level:'familiar',   projectId:'ev-spp1685',    full:'Acquired during SPP 1685 Ecosystem Nutrition' },
+  { date:'2023-02-01', name:'R language',                         level:'proficient', projectId:'ev-elev-proj',  full:'Upgraded via Elevational Constraints project' },
+  { date:'2022-04-01', name:'Statistical Analyses and Modelling', level:'familiar',   projectId:'ev-alan',       full:'Acquired during ALAN & detritivores project' },
+  { date:'2023-03-01', name:'Statistical Analyses and Modelling', level:'proficient', projectId:'ev-elev-proj',  full:'Upgraded via Elevational Constraints project' },
+  { date:'2023-02-01', name:'PGLS Methods',                       level:'familiar',   projectId:'ev-elev-proj',  full:'Acquired during Elevational Constraints project' },
+  { date:'2023-05-01', name:'PGLS Methods',                       level:'proficient', projectId:'ev-evohist',    full:'Upgraded via Evolutionary History & Population Trends' },
+  { date:'2024-07-01', name:'Matrix Population Models',           level:'familiar',   projectId:null,            full:'Self-study · July 2024' },
+  { date:'2025-10-15', name:'Matrix Population Models',           level:'proficient', projectId:'ev-transient',  full:'Upgraded via Transient Dynamics project' },
+  { date:'2024-08-01', name:'Bayesian Hierarchical Modelling',    level:'familiar',   projectId:null,            full:'Self-study · August 2024' },
+  { date:'2025-10-20', name:'Bayesian Hierarchical Modelling',    level:'proficient', projectId:'ev-transient',  full:'Upgraded via Transient Dynamics project' },
+  { date:'2024-10-15', name:'LLM Data Extraction',                level:'familiar',   projectId:'ev-resilience', full:'Acquired during Resilience systematic review' },
+  { date:'2026-01-01', name:'LLM Data Extraction',                level:'proficient', projectId:null,            full:'Proficient · January 2026' },
+  { date:'2024-10-20', name:'Tree-based Ensemble',                level:'familiar',   projectId:'ev-resilience', full:'Acquired during Resilience systematic review' },
+  { date:'2026-02-01', name:'Tree-based Ensemble',                level:'proficient', projectId:null,            full:'Proficient · February 2026' },
+  { date:'2024-11-01', name:'Python',                             level:'familiar',   projectId:'ev-resilience', full:'Acquired during Resilience systematic review' },
+  { date:'2024-11-10', name:'Meta-analysis',                      level:'familiar',   projectId:'ev-resilience', full:'Acquired during Resilience systematic review' },
+  { date:'2019-08-15', name:'Large Animal Handling',              level:'familiar',   projectId:'ev-deer',       full:"Acquired during Père David's Deer project" },
+  { date:'2021-10-15', name:'Field Work',                         level:'familiar',   projectId:'ev-sassa-proj', full:'Acquired during Sassafras tzumu fieldwork' },
+  { date:'2022-03-15', name:'GIS',                                level:'familiar',   projectId:'ev-alan',       full:'Acquired during ALAN & detritivores project' },
+  { date:'2022-11-01', name:'Camera Trap',                        level:'familiar',   projectId:null,            full:'Camera trap surveys · November 2022' },
+  { date:'2020-11-15', name:'Metagenomics Analysis',              level:'familiar',   projectId:null,            full:'Bioinformatics · November 2020' },
+  { date:'2026-08-15', name:'BUGS Language',                      level:'familiar',   projectId:'ev-workshop',   full:'Acquired during the five-day NIMBLE & JAGS workshop' },
 ];
 
 const TYPE_META = {
-  pub:     { col:'var(--col-pub)',     badge:'◆  PUBLICATION', mini:'#1e5631' },
-  honor:   { col:'rainbow',            badge:'★  HONOUR',  mini:'#f59e0b' },
-  project: { col:'var(--col-project)', badge:'▸  PROJECT / TRAINING', mini:'#8cbf5c' },
-  service: { col:'var(--col-service)', badge:'▪  SERVICE', mini:'#173a8a' },
+  pub:     { col:'var(--col-pub)',     ink:'#1e5631', badge:'◆  PUBLICATION',        mini:'#1e5631' },
+  honor:   { col:'rainbow',            ink:'#7c3aed', badge:'★  HONOUR',             mini:'#f59e0b' },
+  project: { col:'var(--col-project)', ink:'#6fa743', badge:'▸  PROJECT / TRAINING', mini:'#8cbf5c' },
+  service: { col:'var(--col-service)', ink:'#173a8a', badge:'▪  SERVICE',            mini:'#173a8a' },
 };
-const SKILL_COL = { familiar:'var(--col-familiar)', proficient:'var(--col-proficient)' };
-const SKILL_MINI = { familiar:'#b87333', proficient:'#d4af37' };
+const SKILL_COL  = { familiar:'var(--col-familiar)', proficient:'var(--col-proficient)' };
+const SKILL_INK  = { familiar:'#b87333', proficient:'#d4af37' };
 const SKILL_PROG = { familiar:'Unfamiliar → Familiar', proficient:'Familiar → Proficient' };
+
+// ═══ FILTER STATE ═════════════════════════════════════════
+const TYPE_KEYS = ['pub','project','honor','service','skill'];
+const visTypes  = new Set(TYPE_KEYS);
+const visPhases = new Set(PHASE_KEYS);
+const isFiltered = () => visTypes.size < TYPE_KEYS.length || visPhases.size < PHASE_KEYS.length;
+
+// ═══ VISIBLE PERIODS (runs) + JUMPS ═══════════════════════
+// Consecutive kept periods form a "run"; hidden periods between runs collapse into a jump.
+let RUNS = [], JUMPS = [], TOTAL_W = 0;
+function computeRuns(){
+  RUNS = []; JUMPS = [];
+  let pending = [];
+  for(const p of PHASES){
+    if(!visPhases.has(p.key)){ if(RUNS.length) pending.push(p); continue; }
+    const last = RUNS[RUNS.length-1];
+    if(last && pending.length === 0){ last.e = p.e; last.phases.push(p); }
+    else {
+      if(last && pending.length) JUMPS.push({ prev: RUNS.length-1, phases: pending });
+      RUNS.push({ s: p.s, e: p.e, phases: [p] });
+      pending = [];
+    }
+  }
+  let x = MARGIN_L;
+  RUNS.forEach((r,i) => {
+    r.x0 = x; r.x1 = x + (r.e - r.s)/DAY*PX_PER_DAY; x = r.x1;
+    const j = JUMPS.find(j => j.prev === i);
+    if(j){ j.x0 = r.x1; j.x1 = r.x1 + JUMP_W; x = j.x1; }
+  });
+  TOTAL_W = x + MARGIN_R;
+}
+function dateToX(d){
+  const t = +new Date(d);
+  for(const r of RUNS){
+    const inside = t >= +r.s && (t < +r.e || (+r.e === +END && t <= +r.e));
+    if(inside) return r.x0 + (t - r.s)/DAY*PX_PER_DAY;
+  }
+  return null;                       // falls in a hidden period
+}
+function xToDate(x){
+  if(!RUNS.length) return new Date(START);
+  for(const r of RUNS){
+    if(x < r.x0) return new Date(r.s);
+    if(x <= r.x1) return new Date(+r.s + (x - r.x0)/PX_PER_DAY*DAY);
+  }
+  return new Date(RUNS[RUNS.length-1].e);
+}
+function nearestX(d){
+  const t = +new Date(d); let best = MARGIN_L, bd = Infinity;
+  RUNS.forEach(r => [[+r.s, r.x0], [+r.e, r.x1]].forEach(([tt, xx]) => { const dd = Math.abs(t - tt); if(dd < bd){ bd = dd; best = xx; } }));
+  return best;
+}
+
+// ═══ PEN-ON-PAPER SKETCH HELPERS (seeded → stable between redraws) ═══
+function hashStr(s){ let h = 2166136261 >>> 0; for(let i=0;i<s.length;i++){ h ^= s.charCodeAt(i); h = Math.imul(h, 16777619) >>> 0; } return h || 1; }
+function rng(seed){ let s = (seed >>> 0) || 1; return () => { s ^= s << 13; s >>>= 0; s ^= s >>> 17; s ^= s << 5; s >>>= 0; return s / 4294967296; }; }
+const f1 = n => n.toFixed(1);
+// short stroke drawn twice, slightly bowed
+function jline(x1,y1,x2,y2,R,amp=1){
+  const len = Math.hypot(x2-x1, y2-y1) || 1, a = Math.min(amp, 0.6 + len*0.012);
+  const nx = -(y2-y1)/len, ny = (x2-x1)/len; let d = '';
+  for(let p=0;p<2;p++){
+    const j = () => (R()-0.5)*2*a, bow = (R()-0.5)*2*a*1.4;
+    d += `M${f1(x1+j())},${f1(y1+j())} Q${f1((x1+x2)/2+nx*bow)},${f1((y1+y2)/2+ny*bow)} ${f1(x2+j())},${f1(y2+j())} `;
+  }
+  return d;
+}
+// long, gently wobbling horizontal stroke (two passes)
+function longLine(x1,x2,y,R,amp=0.9){
+  let d = ''; const SEG = 170;
+  for(let p=0;p<2;p++){
+    let x = x1; d += `M${f1(x)},${f1(y+(R()-0.5)*amp*2)} `;
+    while(x < x2){
+      const nx = Math.min(x2, x + SEG*(0.75 + R()*0.5));
+      d += `Q${f1((x+nx)/2)},${f1(y+(R()-0.5)*amp*2.4)} ${f1(nx)},${f1(y+(R()-0.5)*amp*2)} `;
+      x = nx;
+    }
+  }
+  return d;
+}
+// loose hand-drawn circle (overshooting, two passes)
+function sketchCircle(cx,cy,r,R){
+  let d = '';
+  const mid = (a,b) => [(a[0]+b[0])/2, (a[1]+b[1])/2];
+  for(let p=0;p<2;p++){
+    const n = 9, st = R()*Math.PI*2, over = 0.35 + R()*0.3, pts = [];
+    for(let i=0;i<=n;i++){ const a = st + (Math.PI*2+over)*i/n, rr = r*(1+(R()-0.5)*0.16); pts.push([cx+Math.cos(a)*rr, cy+Math.sin(a)*rr]); }
+    let m = mid(pts[0], pts[1]); d += `M${f1(m[0])},${f1(m[1])} `;
+    for(let i=1;i<pts.length-1;i++){ const m2 = mid(pts[i], pts[i+1]); d += `Q${f1(pts[i][0])},${f1(pts[i][1])} ${f1(m2[0])},${f1(m2[1])} `; }
+  }
+  return d;
+}
+// marker-pen bar with slightly ragged edges
+function wobblyRect(x,y,w,h,R){
+  const STEP = 36, a = 0.7, top = [], bot = [];
+  for(let xx=x; xx<x+w; xx+=STEP){ top.push([xx, y+(R()-0.5)*2*a]); bot.push([xx, y+h+(R()-0.5)*2*a]); }
+  top.push([x+w, y+(R()-0.5)*2*a]); bot.push([x+w, y+h+(R()-0.5)*2*a]);
+  let d = `M${f1(top[0][0])},${f1(top[0][1])} `;
+  top.slice(1).forEach(p => d += `L${f1(p[0])},${f1(p[1])} `);
+  bot.reverse().forEach(p => d += `L${f1(p[0])},${f1(p[1])} `);
+  return d + 'Z';
+}
 
 // ═══ DOM REFS ═════════════════════════════════════════════
 const wrap     = document.getElementById('canvas-wrap');
 const svgEl    = document.getElementById('svg-layer');
 const scrollEl = document.getElementById('scrollOuter');
 const tip      = document.getElementById('tooltip');
+function mkSVG(tag, a={}){ const e = document.createElementNS('http://www.w3.org/2000/svg', tag); for(const k in a) e.setAttribute(k, a[k]); return e; }
+function el(tag, cls){ const e = document.createElement(tag); if(cls) e.className = cls; return e; }
+const RADII = ['var(--sketch-a)','var(--sketch-b)','var(--sketch-c)','var(--sketch-d)'];
 
-function mkSVG(tag, a={}) { const e=document.createElementNS('http://www.w3.org/2000/svg',tag); for(const k in a) e.setAttribute(k,a[k]); return e; }
-function el(tag, cls){ const e=document.createElement(tag); if(cls) e.className=cls; return e; }
-function colOf(meta){ return meta.col==='rainbow' ? null : meta.col; }
-
-// ═══ BUILD BLOCKS (returns array, appended + measured) ════
+// ═══ BLOCKS ═══════════════════════════════════════════════
 function makeEventBlock(ev, attachedSkills){
-  const meta = TYPE_META[ev.type];
-  const isRainbow = meta.col === 'rainbow';
+  const meta = TYPE_META[ev.type], isRainbow = meta.col === 'rainbow';
+  const R = rng(hashStr(ev.id));
   const block = el('div','tl-block');
-
-  const card = el('div','node-card' + (isRainbow?' rainbow':''));
+  const card = el('div','node-card' + (isRainbow ? ' rainbow' : ''));
   if(!isRainbow) card.style.borderColor = meta.col;
-  const badge = el('div','node-type-badge' + (isRainbow?' rainbow':''));
-  if(!isRainbow) badge.style.color = meta.col;
+  card.style.borderRadius = RADII[Math.floor(R()*4)];
+  card.style.setProperty('--rot', ((R()-0.5)*1.6).toFixed(2) + 'deg');
+  const badge = el('div','node-type-badge' + (isRainbow ? ' rainbow' : ''));
+  if(!isRainbow) badge.style.color = meta.ink;
   badge.textContent = meta.badge;
-  const lbl = el('div','node-label');
-  lbl.textContent = ev.label;
+  const lbl = el('div','node-label'); lbl.textContent = ev.label;
   card.append(badge, lbl);
-  addTip(card, ev.label, ev.full, isRainbow?'#f59e0b':null);
+  addTip(card, ev.label, ev.full);
 
-  block._project = card;
   let grid = null;
   if(attachedSkills.length){
-    grid = el('div','skill-grid');     // rows of two; odd one ends up centred on the far row
+    grid = el('div','skill-grid');          // rows of two; an odd one sits centred on the far row
     for(let i=0;i<attachedSkills.length;i+=2){
       const row = el('div','skill-grid-row');
       row.appendChild(makeSkillCard(attachedSkills[i]));
@@ -425,334 +574,379 @@ function makeEventBlock(ev, attachedSkills){
       grid.appendChild(row);
     }
     block.append(card, grid);
-  } else {
-    block.append(card);
-  }
-  block._grid = grid;
-  block.dataset.type = ev.type;
-  block.dataset.anchorId = ev.id;
-  block._date = ev.date;
-  block._type = ev.type;
+  } else block.append(card);
+  block._grid = grid; block._attached = attachedSkills;
+  block._date = ev.date; block._type = ev.type; block._id = ev.id;
   return block;
 }
 function makeSkillCard(sk){
-  const col = SKILL_COL[sk.level];
+  const col = SKILL_COL[sk.level], R = rng(hashStr(sk.name + sk.level));
   const card = el('div','skill-card');
+  card.style.setProperty('--rot', ((R()-0.5)*2.4).toFixed(2) + 'deg');
   const top = el('div','skill-top');
-  const star = el('span','skill-star'); star.style.color = col;
-  star.style.textShadow = '0 0 10px '+col+', 0 0 3px '+col; star.textContent = '★';
+  const star = el('span','skill-star'); star.style.color = col; star.textContent = '★';
   const b = el('span','skill-badge-label'); b.style.color = col; b.textContent = 'SKILL UPGRADE';
   top.append(star, b);
   const n = el('div','skill-name'); n.textContent = sk.name;
   const p = el('div','skill-prog'); p.style.color = col; p.textContent = SKILL_PROG[sk.level];
   card.append(top, n, p);
-  addTip(card, sk.name + ' — Skill Upgrade', sk.full + ' · ' + SKILL_PROG[sk.level], null);
+  addTip(card, sk.name + ' — Skill Upgrade', sk.full + ' · ' + SKILL_PROG[sk.level]);
   return card;
 }
 function makeStandaloneSkillBlock(sk){
   const block = el('div','tl-block');
-  const card = makeSkillCard(sk);
-  block.append(card);
-  block._project = card; block._skills = [];
-  block.dataset.type = 'skill-'+sk.level;
-  block._date = sk.date;
-  block._type = 'skill';
-  block._skillLevel = sk.level;
+  block.append(makeSkillCard(sk));
+  block._grid = null; block._attached = [];
+  block._date = sk.date; block._type = 'skill'; block._skillLevel = sk.level; block._id = sk.name + sk.level;
   return block;
 }
 
-// ═══ PACKING + AUTO-FIT ═══════════════════════════════════
-let blocks = [];           // current rendered blocks (for scroll handlers not needed)
-function render(scale){
-  // clear
-  Array.from(wrap.children).forEach(c => { if(c.id!=='svg-layer') c.remove(); });
+// Free vertical band = between the zoom note (top) and the legends / minimap (bottom),
+// measured from where those paper notes actually sit, so nothing is ever drawn under them.
+function overlayPads(){
+  const vh = window.innerHeight;
+  let botTop = vh;
+  ['type-legend','edu-legend','minimap-panel'].forEach(id => {
+    const r = document.getElementById(id).getBoundingClientRect();
+    if(r.height) botTop = Math.min(botTop, r.top - 12);          // −12 for the tape strip
+  });
+  const z = document.getElementById('zoom-ctrl').getBoundingClientRect();
+  return { top: Math.max(40, z.bottom - NAV_H + 10), bot: Math.max(120, vh - botTop + 8) };
+}
+
+// ═══ RENDER (layout; draw=false is a quick measure-only pass for auto-fit) ═══
+let blocks = [], MINI = null, COUNTS = { shown: 0, total: EVENTS.length + SKILLS.length };
+function render(scale, draw){
+  Array.from(wrap.children).forEach(c => { if(c.id !== 'svg-layer') c.remove(); });
   svgEl.innerHTML = '';
-  wrap.style.fontSize = (13*scale)+'px';
+  wrap.style.fontSize = (BASE_FONT*scale) + 'px';
+  computeRuns();
 
-  const TOTAL_W = totalW();
-  const VH = window.innerHeight;
-  const CANVAS_H = VH - NAV_H;
-  wrap.style.width  = TOTAL_W + 'px';
-  wrap.style.height = CANVAS_H + 'px';
-  svgEl.setAttribute('width', TOTAL_W);
-  svgEl.setAttribute('height', CANVAS_H);
+  const CANVAS_H = window.innerHeight - NAV_H;
+  wrap.style.width = TOTAL_W + 'px'; wrap.style.height = CANVAS_H + 'px';
+  svgEl.setAttribute('width', TOTAL_W); svgEl.setAttribute('height', CANVAS_H);
+  const pads = overlayPads();
+  const TOP_PAD = pads.top, BOT_PAD = pads.bot;
+  const NEAR = 120*scale, GAP_Y = 14*scale, GAP_X = 12*scale;
+  const avail = CANVAS_H - TOP_PAD - BOT_PAD;
 
-  // overlay-safe region
-  const TOP_PAD = 75, BOT_PAD = 175, NEAR = 120*scale, GAP_Y = 14*scale, GAP_X = 12*scale;
-  const avail   = CANVAS_H - TOP_PAD - BOT_PAD;
-  const LINE_Y  = TOP_PAD + avail/2;
-  const availSide = avail/2 - NEAR;
-
-  // rainbow gradient def (for honour dots)
-  const defs = mkSVG('defs');
-  const grad = mkSVG('linearGradient', { id:'rainbowGrad', x1:'0', y1:'0', x2:'1', y2:'0' });
-  [['0','#e11d48'],['0.2','#f59e0b'],['0.4','#eab308'],['0.6','#22c55e'],['0.8','#3b82f6'],['1','#8b5cf6']]
-    .forEach(([o,c]) => grad.appendChild(mkSVG('stop',{offset:o,'stop-color':c})));
-  defs.appendChild(grad); svgEl.appendChild(defs);
-
-  // center line
-  svgEl.appendChild(mkSVG('line',{x1:0,y1:LINE_Y,x2:TOTAL_W,y2:LINE_Y,stroke:'rgba(26,28,24,0.16)','stroke-width':'1.5'}));
-
-  // education bars
-  EDU_PHASES.forEach(ph => {
-    const x1=dateToX(ph.start), x2=Math.min(dateToX(ph.end), dateToX(END)), w=x2-x1, BAR_H=8;
-    if(ph.camouflage){
-      const pid='camo'+Math.random().toString(36).slice(2,7);
-      const d2=mkSVG('defs'); const pat=mkSVG('pattern',{id:pid,x:0,y:0,width:10,height:10,patternUnits:'userSpaceOnUse'});
-      [['#8a9e6a',0],['#5a6e3a',1],['#7a9050',2],['#4a5e2a',3]].forEach(([c,i])=>pat.appendChild(mkSVG('rect',{x:(i%2)*5,y:Math.floor(i/2)*5,width:5,height:5,fill:c,opacity:'0.7'})));
-      d2.appendChild(pat); svgEl.appendChild(d2);
-      svgEl.appendChild(mkSVG('rect',{x:x1,y:LINE_Y-BAR_H/2,width:w,height:BAR_H,fill:`url(#${pid})`}));
-    } else if(ph.stripe){
-      const pid='stripe'+Math.random().toString(36).slice(2,7);
-      const d2=mkSVG('defs');
-      const pat=mkSVG('pattern',{id:pid,width:8,height:8,patternUnits:'userSpaceOnUse',patternTransform:'rotate(45)'});
-      pat.appendChild(mkSVG('rect',{x:0,y:0,width:8,height:8,fill:ph.color}));
-      pat.appendChild(mkSVG('rect',{x:0,y:0,width:4,height:8,fill:'rgba(255,80,175,0.95)'}));
-      d2.appendChild(pat); svgEl.appendChild(d2);
-      svgEl.appendChild(mkSVG('rect',{x:x1,y:LINE_Y-BAR_H/2,width:w,height:BAR_H,fill:`url(#${pid})`}));
-    } else {
-      svgEl.appendChild(mkSVG('rect',{x:x1,y:LINE_Y-BAR_H/2,width:w,height:BAR_H,fill:ph.color}));
-    }
-  });
-
-  // year ticks + labels
-  const y0 = START.getFullYear()+1, y1 = END.getFullYear();
-  for(let y=y0; y<=y1; y++){
-    const x=dateToX(`${y}-01-01`);
-    svgEl.appendChild(mkSVG('line',{x1:x,y1:LINE_Y-13,x2:x,y2:LINE_Y+13,stroke:'rgba(26,28,24,0.18)','stroke-width':'1'}));
-    const l=el('div','year-label'); l.textContent=y; l.style.cssText=`left:${x}px; top:${LINE_Y+16}px;`; wrap.appendChild(l);
+  // ── what is visible under the current filters ──
+  const shownEvents = EVENTS.filter(ev => visTypes.has(ev.type) && dateToX(ev.date) !== null);
+  const projShown = new Set(shownEvents.filter(ev => ev.type === 'project').map(ev => ev.id));
+  const attachBy = {}, loose = [];
+  if(visTypes.has('skill')){
+    SKILLS.forEach(sk => {
+      if(sk.projectId && projShown.has(sk.projectId)) (attachBy[sk.projectId] ||= []).push(sk);
+      else if(dateToX(sk.date) !== null) loose.push(sk);       // project hidden → skill stands on its own
+    });
   }
+  COUNTS.shown = shownEvents.length + loose.length + Object.values(attachBy).reduce((n,a) => n + a.length, 0);
 
-  // end labels
-  const lE=el('div','end-label'); lE.innerHTML='◀ Undergraduate<br>Enrolment';
-  lE.style.cssText=`left:${dateToX(START)}px; top:${LINE_Y+42}px;`; wrap.appendChild(lE);
-  const rE=el('div','end-label'); rE.innerHTML='Today<br>'+fmtDay(END)+' ▶';
-  rE.style.cssText=`left:${dateToX(END)}px; top:${LINE_Y+42}px;`; wrap.appendChild(rE);
-
-  // ── build blocks ──
-  const skillsByProj = {};
-  SKILLS.forEach(sk => { if(sk.projectId){ (skillsByProj[sk.projectId] ||= []).push(sk); } });
+  // ── build + measure ──
   blocks = [];
-  EVENTS.forEach(ev => {
-    const attached = (ev.type==='project') ? (skillsByProj[ev.id]||[]) : [];
-    const b = makeEventBlock(ev, attached);
-    b.style.visibility='hidden'; wrap.appendChild(b); blocks.push(b);
-  });
-  SKILLS.filter(s=>!s.projectId).forEach(sk => {
-    const b = makeStandaloneSkillBlock(sk);
-    b.style.visibility='hidden'; wrap.appendChild(b); blocks.push(b);
-  });
+  shownEvents.forEach(ev => { const b = makeEventBlock(ev, ev.type === 'project' ? (attachBy[ev.id] || []) : []); b.style.visibility = 'hidden'; wrap.appendChild(b); blocks.push(b); });
+  loose.forEach(sk => { const b = makeStandaloneSkillBlock(sk); b.style.visibility = 'hidden'; wrap.appendChild(b); blocks.push(b); });
+  blocks.forEach(b => { b._w = b.offsetWidth; b._h = b.offsetHeight; b._x = dateToX(b._date); });
+  blocks.sort((a,b) => a._x - b._x);
 
-  // measure
-  blocks.forEach(b => { b._w=b.offsetWidth; b._h=b.offsetHeight; b._x=dateToX(b._date); });
-  // pack by date order
-  blocks.sort((a,b)=>a._x-b._x);
-
-  const sides = { above:[], below:[] };   // each = array of shelves; shelf={items:[{x1,x2}], h}
+  // ── two-sided greedy packing (connectors may slant ≤45°) ──
+  const sides = { above: [], below: [] };
   function tryPlace(shelf, b){
-    const halfW=b._w/2, want=[b._x-halfW-GAP_X, b._x+halfW+GAP_X];
-    let overlap=false;
-    for(const it of shelf.items){ if(want[0]<it.x2 && want[1]>it.x1){ overlap=true; break; } }
-    if(!overlap) return {nudge:0};
-    // try nudging right/left; cap at NEAR (= shelf-0 vertical distance) so the
-    // connector never exceeds 45° (horizontal shift <= vertical drop)
-    const MAXN=NEAR, STEP=Math.max(4,5*scale);
-    for(let n=STEP; n<=MAXN; n+=STEP){
-      for(const dir of [1,-1]){
-        const dx=dir*n, w2=[want[0]+dx, want[1]+dx]; let ok=true;
-        for(const it of shelf.items){ if(w2[0]<it.x2 && w2[1]>it.x1){ ok=false; break; } }
-        if(ok) return {nudge:dx};
-      }
-    }
+    const hw = b._w/2, want = [b._x-hw-GAP_X, b._x+hw+GAP_X];
+    const free = w => shelf.items.every(it => !(w[0] < it.x2 && w[1] > it.x1));
+    if(free(want)) return { nudge: 0 };
+    const STEP = Math.max(4, 5*scale);
+    for(let n=STEP; n<=NEAR; n+=STEP) for(const dir of [1,-1]){ const dx = dir*n; if(free([want[0]+dx, want[1]+dx])) return { nudge: dx }; }
     return null;
   }
   blocks.forEach(b => {
-    let best=null; // {side, shelfIdx, nudge, cost}
-    for(const sideName of ['above','below']){
-      const shelves=sides[sideName];
+    let best = null;
+    for(const side of ['above','below']){
+      const shelves = sides[side];
       for(let i=0;i<shelves.length;i++){
-        const pl=tryPlace(shelves[i], b);
-        if(pl){ const cost=i*1000+Math.abs(pl.nudge)+(sideName==='below'?2:0); if(!best||cost<best.cost) best={side:sideName,shelfIdx:i,nudge:pl.nudge,cost}; break; }
+        const pl = tryPlace(shelves[i], b);
+        if(pl){ const cost = i*1000 + Math.abs(pl.nudge) + (side === 'below' ? 2 : 0); if(!best || cost < best.cost) best = { side, shelfIdx:i, nudge:pl.nudge, cost }; break; }
       }
-      const newCost=shelves.length*1000+(sideName==='below'?2:0);
-      if(!best||newCost<best.cost) best={side:sideName,shelfIdx:shelves.length,nudge:0,cost:newCost,isNew:true};
+      const newCost = shelves.length*1000 + (side === 'below' ? 2 : 0);
+      if(!best || newCost < best.cost) best = { side, shelfIdx:shelves.length, nudge:0, cost:newCost, isNew:true };
     }
-    const shelves=sides[best.side];
-    if(best.isNew||best.shelfIdx>=shelves.length){ shelves.push({items:[],h:0}); best.shelfIdx=shelves.length-1; }
-    const shelf=shelves[best.shelfIdx];
-    const halfW=b._w/2;
-    shelf.items.push({x1:b._x+best.nudge-halfW-GAP_X, x2:b._x+best.nudge+halfW+GAP_X});
-    shelf.h=Math.max(shelf.h,b._h);
-    b._side=best.side; b._shelfIdx=best.shelfIdx; b._nudge=best.nudge;
+    const shelves = sides[best.side];
+    if(best.isNew || best.shelfIdx >= shelves.length){ shelves.push({ items:[], h:0 }); best.shelfIdx = shelves.length-1; }
+    const shelf = shelves[best.shelfIdx], hw = b._w/2;
+    shelf.items.push({ x1: b._x+best.nudge-hw-GAP_X, x2: b._x+best.nudge+hw+GAP_X });
+    shelf.h = Math.max(shelf.h, b._h);
+    b._side = best.side; b._shelfIdx = best.shelfIdx; b._nudge = best.nudge;
+  });
+  const used = {};
+  ['above','below'].forEach(s => { let off = NEAR; sides[s].forEach(sh => { sh.nearOff = off; off += sh.h + GAP_Y; }); used[s] = sides[s].length ? off - GAP_Y : 0; });
+  // keep room for jump marks above and year / end labels below the line
+  const usedA = Math.max(used.above, 70*scale + 10), usedB = Math.max(used.below, 16 + 95*scale);
+  const fits = usedA + usedB <= avail;
+  // centre the whole drawing in the free band (the side with taller content gets more room)
+  const LINE_Y = TOP_PAD + usedA + Math.max(0, avail - usedA - usedB)/2;
+  if(!draw) return { fits };
+
+  // ════ DRAW ════
+  const defs = mkSVG('defs');
+  const grad = mkSVG('linearGradient', { id:'rainbowGrad', x1:'0', y1:'0', x2:'1', y2:'0' });
+  [['0','#e11d48'],['0.2','#f59e0b'],['0.4','#eab308'],['0.6','#22c55e'],['0.8','#3b82f6'],['1','#8b5cf6']]
+    .forEach(([o,c]) => grad.appendChild(mkSVG('stop', { offset:o, 'stop-color':c })));
+  const camo = mkSVG('pattern', { id:'pat-camo', x:0, y:0, width:10, height:10, patternUnits:'userSpaceOnUse' });
+  [['#8a9e6a',0],['#5a6e3a',1],['#7a9050',2],['#4a5e2a',3]].forEach(([c,i]) => camo.appendChild(mkSVG('rect', { x:(i%2)*5, y:Math.floor(i/2)*5, width:5, height:5, fill:c, opacity:'0.7' })));
+  const stripe = mkSVG('pattern', { id:'pat-stripe', width:8, height:8, patternUnits:'userSpaceOnUse', patternTransform:'rotate(45)' });
+  stripe.appendChild(mkSVG('rect', { x:0, y:0, width:8, height:8, fill:'rgba(179,74,114,0.8)' }));
+  stripe.appendChild(mkSVG('rect', { x:0, y:0, width:4, height:8, fill:'rgba(255,80,175,0.95)' }));
+  defs.append(grad, camo, stripe); svgEl.appendChild(defs);
+
+  // notebook margin (double red rule)
+  const Rm = rng(777), mx = MARGIN_L - 100;
+  [mx, mx+4].forEach(x => svgEl.appendChild(mkSVG('path', { d: jline(x, 0, x, CANVAS_H, Rm, 1.2), stroke:'rgba(192,57,43,0.42)', 'stroke-width':'1.2', fill:'none' })));
+
+  // main line, one stroke per visible run
+  const Rl = rng(12345);
+  RUNS.forEach((r,i) => {
+    const x1 = i === 0 ? r.x0 - 40 : r.x0, x2 = i === RUNS.length-1 ? r.x1 + 40 : r.x1;
+    svgEl.appendChild(mkSVG('path', { d: longLine(x1, x2, LINE_Y, Rl), fill:'none', stroke:'rgba(37,42,64,0.72)', 'stroke-width':'1.7', 'stroke-linecap':'round' }));
   });
 
-  // compute shelf offsets (cumulative)
-  ['above','below'].forEach(s=>{ let off=NEAR; sides[s].forEach(sh=>{ sh.nearOff=off; off+=sh.h+GAP_Y; }); sides[s]._used=off-GAP_Y; });
-  const fits = (sides.above._used<=avail/2) && (sides.below._used<=avail/2);
+  // education periods as marker-pen bars
+  const BAR_H = 10;
+  PHASES.forEach(p => {
+    if(!visPhases.has(p.key)) return;
+    const run = RUNS.find(r => r.phases.includes(p)); if(!run) return;
+    const x1 = run.x0 + (p.s - run.s)/DAY*PX_PER_DAY, x2 = run.x0 + (p.e - run.s)/DAY*PX_PER_DAY;
+    const fill = p.style === 'camo' ? 'url(#pat-camo)' : p.style === 'stripe' ? 'url(#pat-stripe)' : p.color;
+    svgEl.appendChild(mkSVG('path', { d: wobblyRect(x1, LINE_Y-BAR_H/2, x2-x1, BAR_H, rng(hashStr(p.start))), fill, stroke:'rgba(37,42,64,0.35)', 'stroke-width':'0.8' }));
+  });
 
-  // position blocks + connectors
+  // year ticks + labels
+  const years = [];
+  for(let y = START.getFullYear(); y <= END.getFullYear(); y++){
+    const x = dateToX(`${y}-01-01`); if(x === null) continue;
+    years.push([x, y]);
+    svgEl.appendChild(mkSVG('path', { d: jline(x, LINE_Y-14, x, LINE_Y+14, rng(y*7919), 1), stroke:'rgba(37,42,64,0.55)', 'stroke-width':'1.3', fill:'none', 'stroke-linecap':'round' }));
+    const l = el('div','year-label'); l.textContent = y; l.style.cssText = `left:${x}px; top:${LINE_Y+16}px;`; wrap.appendChild(l);
+  }
+
+  // jumps over hidden periods
+  JUMPS.forEach((j, ji) => {
+    const cx = (j.x0 + j.x1)/2, Rj = rng(4242 + ji*31);
+    svgEl.appendChild(mkSVG('path', { d: jline(j.x0, LINE_Y, cx-12, LINE_Y, Rj, 0.8) + jline(cx+12, LINE_Y, j.x1, LINE_Y, Rj, 0.8), stroke:'rgba(37,42,64,0.45)', 'stroke-width':'1.4', 'stroke-dasharray':'5 5', fill:'none' }));
+    [-6, 6].forEach(o => svgEl.appendChild(mkSVG('path', { d: jline(cx+o-6, LINE_Y+12, cx+o+6, LINE_Y-12, Rj, 0.6), stroke:'#c0392b', 'stroke-width':'2.3', fill:'none', 'stroke-linecap':'round' })));
+    const peak = LINE_Y - 62*scale - 8;
+    svgEl.appendChild(mkSVG('path', { d:`M${f1(j.x0+6)},${f1(LINE_Y-9)} Q${f1(cx)},${f1(peak)} ${f1(j.x1-6)},${f1(LINE_Y-9)}`, fill:'none', stroke:'#c0392b', 'stroke-width':'1.6', 'stroke-dasharray':'6 4', opacity:'0.85' }));
+    const ex = j.x1-6, ey = LINE_Y-9;
+    svgEl.appendChild(mkSVG('path', { d:`M${f1(ex-9)},${f1(ey-7)} L${f1(ex)},${f1(ey)} L${f1(ex-2)},${f1(ey-11)}`, fill:'none', stroke:'#c0392b', 'stroke-width':'1.8', 'stroke-linecap':'round', 'stroke-linejoin':'round' }));
+
+    const names = [...new Set(j.phases.map(p => p.long))];
+    const detail = j.phases.map(p => `${p.long}: ${fmtMY(p.s)} – ${fmtMY(new Date(p.e - DAY))}`).join('<br>');
+    const tag = el('div','jump-tag'); tag.textContent = 'jump ↷';
+    tag.style.cssText = `left:${cx}px; top:${(LINE_Y + peak)/2 - 14*scale}px;`;
+    const note = el('div','jump-note'); note.innerHTML = 'skipped<br>' + names.join(' · ');
+    note.style.cssText = `left:${cx}px; top:${LINE_Y + 18}px;`;
+    [tag, note].forEach(n => { addTip(n, 'Timeline jump', `Hidden period${j.phases.length > 1 ? 's' : ''}:<br>${detail}<br><i>Tick it in the Education legend to bring it back.</i>`); wrap.appendChild(n); });
+  });
+
+  // end labels (follow the first / last visible period)
+  const first = RUNS[0], last = RUNS[RUNS.length-1], endTop = LINE_Y + 16 + 32*scale;
+  const lE = el('div','end-label');
+  lE.innerHTML = (first.phases[0].key === 'bsc') ? '◀ Undergraduate<br>Enrolment' : `◀ ${first.phases[0].long}<br>from ${fmtMY(first.s)}`;
+  lE.style.cssText = `left:${first.x0}px; top:${endTop}px;`; wrap.appendChild(lE);
+  const rE = el('div','end-label');
+  rE.innerHTML = (+last.e === +END) ? 'Today<br>' + fmtDay(END) + ' ▶' : `${last.phases[last.phases.length-1].long}<br>until ${fmtMY(new Date(last.e - DAY))} ▶`;
+  rE.style.cssText = `left:${last.x1}px; top:${endTop}px;`; wrap.appendChild(rE);
+
+  // place cards, connectors, dots
+  const DOT_R = 7;
   blocks.forEach(b => {
-    const shelf=sides[b._side][b._shelfIdx];
-    const cardX=b._x+b._nudge;
+    const shelf = sides[b._side][b._shelfIdx], cardX = b._x + b._nudge;
     let topY;
-    if(b._side==='above'){ const nearEdge=LINE_Y-shelf.nearOff; topY=nearEdge-b._h; b.style.flexDirection='column-reverse'; if(b._grid) b._grid.style.flexDirection='column-reverse'; }
-    else { topY=LINE_Y+shelf.nearOff; b.style.flexDirection='column'; if(b._grid) b._grid.style.flexDirection='column'; }
-    b.style.left=cardX+'px'; b.style.top=topY+'px'; b.style.visibility='visible';
+    if(b._side === 'above'){ topY = LINE_Y - shelf.nearOff - b._h; b.style.flexDirection = 'column-reverse'; if(b._grid) b._grid.style.flexDirection = 'column-reverse'; }
+    else { topY = LINE_Y + shelf.nearOff; b.style.flexDirection = 'column'; if(b._grid) b._grid.style.flexDirection = 'column'; }
+    b.style.left = cardX + 'px'; b.style.top = topY + 'px'; b.style.visibility = 'visible';
 
-    // dot + connector on line
-    const isHon = (b._type==='honor');
-    let lineCol, dotFill='var(--cream)', dotStroke, dotR=5.5, dotSW='2.4';
-    if(b._type==='skill'){ const c=(b._skillLevel==='proficient'?'#d4af37':'#b87333'); lineCol=c; dotStroke=c; }
-    else if(isHon){ lineCol='#7c3aed'; dotFill='url(#rainbowGrad)'; dotStroke='#7c3aed'; dotSW='1.5'; dotR=6.5; }
-    else { const c=getComputedStyle(document.documentElement).getPropertyValue(TYPE_META[b._type].col.replace('var(','').replace(')','')).trim(); lineCol=c; dotStroke=c; }
-    const lineEdgeY = b._side==='above'? LINE_Y-6 : LINE_Y+6;
-    const nearEdgeY = b._side==='above'? LINE_Y-shelf.nearOff : LINE_Y+shelf.nearOff;
-    // connector (may slant ≤45°) — drawn for EVERY block, incl. honour
-    svgEl.appendChild(mkSVG('line',{x1:b._x,y1:lineEdgeY,x2:cardX,y2:nearEdgeY,stroke:lineCol,'stroke-width':'1.7',opacity:'0.55'}));
-    svgEl.appendChild(mkSVG('circle',{cx:b._x,cy:LINE_Y,r:dotR,fill:dotFill,stroke:dotStroke,'stroke-width':dotSW}));
+    let ink, dotFill = 'var(--paper-hi)', dotR = DOT_R, sw = '2.2';
+    if(b._type === 'skill') ink = SKILL_INK[b._skillLevel];
+    else if(b._type === 'honor'){ ink = TYPE_META.honor.ink; dotFill = 'url(#rainbowGrad)'; dotR = DOT_R + 1; sw = '1.6'; }
+    else ink = TYPE_META[b._type].ink;
+    const R = rng(hashStr(b._id + b._date));
+    const lineEdgeY = b._side === 'above' ? LINE_Y - dotR : LINE_Y + dotR;
+    const nearEdgeY = b._side === 'above' ? LINE_Y - shelf.nearOff : LINE_Y + shelf.nearOff;
+    svgEl.appendChild(mkSVG('path', { d: jline(b._x, lineEdgeY, cardX, nearEdgeY, R, 1.1), stroke:ink, 'stroke-width':'1.6', fill:'none', opacity:'0.8', 'stroke-linecap':'round' }));
+    svgEl.appendChild(mkSVG('circle', { cx:b._x, cy:LINE_Y, r:dotR, fill:dotFill }));
+    svgEl.appendChild(mkSVG('path', { d: sketchCircle(b._x, LINE_Y, dotR, R), stroke:ink, 'stroke-width':sw, fill:'none', 'stroke-linecap':'round' }));
   });
 
-  return { fits, sides };
+  // data for the minimap (mirrors exactly what is on screen)
+  MINI = { total: TOTAL_W, runs: RUNS.map(r => [r.x0, r.x1]), jumps: JUMPS.map(j => [j.x0, j.x1]), years, items: [] };
+  blocks.forEach(b => {
+    if(b._type === 'skill') MINI.items.push({ x:b._x, c:SKILL_INK[b._skillLevel], skill:true, off:0 });
+    else {
+      MINI.items.push({ x:b._x, c:TYPE_META[b._type].mini, skill:false });
+      b._attached.forEach((sk,i) => MINI.items.push({ x:b._x, c:SKILL_INK[sk.level], skill:true, off:1.3*(i+1) }));   // hug the project's tick, to its right
+    }
+  });
+  return { fits };
 }
 
-// auto-fit: keep text as large as possible; if it doesn't fit vertically,
-// spread the timeline wider (more px/day) before shrinking the font.
-// The fitted (scale,px) become the 100% baseline; the zoom wheel scales on top.
-let AUTO_SCALE = 0.6, AUTO_PX = 3.0, ZOOM = 1;
+// ═══ AUTO-FIT + ZOOM ══════════════════════════════════════
+// Largest text that fits the viewport height; spread wider before shrinking.
+let AUTO_SCALE = 0.6, AUTO_PX = 3.0, ZOOM = 1, INITED = false;
 function build(){
-  const scaleOpts = [1, 0.92, 0.84, 0.76, 0.68, 0.6];
-  const pxOpts    = [3.0, 3.8, 4.8, 6.2, 8.0];
-  let done=false;
+  const center = INITED ? xToDate(scrollEl.scrollLeft + scrollEl.clientWidth/2) : null;
+  const scaleOpts = [1, 0.92, 0.84, 0.76, 0.68, 0.6, 0.52, 0.45, 0.38, 0.32, 0.27];
+  const pxOpts    = [3.0, 3.8, 4.8, 6.2, 8.0, 10, 12.5, 16];
+  let done = false;
   for(const sc of scaleOpts){
-    for(const px of pxOpts){
-      PX_PER_DAY = px;
-      if(render(sc).fits){ AUTO_SCALE=sc; AUTO_PX=px; done=true; break; }
-    }
+    // widest spread first: if even that can't fit this text size, skip straight to a smaller size
+    PX_PER_DAY = pxOpts[pxOpts.length-1];
+    if(!render(sc, false).fits) continue;
+    for(const px of pxOpts){ PX_PER_DAY = px; if(render(sc, false).fits){ AUTO_SCALE = sc; AUTO_PX = px; done = true; break; } }
     if(done) break;
   }
   if(!done){ AUTO_SCALE = scaleOpts[scaleOpts.length-1]; AUTO_PX = pxOpts[pxOpts.length-1]; }
-  applyZoom(ZOOM);
+  applyZoom(ZOOM, center);
 }
-// zoom = fraction of the fitted baseline (0.25 – 1.0); keeps the centred date stable
-function applyZoom(z){
-  ZOOM = z;
-  const centerDate = xToDate(scrollEl.scrollLeft + scrollEl.clientWidth/2);
-  PX_PER_DAY = AUTO_PX * z;
-  render(AUTO_SCALE * z);
+function applyZoom(z, center){
+  if(center === undefined) center = INITED ? xToDate(scrollEl.scrollLeft + scrollEl.clientWidth/2) : null;
+  ZOOM = z; PX_PER_DAY = AUTO_PX*z;
+  render(AUTO_SCALE*z, true);
   buildMinimap();
-  const nx = dateToX(centerDate);
-  scrollEl.scrollLeft = Math.max(0, Math.min(scrollEl.scrollWidth - scrollEl.clientWidth, nx - scrollEl.clientWidth/2));
+  if(center){
+    let nx = dateToX(center); if(nx === null) nx = nearestX(center);
+    scrollEl.scrollLeft = Math.max(0, Math.min(scrollEl.scrollWidth - scrollEl.clientWidth, nx - scrollEl.clientWidth/2));
+  }
   updateScrollUI();
 }
 
 // ═══ MINIMAP ══════════════════════════════════════════════
 const miniSvg = document.getElementById('minimap-svg');
 function buildMinimap(){
-  const W = miniSvg.clientWidth || 300, H = 46;
-  miniSvg.setAttribute('viewBox',`0 0 ${W} ${H}`);
-  miniSvg.innerHTML='';
-  const axisY = 30;
-  const mapX = d => 6 + (new Date(d)-START)/(END-START)*(W-12);
-  // base line
-  miniSvg.appendChild(mkSVG('line',{x1:6,y1:axisY,x2:W-6,y2:axisY,stroke:'rgba(26,28,24,0.25)','stroke-width':'1'}));
-  // year main ticks
-  for(let y=START.getFullYear()+1; y<=END.getFullYear(); y++){
-    const x=mapX(`${y}-01-01`);
-    miniSvg.appendChild(mkSVG('line',{x1:x,y1:axisY-5,x2:x,y2:axisY+5,stroke:'rgba(26,28,24,0.32)','stroke-width':'1'}));
-    const t=mkSVG('text',{x:x,y:axisY+15,'text-anchor':'middle','font-size':'7','font-family':'JetBrains Mono, monospace',fill:'rgba(26,28,24,0.4)'});
-    t.textContent=("'"+String(y).slice(2)); miniSvg.appendChild(t);
-  }
-  // event ticks (ultra-thin), colored
-  EVENTS.forEach(ev=>{
-    const x=mapX(ev.date), c=TYPE_META[ev.type].mini;
-    miniSvg.appendChild(mkSVG('line',{x1:x,y1:axisY-9,x2:x,y2:axisY,stroke:c,'stroke-width':'1'}));
+  if(!MINI) return;
+  const W = miniSvg.clientWidth || 300, H = 46, axisY = 28;
+  miniSvg.setAttribute('viewBox', `0 0 ${W} ${H}`); miniSvg.innerHTML = '';
+  const mx = x => 6 + x/MINI.total*(W-12), R = rng(99);
+  MINI.runs.forEach(([a,b]) => miniSvg.appendChild(mkSVG('path', { d: jline(mx(a), axisY, mx(b), axisY, R, 0.35), stroke:'rgba(37,42,64,0.55)', 'stroke-width':'1', fill:'none' })));
+  MINI.jumps.forEach(([a,b]) => {
+    const c = (mx(a) + mx(b))/2;
+    miniSvg.appendChild(mkSVG('line', { x1:mx(a), y1:axisY, x2:mx(b), y2:axisY, stroke:'rgba(37,42,64,0.35)', 'stroke-width':'1', 'stroke-dasharray':'2 2' }));
+    [-2.5, 2.5].forEach(o => miniSvg.appendChild(mkSVG('line', { x1:c+o-2, y1:axisY+4, x2:c+o+2, y2:axisY-4, stroke:'#c0392b', 'stroke-width':'1.3' })));
   });
-  // skill ticks: bound skills hug RIGHT of their project tick; unbound at own date
-  const projX = {}; EVENTS.forEach(ev=>{ if(ev.type==='project') projX[ev.id]=mapX(ev.date); });
-  SKILLS.forEach(sk=>{
-    let x = sk.projectId && projX[sk.projectId]!=null ? projX[sk.projectId]+1.4 : mapX(sk.date);
-    const c=SKILL_MINI[sk.level];
-    miniSvg.appendChild(mkSVG('line',{x1:x,y1:axisY,x2:x,y2:axisY+8,stroke:c,'stroke-width':'0.8'}));
+  MINI.years.forEach(([x, y]) => {
+    miniSvg.appendChild(mkSVG('line', { x1:mx(x), y1:axisY-5, x2:mx(x), y2:axisY+5, stroke:'rgba(37,42,64,0.45)', 'stroke-width':'1' }));
+    const t = mkSVG('text', { x:mx(x), y:axisY+16, 'text-anchor':'middle', 'font-size':'10', 'font-family':'Caveat, cursive', 'font-weight':'700', fill:'rgba(37,42,64,0.55)' });
+    t.textContent = "'" + String(y).slice(2); miniSvg.appendChild(t);
+  });
+  MINI.items.forEach(it => {
+    const x = mx(it.x) + (it.off || 0);
+    miniSvg.appendChild(it.skill
+      ? mkSVG('line', { x1:x, y1:axisY, x2:x, y2:axisY+8, stroke:it.c, 'stroke-width':'0.8' })
+      : mkSVG('line', { x1:x, y1:axisY-9, x2:x, y2:axisY, stroke:it.c, 'stroke-width':'1' }));
   });
 }
 
-// ═══ SCROLL UI (range + window box) ═══════════════════════
+// ═══ SCROLL UI (range + window box + counts) ══════════════
 const rangeOut = document.getElementById('range-readout');
 const miniWin  = document.getElementById('mini-window');
+const miniHint = document.getElementById('mini-hint');
 function updateScrollUI(){
-  const sl=scrollEl.scrollLeft, cw=scrollEl.clientWidth, sw=scrollEl.scrollWidth;
-  const dL=xToDate(sl), dR=xToDate(sl+cw);
-  rangeOut.innerHTML = `<b>${fmtMonthYear(dL)}</b> &nbsp;—&nbsp; <b>${fmtMonthYear(dR)}</b>`;
-  const track=document.getElementById('mini-window-track');
-  const tw=track.clientWidth;
-  const left = sw>0 ? sl/sw*tw : 0;
-  const wWidth = sw>0 ? Math.max(8, cw/sw*tw) : tw;
-  miniWin.style.left = Math.min(left, tw-wWidth)+'px';
-  miniWin.style.width = wWidth+'px';
+  const sl = scrollEl.scrollLeft, cw = scrollEl.clientWidth, sw = scrollEl.scrollWidth;
+  const jumpInView = (MINI ? MINI.jumps : []).some(([a,b]) => b > sl && a < sl + cw);
+  rangeOut.innerHTML = `${fmtMonthYear(xToDate(sl))} &nbsp;—&nbsp; ${fmtMonthYear(xToDate(sl + cw))}` + (jumpInView ? ' <span class="jmp">(with a jump)</span>' : '');
+  miniHint.innerHTML = '↔ drag or click this bar to jump' + (isFiltered() ? ` · showing <b>${COUNTS.shown}</b> of ${COUNTS.total}` : '');
+  const tw = document.getElementById('mini-window-track').clientWidth;
+  const wWidth = sw > 0 ? Math.max(8, cw/sw*tw) : tw;
+  miniWin.style.left = Math.min(sw > 0 ? sl/sw*tw : 0, tw - wWidth) + 'px';
+  miniWin.style.width = wWidth + 'px';
 }
 
 // ═══ TOOLTIP ══════════════════════════════════════════════
-function addTip(target,title,body,forceCol){
-  target.addEventListener('mouseenter', e=>{
-    tip.innerHTML=`<div class="tt-title">${title}</div>${body}`;
-    tip.classList.add('visible'); moveTip(e);
-  });
-  target.addEventListener('mouseleave', ()=>tip.classList.remove('visible'));
+function addTip(target, title, body){
+  target.addEventListener('mouseenter', e => { tip.innerHTML = `<div class="tt-title">${title}</div>${body}`; tip.classList.add('visible'); moveTip(e); });
+  target.addEventListener('mouseleave', () => tip.classList.remove('visible'));
 }
 function moveTip(e){
-  let x=e.clientX+14, y=e.clientY-8;
-  if(x+270>window.innerWidth) x=e.clientX-280;
-  if(y+90>window.innerHeight) y=e.clientY-95;
-  tip.style.left=x+'px'; tip.style.top=y+'px';
+  let x = e.clientX + 14, y = e.clientY - 8;
+  if(x + 300 > window.innerWidth) x = e.clientX - 310;
+  if(y + 120 > window.innerHeight) y = e.clientY - 125;
+  tip.style.left = x + 'px'; tip.style.top = y + 'px';
 }
-document.addEventListener('mousemove', e=>{ if(tip.classList.contains('visible')) moveTip(e); });
+document.addEventListener('mousemove', e => { if(tip.classList.contains('visible')) moveTip(e); });
 
-// ═══ DRAG (horizontal) ════════════════════════════════════
-let isDown=false, startX, sLeft;
-scrollEl.addEventListener('mousedown', e=>{ isDown=true; startX=e.pageX; sLeft=scrollEl.scrollLeft; scrollEl.style.cursor='grabbing'; });
-scrollEl.addEventListener('mouseleave', ()=>{ isDown=false; scrollEl.style.cursor='grab'; });
-scrollEl.addEventListener('mouseup', ()=>{ isDown=false; scrollEl.style.cursor='grab'; });
-scrollEl.addEventListener('mousemove', e=>{ if(!isDown) return; e.preventDefault(); scrollEl.scrollLeft=sLeft-(e.pageX-startX)*1.2; });
+// ═══ FILTERS (click legend rows) ══════════════════════════
+function syncLegend(){
+  document.querySelectorAll('.legend-row[data-type]').forEach(r => r.classList.toggle('off', !visTypes.has(r.dataset.type)));
+  document.querySelectorAll('.legend-row[data-phase]').forEach(r => r.classList.toggle('off', !visPhases.has(r.dataset.phase)));
+  document.querySelector('[data-reset="type"]').classList.toggle('show', visTypes.size < TYPE_KEYS.length);
+  document.querySelector('[data-reset="phase"]').classList.toggle('show', visPhases.size < PHASE_KEYS.length);
+}
+function toggleRow(row){
+  if(row.dataset.type){
+    const k = row.dataset.type; visTypes.has(k) ? visTypes.delete(k) : visTypes.add(k);
+  } else {
+    const k = row.dataset.phase;
+    if(visPhases.has(k)){
+      if(visPhases.size === 1){ row.classList.remove('shake'); void row.offsetWidth; row.classList.add('shake'); return; }   // keep at least one period
+      visPhases.delete(k);
+    } else visPhases.add(k);
+  }
+  tip.classList.remove('visible');
+  syncLegend(); build();
+}
+document.querySelectorAll('.legend-row').forEach(r => {
+  r.addEventListener('click', () => toggleRow(r));
+  r.addEventListener('keydown', e => { if(e.key === 'Enter' || e.key === ' '){ e.preventDefault(); toggleRow(r); } });
+});
+document.querySelectorAll('.legend-reset').forEach(btn => btn.addEventListener('click', e => {
+  e.stopPropagation();
+  if(btn.dataset.reset === 'type') TYPE_KEYS.forEach(k => visTypes.add(k)); else PHASE_KEYS.forEach(k => visPhases.add(k));
+  syncLegend(); build();
+}));
+
+// ═══ DRAG / WHEEL (horizontal only) ═══════════════════════
+let isDown = false, startX, sLeft;
+scrollEl.addEventListener('mousedown', e => { isDown = true; startX = e.pageX; sLeft = scrollEl.scrollLeft; scrollEl.style.cursor = 'grabbing'; });
+scrollEl.addEventListener('mouseleave', () => { isDown = false; scrollEl.style.cursor = 'grab'; });
+scrollEl.addEventListener('mouseup', () => { isDown = false; scrollEl.style.cursor = 'grab'; });
+scrollEl.addEventListener('mousemove', e => { if(!isDown) return; e.preventDefault(); scrollEl.scrollLeft = sLeft - (e.pageX - startX)*1.2; });
 scrollEl.addEventListener('scroll', updateScrollUI);
-scrollEl.addEventListener('wheel', e=>{ if(Math.abs(e.deltaY)>Math.abs(e.deltaX)){ scrollEl.scrollLeft+=e.deltaY; } }, {passive:true});
+scrollEl.addEventListener('wheel', e => { if(Math.abs(e.deltaY) > Math.abs(e.deltaX)) scrollEl.scrollLeft += e.deltaY; }, { passive:true });
 
-// ═══ MINIMAP NAVIGATION (click / drag to jump) ═══════════
+// ═══ MINIMAP NAVIGATION ═══════════════════════════════════
 const miniPanel = document.getElementById('minimap-panel');
 miniPanel.style.cursor = 'pointer';
 function miniScrub(clientX){
-  const track = document.getElementById('mini-window-track');
-  const r = track.getBoundingClientRect();
-  let frac = (clientX - r.left) / r.width;
-  frac = Math.max(0, Math.min(1, frac));
+  const r = document.getElementById('mini-window-track').getBoundingClientRect();
+  const frac = Math.max(0, Math.min(1, (clientX - r.left)/r.width));
   const sw = scrollEl.scrollWidth, cw = scrollEl.clientWidth;
-  scrollEl.scrollLeft = Math.max(0, Math.min(sw - cw, frac * sw - cw/2));
+  scrollEl.scrollLeft = Math.max(0, Math.min(sw - cw, frac*sw - cw/2));
   updateScrollUI();
 }
 let miniDown = false;
 miniPanel.addEventListener('mousedown', e => { miniDown = true; miniScrub(e.clientX); e.preventDefault(); e.stopPropagation(); });
 window.addEventListener('mousemove', e => { if(miniDown) miniScrub(e.clientX); });
 window.addEventListener('mouseup', () => { miniDown = false; });
-miniPanel.addEventListener('touchstart', e => { if(e.touches[0]){ miniScrub(e.touches[0].clientX); } }, {passive:true});
-miniPanel.addEventListener('touchmove',  e => { if(e.touches[0]){ miniScrub(e.touches[0].clientX); } }, {passive:true});
+miniPanel.addEventListener('touchstart', e => { if(e.touches[0]) miniScrub(e.touches[0].clientX); }, { passive:true });
+miniPanel.addEventListener('touchmove',  e => { if(e.touches[0]) miniScrub(e.touches[0].clientX); }, { passive:true });
 
 // ═══ ZOOM WHEEL ═══════════════════════════════════════════
 const zoomRange = document.getElementById('zoom-range');
 const zoomVal   = document.getElementById('zoom-val');
-const zoomCtrl  = document.getElementById('zoom-ctrl');
 function setZoom(v){
   v = Math.max(25, Math.min(100, v));
-  zoomRange.value = v;
-  zoomVal.textContent = Math.round(v) + '%';
+  zoomRange.value = v; zoomVal.textContent = Math.round(v) + '%';
   applyZoom(v/100);
 }
 zoomRange.addEventListener('input', () => setZoom(+zoomRange.value));
-zoomCtrl.addEventListener('wheel', e => { e.preventDefault(); setZoom(+zoomRange.value - Math.sign(e.deltaY)*5); }, {passive:false});
+document.getElementById('zoom-ctrl').addEventListener('wheel', e => { e.preventDefault(); setZoom(+zoomRange.value - Math.sign(e.deltaY)*5); }, { passive:false });
 
 // ═══ INIT ═════════════════════════════════════════════════
+syncLegend();
 build();
-requestAnimationFrame(()=>{ scrollEl.scrollLeft=scrollEl.scrollWidth-scrollEl.clientWidth; updateScrollUI(); });
-let rT; window.addEventListener('resize', ()=>{ clearTimeout(rT); rT=setTimeout(()=>{ build(); }, 150); });
-window.addEventListener('orientationchange', ()=>setTimeout(build,200));
+requestAnimationFrame(() => { scrollEl.scrollLeft = scrollEl.scrollWidth - scrollEl.clientWidth; updateScrollUI(); INITED = true; });
+if(document.fonts && document.fonts.ready) document.fonts.ready.then(() => build());   // re-measure once the handwriting fonts arrive
+let rT; window.addEventListener('resize', () => { clearTimeout(rT); rT = setTimeout(build, 150); });
+window.addEventListener('orientationchange', () => setTimeout(build, 200));
 </script>
 </body>
 </html>
